@@ -6,7 +6,7 @@ public class MazeGeneration : MonoBehaviour
     public int width = 10, height = 10;
     public Cell[,] grid;
     public float scaleFactor = 1;
-    public GameObject cellPrefab;
+    public CellPrefab cellPrefab;
     public float desiredWallpercentage = 0.4f;
     private List<GameObject> allCellObjects = new List<GameObject>();
     public int seed = 1234;
@@ -45,7 +45,7 @@ public class MazeGeneration : MonoBehaviour
     {
         grid = new Cell[width, height];
         grid.Initialize();
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < width; x++) //generates grid with full walls : Size = width,height
         {
             for (int y = 0; y < height; y++)
             {
@@ -55,25 +55,26 @@ public class MazeGeneration : MonoBehaviour
             }
         }
 
-        Stack<Cell> cellStack = new Stack<Cell>();
+        Stack<Cell> cellStack = new Stack<Cell>(); //first in last out
         List<Cell> visitedCells = new List<Cell>();
-        cellStack.Push(grid[0, 0]);
+        cellStack.Push(grid[0, 0]); //first item (start pos)
         Cell currentCell;
-        while (cellStack.Count > 0)
+        while (cellStack.Count > 0) //path tracing?
         {
-            currentCell = cellStack.Pop();
-            List<Cell> neighbours = GetUnvisitedNeighbours(currentCell, visitedCells, cellStack);
+            currentCell = cellStack.Pop(); //removes item from stack : not the same as peek
+            Debug.Log(cellStack.Count);
+            List<Cell> neighbours = GetUnvisitedNeighbours(currentCell, visitedCells, cellStack); //fill list of neighbours detected 
             if (neighbours.Count > 1)
             {
                 cellStack.Push(currentCell);
             }
 
-            if (neighbours.Count != 0)
+            if (neighbours.Count != 0) //aslong as we have neighbours, check a "random" neighbour in the stack. 
             {
                 Cell randomUnvisitedNeighbour = neighbours[Random.Range(0, neighbours.Count)];
-                RemoveWallBetweenCells(currentCell, randomUnvisitedNeighbour);
+                RemoveWallBetweenCells(currentCell, randomUnvisitedNeighbour); // RemoveWall between currentcell and active neighbour
                 visitedCells.Add(randomUnvisitedNeighbour);
-                cellStack.Push(randomUnvisitedNeighbour);
+                cellStack.Push(randomUnvisitedNeighbour); //make neighbour the new currentcell
             }
         }
 
@@ -159,7 +160,7 @@ public class MazeGeneration : MonoBehaviour
     private List<Cell> GetUnvisitedNeighbours(Cell cell, List<Cell> visitedCells, Stack<Cell> cellstack)
     {
         List<Cell> result = new List<Cell>();
-        for (int x = -1; x < 2; x++)
+        for (int x = -1; x < 2; x++) //check for cell neighbours in 3x3 grid
         {
             for (int y = -1; y < 2; y++)
             {
