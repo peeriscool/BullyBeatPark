@@ -6,7 +6,8 @@ public class MazeGeneration : MonoBehaviour
     public int width = 10, height = 10;
     public Cell[,] grid;
     public float scaleFactor = 1;
-    public CellPrefab cellPrefab;
+   // public CellPrefab cellPrefab;
+    public List<CellPrefab> CellList;
     public float desiredWallpercentage = 0.4f;
     private List<GameObject> allCellObjects = new List<GameObject>();
     public int seed = 1234;
@@ -109,9 +110,9 @@ public class MazeGeneration : MonoBehaviour
                 Quaternion rotated = Quaternion.identity;
                 rotated.z = 90;
                 rotated.y = 90;
-                GameObject cellObject = Instantiate(cellPrefab, new Vector3(x * scaleFactor, 0, y * scaleFactor), rotated, transform);
+                CellPrefab cellObject = Instantiate(CellList[Random.Range(0,CellList.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor)*2, rotated, transform);
                 cellObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-                //cellObject.SpawnWalls(grid[x, y]);
+                cellObject.SpawnWalls(grid[x, y]);
                 allCellObjects.Add(cellObject.gameObject);
             }
         }
