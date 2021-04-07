@@ -9,12 +9,20 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     float moveX;
     float moveZ;
-    new Vector3 transform;
+    public Animator playerrig;
+   
+
     public float speed;
+    float savedspeed;
+
     public float JumpForce;
+
     bool switchcontrols = true;
+
     Rigidbody rb;
-    int enumindex = 0;
+    new Vector3 transform;
+
+   public  int cooldown = 1;
 
     enum controls
     {
@@ -25,19 +33,30 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        
+        savedspeed = speed;
     }
     
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetMouseButton(0))
+        {
+            if (playerrig != null)
+            {
+                // play Bounce but start at a quarter of the way though
+                playerrig.Play("Stunned", 0, 0.25f);
+            }
+            //playerrig.Play("Mixamo_com");
+        }
+            if (Input.GetKeyDown(KeyCode.Z))
         {
             switchcontrols = !switchcontrols;
         }
         if (switchcontrols)
         {
-            TpPlayerlerp();
+            Orientation(true);
+            Movement();
+            
 
         }
         if (!switchcontrols)
@@ -45,13 +64,31 @@ public class PlayerScript : MonoBehaviour
             MovePlayer();
 
         }
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+      
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed *=2;
+            cooldown++;
+            //UIScript.changevalue(null,cooldown);
+            Debug.Log(cooldown);
+            if (cooldown > 200) { speed = Mathf.Lerp(speed,0f,Time.deltaTime); }
+            if(cooldown < 200)
+            {
+                speed = Mathf.Min( 14,Mathf.Lerp(0.03f, speed, Time.deltaTime)+ speed);
+            }
+            
         }
 
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speed -= speed;
+            cooldown = 1;
+            speed = savedspeed;
+        }      
     }
-
+    public void Cooldown()
+    {
+       // cooldown;
+    }
 
     void MovePlayer() //exponentially increases with time
     {
@@ -163,4 +200,91 @@ public class PlayerScript : MonoBehaviour
             this.gameObject.transform.position = new Vector3(transform.x,Mathf.Lerp(this.gameObject.transform.position.y, JumpForce, Time.deltaTime), transform.z);
         }
     }
+    void Orientation(bool yes)//tp controlls
+    {
+
+        
+        if (Input.GetKey(KeyCode.W))
+        {
+            this.gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            
+        }
+        if (Input.GetKey(KeyCode.S))
+        {       
+            this.gameObject.transform.rotation = new Quaternion(0, 1, 0, 0);
+           
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            this.gameObject.transform.rotation = new Quaternion(0, 90, 0, -90);
+            
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+             this.gameObject.transform.rotation = new Quaternion(0, 90, 0, 90);
+            
+        }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+        {
+            this.gameObject.transform.rotation = new Quaternion(0, -45, 0, 90);
+           
+
+        }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        {
+            this.gameObject.transform.rotation = new Quaternion(0, 45, 0, 90);
+
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        {
+            this.gameObject.transform.rotation = new Quaternion(0, -135, 0, -45);
+
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
+        {
+            this.gameObject.transform.rotation = new Quaternion(0, -135, 0, 45);
+
+        }
+        
+    }
+    void Movement()//tp controlls
+    {
+        //o = 1;
+        moveX = this.gameObject.transform.position.x;
+        moveZ = this.gameObject.transform.position.z;
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform = this.gameObject.transform.position;
+            moveZ += speed;   
+            this.gameObject.transform.position = new Vector3(transform.x, transform.y, Mathf.Lerp(this.gameObject.transform.position.z, moveZ, Time.deltaTime));
+            
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform = this.gameObject.transform.position;
+            moveZ -= speed;
+            this.gameObject.transform.position = new Vector3(transform.x, transform.y, Mathf.Lerp(this.gameObject.transform.position.z, moveZ, Time.deltaTime));
+            
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            moveX -= speed;
+            transform = this.gameObject.transform.position;
+            this.gameObject.transform.position = new Vector3(Mathf.Lerp(this.gameObject.transform.position.x, moveX, Time.deltaTime), transform.y, transform.z);
+            
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            moveX += speed;
+            transform = this.gameObject.transform.position;
+            this.gameObject.transform.position = new Vector3(Mathf.Lerp(this.gameObject.transform.position.x, moveX, Time.deltaTime), transform.y, transform.z);
+            
+
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            this.gameObject.transform.position = new Vector3(transform.x, Mathf.Lerp(this.gameObject.transform.position.y, speed, Time.deltaTime), transform.z);
+        }
+    }
+
 }

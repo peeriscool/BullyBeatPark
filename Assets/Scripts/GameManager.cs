@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     BlackBoard blackboard;
     public List<ScriptableEnemies> EnemyList;
     private static GameManager instance;
-    public static GameManager Instance
+    public static int cooldownrun;
+    public static GameManager Instance   
     {
         get
         {
@@ -17,6 +18,10 @@ public class GameManager : MonoBehaviour
         }
     }
     // Start is called before the first frame update
+    public void cooldown()
+    {
+
+    }
     void Start()
     {
         if (instance != null && instance != this)

@@ -8,6 +8,7 @@ public class MazeGeneration : MonoBehaviour
     public float scaleFactor = 1;
    // public CellPrefab cellPrefab;
     public List<CellPrefab> CellList;
+    public List<CellPrefab> obstacles;
     public float desiredWallpercentage = 0.4f;
     private List<GameObject> allCellObjects = new List<GameObject>();
     public int seed = 1234;
@@ -21,22 +22,22 @@ public class MazeGeneration : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            seed = Random.Range(0, int.MaxValue);
-            Random.InitState(seed);
-            width = Random.Range(10, 100);
-            height = Random.Range(10, 100);
-            desiredWallpercentage = Random.Range(0.2f, 1.0f);
-            DestroyMazeObjects();
-            GenerateMaze();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    seed = Random.Range(0, int.MaxValue);
+        //    Random.InitState(seed);
+        //    width = Random.Range(10, 100);
+        //    height = Random.Range(10, 100);
+        //    desiredWallpercentage = Random.Range(0.2f, 1.0f);
+        //    DestroyMazeObjects();
+        //    GenerateMaze();
+        //}
     }
 
     private void DestroyMazeObjects()
     {
         allCellObjects.Clear();
-        foreach (Transform t in transform)
+        foreach (Transform t in transform) //delete all transfomrs of this gameobject
         {
             Destroy(t.gameObject);
         }
@@ -62,8 +63,8 @@ public class MazeGeneration : MonoBehaviour
         Cell currentCell;
         while (cellStack.Count > 0) //path tracing?
         {
-            currentCell = cellStack.Pop(); //removes item from stack : not the same as peek
-            Debug.Log(cellStack.Count);
+            currentCell = cellStack.Pop(); //removes item from stack : last added item
+          //  Debug.Log(cellStack.Count);
             List<Cell> neighbours = GetUnvisitedNeighbours(currentCell, visitedCells, cellStack); //fill list of neighbours detected 
             if (neighbours.Count > 1)
             {
@@ -102,7 +103,7 @@ public class MazeGeneration : MonoBehaviour
             }
         }
 
-        //Generate Objects
+        //Generate floor + walls
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -116,6 +117,89 @@ public class MazeGeneration : MonoBehaviour
                 allCellObjects.Add(cellObject.gameObject);
             }
         }
+
+
+        //Generate obstacles and others
+      List<int> RandomRow = MazeStructures.RowControl(height, width);
+        foreach (int item in RandomRow)
+        {
+            
+            int randomX = Random.Range(0, width);
+            int randomY = Random.Range(0, height);
+            Cell randomCell = grid[item, randomY];
+            Debug.Log(randomCell.gridPosition);
+
+            Quaternion rotated = Quaternion.identity;
+            rotated.z = 90;
+            rotated.y = 90;
+            CellPrefab cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(randomCell.gridPosition.x * scaleFactor, 0, randomCell.gridPosition.y * scaleFactor) * 2, rotated, transform); //(obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
+            cellObject.transform.localScale = cellObject.transform.localScale * 24;
+
+        }
+        //for (int x = 0; x < width; x++)
+        //{
+        //    for (int y = 0; y < height; y++)
+        //    {
+        //        Quaternion rotated = Quaternion.identity;
+        //        rotated.z = 90;
+        //        rotated.y = 90;
+        //        //  CellPrefab cellObject = Instantiate(CellList[Random.Range(0,CellList.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor)*2, rotated, transform);
+        //        // Missile missileCopy = Instantiate<Missile>(missile);
+        //        foreach (CellPrefab item in )
+        //        {
+        //            CellPrefab cell = Instantiate<CellPrefab>(item);
+        //            cell.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+        //            // cell.SpawnWalls(grid[x, y]);
+        //            // allCellObjects.Add(cellObject.gameObject);
+        //        }
+
+        //    }
+        //}
+        #region 
+        //int index = 0;
+        //List<int> row = new List<int>();
+        //int randomrow = Random.Range(0, width);
+        // for (int x = 0; x < width; x++)
+        // {
+        //    for (int y = 0; y < height; y++)
+        //    {
+        //        if (index == 0)
+        //        {
+
+        //        }
+        //        if(index!= y && !row.Contains(y))
+        //        {
+        //            index = y;
+        //            row.Add(index);
+        //            Debug.Log(y + "H");
+
+        //        }
+        //        if (x == randomrow)
+        //        {
+        //            Quaternion rotated = Quaternion.identity;
+        //            rotated.z = 90;
+        //            rotated.y = 90;
+        //            CellPrefab cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor)*2, rotated, transform);
+        //            cellObject.transform.localScale = cellObject.transform.localScale * 24;
+        //           //cellObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+        //        //    allCellObjects.Add(cellObject.gameObject);
+        //        }
+        //        // Debug.Log(x + "W");
+
+        //        //   int randomX = Random.Range(0, width);
+        //        //   int randomY = Random.Range(0, height);
+        //        //   Cell randomCell = grid[randomX, randomY];
+        //        //   List<Cell> neighbours = GetNeighbours(randomCell);
+        //        ////   Quaternion rotated = Quaternion.identity;
+        //        ////   rotated.z = 90;
+        //        ////   rotated.y = 90;
+        //        //   CellPrefab cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(scaleFactor, 0, scaleFactor), transform.rotation, transform); //scale is for location?
+        //        //   cellObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+        //        //   cellObject.SpawnWalls(grid[x, y]);
+        //        //   allCellObjects.Add(cellObject.gameObject);
+        //    }
+        // }
+        #endregion
     }
     private int GetWallCount(Cell[,] grid)
     {
@@ -172,7 +256,7 @@ public class MazeGeneration : MonoBehaviour
                     continue;
                 }
                 Cell canditateCell = grid[cellX, cellY];
-                if (!visitedCells.Contains(canditateCell) && !cellstack.Contains(canditateCell))
+                if (!visitedCells.Contains(canditateCell) && !cellstack.Contains(canditateCell)) //if cell is not visited nor in the cellstack add cell
                 {
                     result.Add(canditateCell);
                 }

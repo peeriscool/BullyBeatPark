@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2826076001715904530}
   - component: {fileID: 1195677883512090551}
   - component: {fileID: 3995557063380409213}
+  - component: {fileID: 8333902515122528509}
   m_Layer: 0
   m_Name: SphereCube
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3203164940780714664}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 6.7670617, y: 9.882527, z: 11.64142}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -80,3 +81,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8333902515122528509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3203164940780714664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51ab759429b2ec4f861b52b0b2f2bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WallPrefab: {fileID: 5088003428625222644, guid: 8cee4b9b5c901964d8af6845d58fb75f,
+    type: 3}

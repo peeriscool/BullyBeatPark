@@ -7,11 +7,14 @@ public class CellPrefab : MonoBehaviour
     public GameObject WallPrefab;
     Quaternion Left = new Quaternion(-1, 1, 1, 1);
     Quaternion Right = new Quaternion(1, 1, 1, -1);
-    void Start()
+    CellPrefab()
     {
         
     }
-
+    CellPrefab(GameObject obj,Vector3 loc, Quaternion r,Transform a) //cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(x* scaleFactor, 0, y* scaleFactor) * 2, rotated, transform);
+    {
+        GameObject cellObject = Instantiate(obj, loc, r, a);
+    }
     public void SpawnWalls(Cell cell)
     {
         
