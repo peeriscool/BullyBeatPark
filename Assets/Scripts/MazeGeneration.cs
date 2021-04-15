@@ -133,7 +133,7 @@ public class MazeGeneration : MonoBehaviour
             rotated.z = 90;
             rotated.y = 90;
             CellPrefab cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(randomCell.gridPosition.x * scaleFactor, 0, randomCell.gridPosition.y * scaleFactor) * 2, rotated, transform); //(obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
-            cellObject.transform.localScale = cellObject.transform.localScale * 24;
+            cellObject.transform.localScale = cellObject.transform.localScale *4;
 
         }
         //for (int x = 0; x < width; x++)

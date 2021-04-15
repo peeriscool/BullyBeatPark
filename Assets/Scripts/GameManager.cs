@@ -7,15 +7,17 @@ public class GameManager : MonoBehaviour
 
     Enemy_Manager Enemy_Manager;
     BlackBoard blackboard;
-    public List<ScriptableEnemies> EnemyList;
+    public List<ScriptableEnemies> EnemyList; //list that instatiatces the blackboard
     private static GameManager instance;
     public static int cooldownrun;
+    public GameObject PlayerInstance;
     public static GameManager Instance   
     {
         get
         {
             return instance;
         }
+        
     }
     // Start is called before the first frame update
     public void cooldown()
@@ -35,8 +37,9 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
         
         blackboard = new BlackBoard(EnemyList);
-        Enemy_Manager = new Enemy_Manager(blackboard.GetEnemyModels());
-        List<GameObject> deployables = Enemy_Manager.SpawnableEnemies();
+        //Enemy_Manager = new Enemy_Manager(blackboard.GetEnemyModels());
+        List<GameObject> deployables = blackboard.GetEnemyModels();
+        Instantiate(PlayerInstance, this.transform);
 
         for (int i = 0; i < deployables.Count; i++)
         {

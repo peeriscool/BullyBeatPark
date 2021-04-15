@@ -73,7 +73,7 @@ public class PlayerScript : MonoBehaviour
             if (cooldown > 200) { speed = Mathf.Lerp(speed,0f,Time.deltaTime); }
             if(cooldown < 200)
             {
-                speed = Mathf.Min( 14,Mathf.Lerp(0.03f, speed, Time.deltaTime)+ speed);
+                speed = Mathf.Min( 5,Mathf.Lerp(0.03f, speed, Time.deltaTime)+ speed);
             }
             
         }
