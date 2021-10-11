@@ -73,7 +73,7 @@ public class PlayerScript : MonoBehaviour
             Orientation(ControllerIndex);
             if (Input.GetKey(KeyCode.LeftShift)) //hold shift for going faster //ToDo run animations, enum control... //UIScript.changevalue(null,Cooldown);
             {
-                speed = Mathf.Min( 5,Mathf.Lerp(0.03f, speed, Time.deltaTime)+ speed);
+                Speed = Mathf.Min( 5,Mathf.Lerp(0.03f, Speed, Time.deltaTime)+ Speed);
             }
         }
         if (ControllerIndex == controllerInputs.Crouch)

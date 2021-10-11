@@ -268,16 +268,16 @@ public class AstarV2
     public Cell[,] CellsToNodes(Node[,] Nodelist)
      {
         Cell[,] value = new Cell[Nodelist.Length, Nodelist.Length];
-        for (int i = 0; i < Nodelist[,]; i++)
+        for (int i = 0; i < Nodelist.Length; i++)
         {
 
         }
-        foreach (Cell a in Nodelist)
-        {
-            Cell newnode = new Cell();
-            newnode.position = a.gridPosition;
-           // newnode.parent
-        }
+        //foreach (Cell a in Nodelist)
+        //{
+        //    Cell newnode = new Cell();
+        //    newnode.position = a.gridPosition;
+        //   // newnode.parent
+        //}
         return value;
      }
 }
