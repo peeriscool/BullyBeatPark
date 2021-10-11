@@ -7,26 +7,24 @@ public class SmoothLerpFollow : MonoBehaviour
     // Start is called before the first frame update\
 
     public Transform follow;
-    Transform me;
-    int Tijme = 1;
+    Transform FollowObject;
     Transform local;
     void Start()
     {
-        me = this.gameObject.transform;
+        FollowObject = this.gameObject.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
        
-        me = this.gameObject.transform;
-      
-        //Tijme++;
-        //if (Tijme > 10)
-        //{
-            this.transform.position = Vector3.MoveTowards(me.position,new Vector3( Mathf.Lerp(follow.position.x, me.position.x, Time.deltaTime), Mathf.Lerp(follow.position.y, me.position.y, Time.deltaTime), Mathf.Lerp(follow.position.z, me.position.z, Time.deltaTime)),0.3f);
-          //  Tijme = 1;
-       // }
-       
+        FollowObject = this.gameObject.transform;  
+        this.transform.position = Vector3.MoveTowards(FollowObject.position,
+        new Vector3
+        ( 
+        Mathf.Lerp(follow.position.x, FollowObject.position.x, Time.deltaTime),
+        Mathf.Lerp(follow.position.y, FollowObject.position.y, Time.deltaTime),
+        Mathf.Lerp(follow.position.z, FollowObject.position.z, Time.deltaTime)),0.9f);
+
     }
 }

@@ -17,4 +17,4 @@ MonoBehaviour:
   spawnPoints:
   - {x: 8, y: 0, z: 8}
   - {x: 5, y: 0, z: 5}
-  Models: {fileID: 970520952333058027, guid: 982b65e75c9095947b9822c7c7f04845, type: 3}
+  Prefab: {fileID: 970520952333058027, guid: 982b65e75c9095947b9822c7c7f04845, type: 3}

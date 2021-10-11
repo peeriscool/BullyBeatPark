@@ -16,4 +16,4 @@ MonoBehaviour:
   numberOfPrefabsToCreate: 1
   spawnPoints:
   - {x: 2, y: 0, z: 4}
-  Models: {fileID: 11656411613138087, guid: 19e4060029f7f41438643f2dd6604179, type: 3}
+  Prefab: {fileID: 11656411613138087, guid: 19e4060029f7f41438643f2dd6604179, type: 3}
