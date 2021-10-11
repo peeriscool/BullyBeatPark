@@ -49,30 +49,30 @@ public class Agent : MonoBehaviour
     //Move to clicked position
     public void Update()
     {
-        if (Input.GetMouseButtonDown(moveButton))
-        {
-            Debug.Log("Click");
-            Ray r = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10));
+        //if (Input.GetMouseButtonDown(moveButton))
+        //{
+        //    Debug.Log("Click");
+        //    Ray r = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10));
 
-            Vector3 mousePos = MouseToWorld();
-            Vector2Int targetPos = Vector3ToVector2Int(mousePos);
-            targetVisual.transform.position = Vector2IntToVector3(targetPos);
-            FindPathToTarget(Vector3ToVector2Int(transform.position), targetPos, maze.grid);
-        }
+        //    Vector3 mousePos = MouseToWorld();
+        //    Vector2Int targetPos = Vector3ToVector2Int(mousePos);
+        //    targetVisual.transform.position = Vector2IntToVector3(targetPos);
+        //    FindPathToTarget(Vector3ToVector2Int(transform.position), targetPos, maze.grid);
+        //}
 
-        if (path != null && path.Count > 0)
-        {
-            if (transform.position != Vector2IntToVector3(path[0]))
-            {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);
-                transform.position = Vector3.MoveTowards(transform.position, Vector2IntToVector3(path[0]), moveSpeed * Time.deltaTime);
-            }
-            else
-            {
-                path.RemoveAt(0);
-                DrawPath();
-            }
-        }
+        //if (path != null && path.Count > 0)
+        //{
+        //    if (transform.position != Vector2IntToVector3(path[0]))
+        //    {
+        //        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);
+        //        transform.position = Vector3.MoveTowards(transform.position, Vector2IntToVector3(path[0]), moveSpeed * Time.deltaTime);
+        //    }
+        //    else
+        //    {
+        //        path.RemoveAt(0);
+        //        DrawPath();
+        //    }
+        //}
 
     }
     public Vector3 MouseToWorld()
