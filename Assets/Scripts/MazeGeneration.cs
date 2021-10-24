@@ -20,18 +20,15 @@ public class MazeGeneration : MonoBehaviour
         GenerateMaze();
     }
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    seed = Random.Range(0, int.MaxValue);
-        //    Random.InitState(seed);
-        //    width = Random.Range(10, 100);
-        //    height = Random.Range(10, 100);
-        //    desiredWallpercentage = Random.Range(0.2f, 1.0f);
-        //    DestroyMazeObjects();
-        //    GenerateMaze();
-        //}
+    public void RegenarateMaze()
+    {    
+            seed = Random.Range(0, int.MaxValue);
+            Random.InitState(seed);
+            width = Random.Range(10, 100);
+            height = Random.Range(10, 100);
+            desiredWallpercentage = Random.Range(0.2f, 1.0f);
+            DestroyMazeObjects();
+            GenerateMaze();
     }
 
     private void DestroyMazeObjects()

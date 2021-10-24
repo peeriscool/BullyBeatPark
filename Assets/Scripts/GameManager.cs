@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject playerrefrence;
     Enemy_Manager Enemy_Manager;
-   // BlackBoard blackboard;
     public List<ScriptableEnemies> EnemyList;
+    MazeGeneration mazegenerator = new MazeGeneration();
     private static GameManager instance;
     public static GameManager Instance   //singleton
     {
@@ -28,10 +30,10 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
 
+
         Enemy_Manager = new Enemy_Manager(EnemyList);
         List<GameObject> deployables = Enemy_Manager.SpawnableEnemies();
-
-        foreach (GameObject item in deployables)
+        foreach (GameObject item in deployables) //make some enemies
         {
             Instantiate(item, EnemyList[0].spawnPoints[0], new Quaternion());
         }
@@ -44,8 +46,22 @@ public class GameManager : MonoBehaviour
         //}
     }
     // Update is called once per frame
-    void Update()
+    public void triggerMazeGeneration()
     {
-        
+        // Create action that binds to the primary action control on all devices.
+        var action = new InputAction(binding: "*/{primaryAction}");
+
+        // Have it run your code when action is triggered.
+        action.performed += _ => Fire();
+
+        // Start listening for control changes.
+        action.Enable();
+       // Keyboard.current[KeyCode.Space].wasPressedThisFrame;
+      
+          
+    }
+    void Fire()
+    {
+        mazegenerator.RegenarateMaze();
     }
 }
