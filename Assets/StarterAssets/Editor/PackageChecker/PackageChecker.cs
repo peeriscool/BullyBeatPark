@@ -55,7 +55,7 @@ namespace StarterAssets
 
                         // if no version is given, return null
                         PackageEntry entry = new PackageEntry
-                            {name = split[0], version = split.Length > 1 ? split[1] : null};
+                        { name = split[0], version = split.Length > 1 ? split[1] : null };
 
                         packagesToAdd.Add(entry);
                     }

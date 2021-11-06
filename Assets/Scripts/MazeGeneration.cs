@@ -6,7 +6,7 @@ public class MazeGeneration : MonoBehaviour
     public int width = 10, height = 10;
     public Cell[,] grid;
     public float scaleFactor = 1;
-   // public CellPrefab cellPrefab;
+    // public CellPrefab cellPrefab;
     public List<CellPrefab> CellList;
     public List<CellPrefab> obstacles;
     public float desiredWallpercentage = 0.4f;
@@ -22,14 +22,14 @@ public class MazeGeneration : MonoBehaviour
     }
 
     public void RegenarateMaze()
-    {    
-            seed = Random.Range(0, int.MaxValue);
-            Random.InitState(seed);
-            width = Random.Range(10, 100);
-            height = Random.Range(10, 100);
-            desiredWallpercentage = Random.Range(0.2f, 1.0f);
-            DestroyMazeObjects();
-            GenerateMaze();
+    {
+        seed = Random.Range(0, int.MaxValue);
+        Random.InitState(seed);
+        width = Random.Range(10, 100);
+        height = Random.Range(10, 100);
+        desiredWallpercentage = Random.Range(0.2f, 1.0f);
+        DestroyMazeObjects();
+        GenerateMaze();
     }
 
     private void DestroyMazeObjects()
@@ -62,7 +62,7 @@ public class MazeGeneration : MonoBehaviour
         while (cellStack.Count > 0) //path checking/creation
         {
             currentCell = cellStack.Pop(); //removes item from stack : last added item
-          //  Debug.Log(cellStack.Count);
+                                           //  Debug.Log(cellStack.Count);
             List<Cell> neighbours = GetUnvisitedNeighbours(currentCell, visitedCells, cellStack); //fill list of neighbours detected 
             if (neighbours.Count > 1)
             {
@@ -109,7 +109,7 @@ public class MazeGeneration : MonoBehaviour
                 Quaternion rotated = Quaternion.identity;
                 rotated.z = 90;
                 rotated.y = 90;
-                CellPrefab cellObject = Instantiate(CellList[Random.Range(0,CellList.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor)*2, rotated, transform);
+                CellPrefab cellObject = Instantiate(CellList[Random.Range(0, CellList.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
                 cellObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                 cellObject.SpawnWalls(grid[x, y]);
                 allCellObjects.Add(cellObject.gameObject);
@@ -120,7 +120,7 @@ public class MazeGeneration : MonoBehaviour
         //List<int> RandomRow = MazeStructures.RowControl(height, width);
         //foreach (int item in RandomRow)
         //{
-            
+
         //    int randomX = Random.Range(0, width);
         //    int randomY = Random.Range(0, height);
         //    Cell randomCell = grid[item, randomY];
@@ -257,7 +257,7 @@ public class Cell
 }
 
 [System.Flags]
-public enum Wall 
+public enum Wall
 {
     LEFT = 0x1,
     UP = 0x2,

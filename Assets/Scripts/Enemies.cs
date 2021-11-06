@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Enemies
 {
-   public class EnemyOne : Enemy_BaseClass
+    public class EnemyOne : Enemy_BaseClass
     {
         GameObject Enemy;
         public EnemyOne(GameObject enemy)
@@ -13,7 +11,7 @@ namespace Enemies
         }
         protected override void Tick()
         {
-           
+
         }
     }
 }

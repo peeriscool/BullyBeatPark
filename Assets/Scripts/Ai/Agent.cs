@@ -4,7 +4,7 @@ public class Agent : MonoBehaviour
 {
     public int moveButton = 0;
     public float moveSpeed = 3;
-    private AstarV2 Astar = new AstarV2();
+    private AstarV2 Astar = new AstarV2(Blackboard.width,Blackboard.height);
     private List<Vector2Int> path = new List<Vector2Int>();
     private Plane ground = new Plane(Vector3.up, 0f);
     private MeshRenderer renderer;
@@ -22,10 +22,8 @@ public class Agent : MonoBehaviour
         // Debug.Log(renderer.material.color);
         // line.material.color = renderer.material.color;
         line.material.color = Color.white;
-    }
 
-    private void Start()
-    {
+        Debug.Log("I live!:" + this.gameObject.name);
     }
 
     public void FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid)
@@ -41,8 +39,11 @@ public class Agent : MonoBehaviour
             line.positionCount = path.Count;
             for (int i = 0; i < path.Count; i++)
             {
-                line.SetPosition(i, Vector2IntToVector3(path[i] , 0.1f) * 8); //* Blackboard.scalefactor?
+                line.SetPosition(i, Vector2IntToVector3(path[i], 0.1f) * 8); //* Blackboard.scalefactor?
             }
+        }
+        else {
+            Debug.Log(path + "non working paths"); //issue 3 times the paths are null
         }
     }
 
@@ -50,22 +51,22 @@ public class Agent : MonoBehaviour
     //Move to clicked position
     public void WalkTo(Vector3 location)
     {
-            this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            Vector2Int targetPos = Vector3ToVector2Int(location);
-           // targetVisual.transform.position = Vector2IntToVector3(targetPos); 
-            FindPathToTarget(Vector3ToVector2Int(transform.position), targetPos, maze.grid);
+        Vector2Int targetPos = Vector3ToVector2Int(location);
+        // targetVisual.transform.position = Vector2IntToVector3(targetPos); 
+        Debug.Log("im walkn here" + this.gameObject.name + Vector3ToVector2Int(transform.position.normalized * maze.width));
+        FindPathToTarget(Vector3ToVector2Int(transform.position.normalized * maze.width), targetPos, maze.grid); //we cant just grab the transform.pos because its out of the range of the grid size?
 
     }
-    
+
     public void Update()
     {
-       
+
         if (path != null && path.Count > 0)
         {
             if (transform.position != Vector2IntToVector3(path[0]))
             {
-               // transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);
-                transform.position = Vector3.MoveTowards(transform.position, Vector2IntToVector3(path[0]*4), moveSpeed * Time.deltaTime); //transform.position
+                // transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, Vector2IntToVector3(path[0] * 4), moveSpeed * Time.deltaTime); //transform.position
 
                 /*
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);

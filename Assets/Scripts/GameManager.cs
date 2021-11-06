@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(MazeGeneration))]
 public class GameManager : MonoBehaviour
 {
     public GameObject playerrefrence;
     Enemy_Manager Enemy_Manager;
     public List<ScriptableEnemies> EnemyList;
-    MazeGeneration mazegenerator = new MazeGeneration();
+    MazeGeneration mazegenerator;
     public int enemytick = 60;
     public List<GameObject> deployed;
     private static GameManager instance;
@@ -19,10 +20,10 @@ public class GameManager : MonoBehaviour
         {
             return instance;
         }
-        
     }
     void Start()
     {
+        mazegenerator = this.gameObject.GetComponent<MazeGeneration>();
         if (instance != null && instance != this) //ToDo : alowing singleton to be switched with baseclass gamemanager
         {
             Destroy(this);
@@ -32,45 +33,21 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(this);
+        Blackboard.height = mazegenerator.height;
+        Blackboard.width = mazegenerator.width;
         deployed = new List<GameObject>();
         SpawnEnemies();
-        
         StartCoroutine("TickEnemies");
     }
-    private void FixedUpdate()
-    {
-
-    }
-
     protected void SpawnEnemies()
     {
         Enemy_Manager = new Enemy_Manager(EnemyList);
         List<GameObject> deployables = Enemy_Manager.SpawnableEnemies();
-      //  
-        //foreach (GameObject item in deployables) //for each available enemy make 1
-        //{
-        //    deployed.Add(Instantiate(item, EnemyList[0].spawnPoints[0], new Quaternion()));     
-        //}
-       // foreach (Vector3 item in Enemy_Manager.spawnpoints())
-            for (int i = 0; i < Enemy_Manager.spawnpoints().Count; i++)
-            {
+        for (int i = 0; i < Enemy_Manager.spawnpoints().Count; i++)
+        {
             deployed.Add(Instantiate(deployables[i], Enemy_Manager.getybyindex(i), new Quaternion()));
             Debug.Log(deployables[i].transform.position);
-            }
-       //for (int i = 0; i < deployables.Count; i++)
-       // {
-       //     deployed.Add(Instantiate(deployables[i], deployables[i].transform.position, new Quaternion()));
-       // }
-        //for (int i = 0; i < deployables.Count; i++)
-        //{
-
-        //    for (int x = 0; x < EnemyList[i].numberOfPrefabsToCreate; x++)
-        //    {
-        //        deployed.Add(Instantiate(EnemyList[x].Prefab, EnemyList[x].spawnPoints[x], new Quaternion()));
-        //        i++;
-        //    }
-           
-        //}
+        }
     }
 
     public void triggerMazeGeneration() //valentijn code
@@ -83,25 +60,21 @@ public class GameManager : MonoBehaviour
 
         // Start listening for control changes.
         action.Enable();
-       // Keyboard.current[KeyCode.Space].wasPressedThisFrame;
-      
-          
+        // Keyboard.current[KeyCode.Space].wasPressedThisFrame;
+
+
     }
     void Fire()
     {
         mazegenerator.RegenarateMaze();
     }
-
-
-
     public IEnumerator TickEnemies() //give enmies new commands every x seconds
     {
         while (true)
         {
-            Debug.Log("enemies walk");
-            Enemy_Manager.globalwalkagents(deployed);
+            Enemy_Manager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);
             yield return new WaitForSeconds(enemytick);
-            
+
         }
     }
 }

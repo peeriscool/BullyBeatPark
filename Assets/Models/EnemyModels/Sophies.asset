@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Sophies
   m_EditorClassIdentifier: 
   prefabName: '"Sophie"'
-  numberOfPrefabsToCreate: 2
+  numberOfPrefabsToCreate: 1
   spawnPoints:
-  - {x: 50, y: 0, z: 4}
+  - {x: 19, y: 0, z: 4}
   - {x: 10, y: 0, z: 16}
-  - {x: 20, y: 0, z: 6}
+  - {x: 19, y: 0, z: 6}
   Prefab: {fileID: 11656411613138087, guid: 19e4060029f7f41438643f2dd6604179, type: 3}

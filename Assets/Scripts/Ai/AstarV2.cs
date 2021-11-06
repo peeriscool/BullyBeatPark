@@ -1,16 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class AstarV2
 {
     float width;
     float height;
     Cell[,] Grid;
+
+    public AstarV2() { }
+    public AstarV2(float _width, float _height)
+    {
+        width = _width;
+        height = _height;
+        Debug.Log("i know were i am i work here"+ Grid);
+    }
     public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid)
     {
-
+        if (startPos.x >= width) { Debug.Log("value outside of grid!" + startPos.x + "size:" + width); } //debug code
         List<Node> OpenSet = new List<Node>(); //has to be filled
         Node[,] AllNodes = GridToNotes(grid, startPos, endPos); //maybe array would be better here
         HashSet<Node> ClosedSet = new HashSet<Node>(); //final path
@@ -98,15 +104,15 @@ public class AstarV2
     }
     public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Node[,] griddata)
     {
+       
         Cell[,] grid = Grid;
-         grid = CellsToNodes(griddata);
+        grid = CellsToNodes(griddata);
         List<Node> OpenSet = new List<Node>(); //has to be filled
         Node[,] AllNodes = GridToNotes(grid, startPos, endPos); //maybe array would be better here
         HashSet<Node> ClosedSet = new HashSet<Node>(); //final path
         width = grid.GetLength(0);
         height = grid.GetLength(1);
         Grid = grid;
-
 
         Node StartNode = new Node(startPos, null, 0, 0);
         Node EndNode = new Node(endPos, null, 0, 0); //change 0,0 to G and H 
@@ -250,7 +256,8 @@ public class AstarV2
         public Vector2Int position; //Position on the grid
         public Node parent; //Parent Node of this node
 
-        public float FScore { //GScore + HScore
+        public float FScore
+        { //GScore + HScore
             get { return GScore + HScore; }
         }
         public float GScore; //Current Travelled Distance
@@ -266,7 +273,7 @@ public class AstarV2
         }
     }
     public Cell[,] CellsToNodes(Node[,] Nodelist)
-     {
+    {
         Cell[,] value = new Cell[Nodelist.Length, Nodelist.Length];
         for (int i = 0; i < Nodelist.Length; i++)
         {
@@ -279,5 +286,5 @@ public class AstarV2
         //   // newnode.parent
         //}
         return value;
-     }
+    }
 }

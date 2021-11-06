@@ -127,7 +127,7 @@ namespace StarterAssets
 
         private static void HandleInstantiatingPrefab(string path, string prefabName, out GameObject prefab)
         {
-            prefab = (GameObject) PrefabUtility.InstantiatePrefab(
+            prefab = (GameObject)PrefabUtility.InstantiatePrefab(
                 AssetDatabase.LoadAssetAtPath<Object>($"{path}{prefabName}.prefab"));
             Undo.RegisterCreatedObjectUndo(prefab, "Instantiate Starter Asset Prefab");
 
