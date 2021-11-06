@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
     Enemy_Manager Enemy_Manager;
     public List<ScriptableEnemies> EnemyList;
     MazeGeneration mazegenerator = new MazeGeneration();
+    public int enemytick = 60;
+    public List<GameObject> deployed;
     private static GameManager instance;
-    public static GameManager Instance   //singleton
+
+    public static GameManager Instance   //singleton implemenetation
     {
         get
         {
@@ -20,7 +23,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        if (instance != null && instance != this) //ToDo : alowing singleton gamemanger to be switched with baseclass gamemanagers?
+        if (instance != null && instance != this) //ToDo : alowing singleton to be switched with baseclass gamemanager
         {
             Destroy(this);
         }
@@ -29,24 +32,48 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(this);
+        deployed = new List<GameObject>();
+        SpawnEnemies();
+        
+        StartCoroutine("TickEnemies");
+    }
+    private void FixedUpdate()
+    {
 
+    }
 
+    protected void SpawnEnemies()
+    {
         Enemy_Manager = new Enemy_Manager(EnemyList);
         List<GameObject> deployables = Enemy_Manager.SpawnableEnemies();
-        foreach (GameObject item in deployables) //make some enemies
-        {
-            Instantiate(item, EnemyList[0].spawnPoints[0], new Quaternion());
-        }
+      //  
+        //foreach (GameObject item in deployables) //for each available enemy make 1
+        //{
+        //    deployed.Add(Instantiate(item, EnemyList[0].spawnPoints[0], new Quaternion()));     
+        //}
+       // foreach (Vector3 item in Enemy_Manager.spawnpoints())
+            for (int i = 0; i < Enemy_Manager.spawnpoints().Count; i++)
+            {
+            deployed.Add(Instantiate(deployables[i], Enemy_Manager.getybyindex(i), new Quaternion()));
+            Debug.Log(deployables[i].transform.position);
+            }
+       //for (int i = 0; i < deployables.Count; i++)
+       // {
+       //     deployed.Add(Instantiate(deployables[i], deployables[i].transform.position, new Quaternion()));
+       // }
         //for (int i = 0; i < deployables.Count; i++)
         //{
-        //    GameObject instance = deployables[i];
-        //    instance.transform.localScale = deployables[i].transform.localScale; //* Random.Range(0.5f, 1f); fix fbx in prefab!
-        //    Instantiate(instance, EnemyList[0].spawnPoints[0], new Quaternion());
 
+        //    for (int x = 0; x < EnemyList[i].numberOfPrefabsToCreate; x++)
+        //    {
+        //        deployed.Add(Instantiate(EnemyList[x].Prefab, EnemyList[x].spawnPoints[x], new Quaternion()));
+        //        i++;
+        //    }
+           
         //}
     }
-    // Update is called once per frame
-    public void triggerMazeGeneration()
+
+    public void triggerMazeGeneration() //valentijn code
     {
         // Create action that binds to the primary action control on all devices.
         var action = new InputAction(binding: "*/{primaryAction}");
@@ -63,5 +90,18 @@ public class GameManager : MonoBehaviour
     void Fire()
     {
         mazegenerator.RegenarateMaze();
+    }
+
+
+
+    public IEnumerator TickEnemies() //give enmies new commands every x seconds
+    {
+        while (true)
+        {
+            Debug.Log("enemies walk");
+            Enemy_Manager.globalwalkagents(deployed);
+            yield return new WaitForSeconds(enemytick);
+            
+        }
     }
 }
