@@ -19,7 +19,7 @@ public class Enemy_Manager
                 X++;
                 
             }
-        }
+        }     
     }
 
     public List<GameObject> SpawnableEnemies()
@@ -37,10 +37,25 @@ public class Enemy_Manager
 
     public void globalwalkagents(List<GameObject> instances, int sizeX, int sizeY) //give instanced enemies as param
     {
+        
         for (int i = 0; i < instances.Count; i++)
         {
-            //go throug array and change path location for agent
-            instances[i].gameObject.GetComponent<Agent>().WalkTo(new Vector3(Random.Range(0, sizeX), 0, Random.Range(0, sizeY))); //walking range should be width height maze
+            if (instances[i].gameObject.GetComponent<Agent>().actionindex == 1)
+            {
+                //location already set and not yet reached
+                //dont give new location
+            }
+            else
+            {
+                instances[i].gameObject.GetComponent<Agent>().WalkTo(setwalkposition(sizeX, sizeY)); //walking range should be width height maze
+            }
+            //go throug array and change path location for agent  
         }
+    }
+    protected Vector3 setwalkposition(int sizeX,int sizeY)
+    {
+       
+        Vector3 locationcommand = new Vector3(Random.Range(0, sizeX), 0, Random.Range(0, sizeY));
+        return locationcommand;
     }
 }

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        mazegenerator = this.gameObject.GetComponent<MazeGeneration>();
+        mazegenerator = this.gameObject.GetComponent<MazeGeneration>(); 
         if (instance != null && instance != this) //ToDo : alowing singleton to be switched with baseclass gamemanager
         {
             Destroy(this);
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < Enemy_Manager.spawnpoints().Count; i++)
         {
             deployed.Add(Instantiate(deployables[i], Enemy_Manager.getybyindex(i), new Quaternion()));
-            Debug.Log(deployables[i].transform.position);
+            Debug.Log("Spawning at "+deployables[i].name + " at " +deployables[i].transform.position);
         }
     }
 
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            Enemy_Manager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);
+            Enemy_Manager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);//currently the maze is 150 by 150 units
             yield return new WaitForSeconds(enemytick);
 
         }

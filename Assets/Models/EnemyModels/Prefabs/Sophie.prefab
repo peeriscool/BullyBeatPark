@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveButton: 0
   moveSpeed: 9
+  actionindex: 0
 --- !u!120 &5008687093896182992
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -255,6 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveButton: 0
   moveSpeed: 3
+  actionindex: 0
 --- !u!114 &-4937477718590058135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveButton: 0
   moveSpeed: 3
+  actionindex: 0
 --- !u!1 &896176516073593268
 GameObject:
   m_ObjectHideFlags: 0
