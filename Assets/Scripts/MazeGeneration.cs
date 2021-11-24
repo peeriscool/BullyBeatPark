@@ -116,23 +116,23 @@ public class MazeGeneration : MonoBehaviour
             }
         }
 
-        ////Generate obstacles and others
-        //List<int> RandomRow = MazeStructures.RowControl(height, width);
-        //foreach (int item in RandomRow)
-        //{
+        //Generate obstacles and others
+        List<int> RandomRow = MazeStructures.RowControl(height, width);
+        foreach (int item in RandomRow)
+        {
 
-        //    int randomX = Random.Range(0, width);
-        //    int randomY = Random.Range(0, height);
-        //    Cell randomCell = grid[item, randomY];
-        //    Debug.Log(randomCell.gridPosition);
+            int randomX = Random.Range(0, width);
+            int randomY = Random.Range(0, height);
+            Cell randomCell = grid[item, randomY];
+            Debug.Log(randomCell.gridPosition);
 
-        //    Quaternion rotated = Quaternion.identity;
-        //    rotated.z = 90;
-        //    rotated.y = 90;
-        //    CellPrefab cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(randomCell.gridPosition.x * scaleFactor, 0, randomCell.gridPosition.y * scaleFactor)*2, rotated, transform); //(obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
-        //    cellObject.transform.localScale = cellObject.transform.localScale * scaleFactor; //*4;
+            Quaternion rotated = Quaternion.identity;
+            rotated.z = 90;
+            rotated.y = 90;
+            CellPrefab cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(randomCell.gridPosition.x * scaleFactor, 0, randomCell.gridPosition.y * scaleFactor) * 2, rotated, transform); //(obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
+            cellObject.transform.localScale = cellObject.transform.localScale * scaleFactor; //*4;
 
-        //}
+        }
     }
     private int GetWallCount(Cell[,] grid)
     {
