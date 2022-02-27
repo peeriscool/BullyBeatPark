@@ -7,5 +7,16 @@ public static class Blackboard
     public static List<GameObject> Enemies;
     public static int width;
     public static int height;
+    private static GameObject selected;
 
-}
+
+    public static void SelectEnemy(GameObject enemy)
+    {
+        enemy = selected;
+        
+    }
+    public static void EnemylocationPing(GameObject enemy)
+    {
+        Debug.Log(enemy.transform.position);
+    }
+    }

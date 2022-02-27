@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mazegenerator = this.gameObject.GetComponent<MazeGeneration>(); 
+
         if (instance != null && instance != this) //ToDo : alowing singleton to be switched with baseclass gamemanager
         {
             Destroy(this);
@@ -32,12 +33,21 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+
         DontDestroyOnLoad(this);
+        
         Blackboard.height = mazegenerator.height;
         Blackboard.width = mazegenerator.width;
+        
         deployed = new List<GameObject>();
         SpawnEnemies();
         StartCoroutine("TickEnemies");
+    }
+
+    private void Update()
+    {
+        //if (playerrefrence.GetComponent<BoxCollider>().)
+        //Blackboard.EnemylocationPing()
     }
     protected void SpawnEnemies()
     {
@@ -50,20 +60,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void triggerMazeGeneration() //valentijn code
-    {
-        // Create action that binds to the primary action control on all devices.
-        var action = new InputAction(binding: "*/{primaryAction}");
-
-        // Have it run your code when action is triggered.
-        action.performed += _ => Fire();
-
-        // Start listening for control changes.
-        action.Enable();
-        // Keyboard.current[KeyCode.Space].wasPressedThisFrame;
-
-
-    }
+   
     void Fire()
     {
         mazegenerator.RegenarateMaze();
@@ -78,3 +75,21 @@ public class GameManager : MonoBehaviour
         }
     }
 }
+
+/*  public void triggerMazeGeneration() //valentijn code
+    {
+        // Create action that binds to the primary action control on all devices.
+        var action = new InputAction(binding: "
+{ primaryAction}
+");
+
+        // Have it run your code when action is triggered.
+action.performed += _ => Fire();
+
+// Start listening for control changes.
+action.Enable();
+        // Keyboard.current[KeyCode.Space].wasPressedThisFrame;
+
+
+    }
+*/

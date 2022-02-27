@@ -12,7 +12,7 @@ public class AstarV2
     {
         width = _width;
         height = _height;
-        Debug.Log("i know were i am i work here"+ Grid);
+     //   Debug.Log("i know were i am i work here"+ Grid);
     }
     public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid)
     {

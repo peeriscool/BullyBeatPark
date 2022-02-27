@@ -40,7 +40,7 @@ public class Agent : MonoBehaviour
     {
         if (path != null && path.Count > 0)
         {
-            Debug.Log("Path drawn from " + path[0] + "To " + path[path.Count-1]);
+           // Debug.Log("Path drawn from " + path[0] + "To " + path[path.Count-1]);
             line.positionCount = path.Count;
             for (int i = 0; i < path.Count; i++)
             {
@@ -93,7 +93,7 @@ public class Agent : MonoBehaviour
             }
             else
             {
-                Debug.Log(path.Count + "Path control for" + gameObject.name);
+               // Debug.Log(path.Count + "Path control for" + gameObject.name);
                 actionindex = 0;
                 path.RemoveAt(0);
                 DrawPath();
