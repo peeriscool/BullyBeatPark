@@ -12,11 +12,19 @@ public static class Blackboard
 
     public static void SelectEnemy(GameObject enemy)
     {
-        enemy = selected;
+        selected = enemy;
         
     }
-    public static void EnemylocationPing(GameObject enemy)
+    public static void EnemylocationPing()
     {
-        Debug.Log(enemy.transform.position);
+        Debug.Log(selected.transform.position);
     }
+    public static void Interactionrequest(string Command)
+    {
+        //to do: translate command or number to agent action
+        if(Command.Equals("come over here"))
+        {
+            selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
+        }
     }
+}

@@ -124,7 +124,7 @@ public class MazeGeneration : MonoBehaviour
             int randomX = Random.Range(0, width);
             int randomY = Random.Range(0, height);
             Cell randomCell = grid[item, randomY];
-            Debug.Log(randomCell.gridPosition);
+           // Debug.Log(randomCell.gridPosition);
 
             Quaternion rotated = Quaternion.identity;
             rotated.z = 90;
