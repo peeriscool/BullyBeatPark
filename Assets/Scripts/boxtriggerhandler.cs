@@ -12,7 +12,7 @@ public class boxtriggerhandler : MonoBehaviour
     void Start()
     {
         this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
-        SetVisableWhenEntering.enabled = false;
+        SetVisableWhenEntering.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -26,11 +26,13 @@ public class boxtriggerhandler : MonoBehaviour
             if(other == collsioninteract)
         {
             Debug.Log(other.name + " has entered the dome");
+            SetVisableWhenEntering.gameObject.SetActive(true);
             SetVisableWhenEntering.enabled = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
+        SetVisableWhenEntering.gameObject.SetActive(false);
         SetVisableWhenEntering.enabled = false;
     }
 }

@@ -74,18 +74,13 @@ namespace StarterAssets
 
         private void OnApplicationFocus(bool hasFocus)
         {
-            if (GameObject.FindObjectOfType(typeof(Canvas)) == true)
-            {
-                Debug.Log("check if player wants to interact with ui?");
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else
+          
                 SetCursorState(cursorLocked);
         }
         
         private void SetCursorState(bool newState)
         {
-            Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.Confined;
+            Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
         }
 
 #endif
