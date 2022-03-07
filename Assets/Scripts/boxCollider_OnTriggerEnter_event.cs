@@ -31,8 +31,8 @@ public class boxCollider_OnTriggerEnter_event : MonoBehaviour
         {
             Blackboard.SelectEnemy(other.gameObject);
             Blackboard.EnemylocationPing();
-            Time.timeScale = 0.8f;
-            Debug.Log("Epic fight moment");
+           // Time.timeScale = 0.8f;
+          //  Debug.Log("Epic fight moment");
         }
     }
     private void OnTriggerExit(Collider other)

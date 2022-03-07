@@ -6,32 +6,38 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(MazeGeneration))]
 public class GameManager : MonoBehaviour
 {
+    //--------------------------------------------------\\
+    //active game data
     public GameObject playerrefrence;
-    Enemy_Manager Enemy_Manager;
     public List<ScriptableEnemies> EnemyList;
-    MazeGeneration mazegenerator;
     public int enemytick = 60;
     public List<GameObject> deployed;
-    private static GameManager instance;
+
+    //instances of classes
+    private Enemy_Manager Enemy_Manager;
+    private MazeGeneration mazegenerator;
+    private static GameManager _instance; //this
+    //--------------------------------------------------\\
 
     public static GameManager Instance   //singleton implemenetation
     {
         get
         {
-            return instance;
+            return _instance;
         }
     }
+    
     void Start()
     {
         mazegenerator = this.gameObject.GetComponent<MazeGeneration>(); 
 
-        if (instance != null && instance != this) //ToDo : alowing singleton to be switched with baseclass gamemanager
+        if (_instance != null && _instance != this) //ToDo : alowing singleton to be switched with baseclass gamemanager
         {
             Destroy(this);
         }
         else
         {
-            instance = this;
+            _instance = this;
         }
 
         DontDestroyOnLoad(this);

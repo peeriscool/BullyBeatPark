@@ -28,6 +28,9 @@ public class boxtriggerhandler : MonoBehaviour
             Debug.Log(other.name + " has entered the dome");
             SetVisableWhenEntering.gameObject.SetActive(true);
             SetVisableWhenEntering.enabled = true;
+           countdown instance = SetVisableWhenEntering.GetComponent<countdown>();
+           // instance.OnEnable();
+            instance.callfortimer(5);
         }
     }
     private void OnTriggerExit(Collider other)

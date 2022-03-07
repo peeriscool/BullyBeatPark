@@ -17,6 +17,7 @@ public class EnemyInteraction : MonoBehaviour
     {
         if(Keyboard.current.xKey.wasPressedThisFrame)
         {
+            Debug.Log(this.gameObject.name);
             Blackboard.Interactionrequest("come over here");
         }
     }

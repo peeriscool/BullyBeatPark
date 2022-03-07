@@ -17,14 +17,15 @@ public static class Blackboard
     }
     public static void EnemylocationPing()
     {
-        Debug.Log(selected.transform.position);
+        Debug.Log(selected.transform.position + "Is in the player range");
     }
     public static void Interactionrequest(string Command)
     {
         //to do: translate command or number to agent action
         if(Command.Equals("come over here"))
         {
-            selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
+           // selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
+            selected.GetComponent<Agent>().TakeDamage();
         }
     }
 }

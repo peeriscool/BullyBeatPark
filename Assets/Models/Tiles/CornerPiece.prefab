@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6578528747660206571}
   - component: {fileID: -7677734577318847597}
   - component: {fileID: -5721925318480929617}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CornerPiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallPrefab: {fileID: 5088003428625222644, guid: 8cee4b9b5c901964d8af6845d58fb75f,
     type: 3}
+  Is2x2: 0
 --- !u!65 &-7677734577318847597
 BoxCollider:
   m_ObjectHideFlags: 0

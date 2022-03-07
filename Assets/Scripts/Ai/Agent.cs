@@ -73,7 +73,10 @@ public class Agent : MonoBehaviour
         //}
         //path = Astar.FindPathToTarget(Vector3ToVector2Int(transform.position.normalized * 10), targetPos / 5, maze.grid); //normalized example 1.1 *10 = 11
     }
-
+    public void TakeDamage()
+    {
+        targetVisual.GetComponent<Renderer>().material.color = Color.red;
+    }
     public void Update()
     {
 

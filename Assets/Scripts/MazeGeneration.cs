@@ -6,14 +6,13 @@ public class MazeGeneration : MonoBehaviour
     public int width = 10, height = 10;
     public Cell[,] grid;
     public float scaleFactor = 1;
-    // public CellPrefab cellPrefab;
+
     public List<CellPrefab> CellList;
     public List<CellPrefab> obstacles;
     public float desiredWallpercentage = 0.4f;
     private List<GameObject> allCellObjects = new List<GameObject>();
     public int seed = 1234;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         Random.InitState(seed);//assign seed
@@ -117,21 +116,46 @@ public class MazeGeneration : MonoBehaviour
         }
 
         //Generate obstacles and others
-        List<int> RandomRow = MazeStructures.RowControl(height, width);
+        List<int> RandomRow = MazeStructures.RowControl(height, width); //gives back a list of number based on every row.
         foreach (int item in RandomRow)
         {
-
-            int randomX = Random.Range(0, width);
+            //asign random location onrow
+            int randomX = Random.Range(0, width); 
             int randomY = Random.Range(0, height);
-            Cell randomCell = grid[item, randomY];
-           // Debug.Log(randomCell.gridPosition);
+            Cell randomCell = grid[item, randomY]; //asign cell
 
-            Quaternion rotated = Quaternion.identity;
-            rotated.z = 90;
-            rotated.y = 90;
-            CellPrefab cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(randomCell.gridPosition.x * scaleFactor, 0, randomCell.gridPosition.y * scaleFactor) * 2, rotated, transform); //(obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
-            cellObject.transform.localScale = cellObject.transform.localScale * scaleFactor; //*4;
-
+            //transform isues
+            // new Quaternion(0,1,0,1) BRIDGE length
+            CellPrefab cellObject = obstacles[Random.Range(0, obstacles.Count)];
+            if(cellObject.Is2x2 == true)
+            {
+                //ToDo delete 2 cells
+                cellObject = Instantiate(cellObject, new Vector3(
+                        randomCell.gridPosition.x * scaleFactor,        //x
+                        -1.5F,                                              //y
+                        randomCell.gridPosition.y * scaleFactor) * 2,   //z
+                        Quaternion.Euler(-90,0,0),                                        //quaternion
+                        transform                                       //transform
+                );
+            }
+            if (cellObject.Is2x2 == false)
+            {
+                Quaternion rotated = Quaternion.identity;
+                rotated.z = 90;
+                rotated.y = 90;
+                cellObject = Instantiate
+                (
+                        cellObject, 
+                        new Vector3(
+                        randomCell.gridPosition.x * scaleFactor,        //x
+                        0,                                              //y
+                        randomCell.gridPosition.y * scaleFactor) * 2,   //z
+                        rotated,                                        //quaternion
+                        transform                                       //transform
+                );
+                cellObject.transform.localScale = cellObject.transform.localScale * scaleFactor; //Scale ;
+            }
+            //Direct assigning of cellprefab: (obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
         }
     }
     private int GetWallCount(Cell[,] grid)
