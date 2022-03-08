@@ -16,12 +16,6 @@ public class boxtriggerhandler : MonoBehaviour
         SetVisableWhenEntering.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    public void call()
-    {
-        Debug.Log("Ping mouse");
-    }
-
     private void OnTriggerEnter(Collider other)
     {
             if(other == collsioninteract)
