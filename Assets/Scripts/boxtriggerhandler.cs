@@ -7,6 +7,7 @@ public class boxtriggerhandler : MonoBehaviour
 {
     public Collider collsioninteract;
     public Canvas SetVisableWhenEntering;
+    public bool UseCountdown;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +29,12 @@ public class boxtriggerhandler : MonoBehaviour
             Debug.Log(other.name + " has entered the dome");
             SetVisableWhenEntering.gameObject.SetActive(true);
             SetVisableWhenEntering.enabled = true;
-           countdown instance = SetVisableWhenEntering.GetComponent<countdown>();
-           // instance.OnEnable();
-            instance.callfortimer(5);
+            if(UseCountdown)
+            {
+                countdown instance = SetVisableWhenEntering.GetComponent<countdown>();
+                // instance.OnEnable();
+                instance.callfortimer(5);
+            }
         }
     }
     private void OnTriggerExit(Collider other)

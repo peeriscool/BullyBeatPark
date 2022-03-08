@@ -202,12 +202,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170151512}
   m_CullTransparentMesh: 1
---- !u!95 &255192543 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4198571413927812292, guid: 2442a295b7a315e45834b805edee06c4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1556575493180412384}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &394073311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,6 +1150,11 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4198571413927812292, guid: 2442a295b7a315e45834b805edee06c4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4897933881513441860, guid: 2442a295b7a315e45834b805edee06c4,
         type: 3}
       propertyPath: m_Avatar
@@ -1194,7 +1193,7 @@ PrefabInstance:
     - target: {fileID: 7765195025308984415, guid: 2442a295b7a315e45834b805edee06c4,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7765195025308984415, guid: 2442a295b7a315e45834b805edee06c4,
         type: 3}
@@ -1428,6 +1427,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1556575493180412384}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &8257626185500192156 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7765195025308984415, guid: 2442a295b7a315e45834b805edee06c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1556575493180412384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8257626185500192157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1440,7 +1445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87886db19069aac4b8fee99b942e1812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkedRig: {fileID: 255192543}
+  linkedRig: {fileID: 8257626185500192156}
 --- !u!4 &9104469278717513200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7765195024709639184, guid: 2442a295b7a315e45834b805edee06c4,
