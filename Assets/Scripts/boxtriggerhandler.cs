@@ -17,9 +17,9 @@ public class boxtriggerhandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void call()
     {
-        
+        Debug.Log("Ping mouse");
     }
 
     private void OnTriggerEnter(Collider other)
