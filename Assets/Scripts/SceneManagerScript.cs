@@ -14,6 +14,10 @@ public  class SceneManagerScript : MonoBehaviour
     {
         SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
     }
+    public static void DeppendScene(string SceneName)
+    {
+        SceneManager.UnloadSceneAsync(SceneName);
+    }
     public static void NextScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);

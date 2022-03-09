@@ -112,6 +112,17 @@ public class MazeGeneration : MonoBehaviour
                 cellObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                 cellObject.SpawnWalls(grid[x, y]);
                 allCellObjects.Add(cellObject.gameObject);
+                
+                
+               //generate exit at last cell of the maze 
+                if(x == width-1 && y == height-1)
+                {
+                    //last object in the maze
+                  GameObject end =  GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                    end.transform.position = new Vector3(x * scaleFactor, 1f,y * scaleFactor) * 2;
+                    end.transform.localScale = new Vector3(1, 3, 1);
+                    end.GetComponent<Renderer>().material.color = Color.red;
+                }
             }
         }
 

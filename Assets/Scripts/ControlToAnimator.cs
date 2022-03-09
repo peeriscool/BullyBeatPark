@@ -24,11 +24,11 @@ public class ControlToAnimator : MonoBehaviour
     }
     private void FixedUpdate()
     {
-     if(linkedRig.GetCurrentAnimatorStateInfo(0).IsName("mesh_001|walk"))
+     if(linkedRig.GetCurrentAnimatorStateInfo(0).IsName("WalkingInPlace"))
         {
-            Debug.Log(linkedRig.GetCurrentAnimatorStateInfo(0).IsName("mesh_001|walk"));
+            Debug.Log(linkedRig.GetCurrentAnimatorStateInfo(0).IsName("WalkingInPlace"));
             //linkedRig. .Play("mesh_001|walk");
-            linkedRig.GetCurrentAnimatorStateInfo(0).Equals("mesh_001|walk");
+            linkedRig.GetCurrentAnimatorStateInfo(0).Equals("WalkingInPlace");
         }
     }
     // Update is called once per frame
@@ -42,7 +42,7 @@ public class ControlToAnimator : MonoBehaviour
     {
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
-            ChangeAnimationState("mesh_001|walk");
+            ChangeAnimationState("walkingInPlace");
             //linkedRig.Play("mesh_001|walk");
             linkedRig.SetTrigger("Walk") ;
         }
@@ -53,19 +53,20 @@ public class ControlToAnimator : MonoBehaviour
 
         if (Keyboard.current.shiftKey.wasPressedThisFrame)
         {
-            ChangeAnimationState("mesh_001|walk");
+            ChangeAnimationState("WalkingInPlace_alt");
             //set walk speed to x2
             linkedRig.SetTrigger("Run");
             linkedRig.speed = 2;
         }
         if (Keyboard.current.shiftKey.wasReleasedThisFrame)
         {
-            linkedRig.ResetTrigger("Run");
             linkedRig.speed = 1;
+            linkedRig.ResetTrigger("Run");
+            
         }
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            ChangeAnimationState("mesh_001|Dive and get up");
+            ChangeAnimationState("StandingJump");
            // linkedRig.Play("mesh_001|Dive and get up");
             linkedRig.SetTrigger("Dive");
         }
@@ -75,7 +76,7 @@ public class ControlToAnimator : MonoBehaviour
         }
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            ChangeAnimationState("mesh_001|Zombie_Punch");
+            ChangeAnimationState("hook");
            // linkedRig.Play("mesh_001|Zombie_Punch");
             linkedRig.SetTrigger("punch");
             //punch

@@ -12,10 +12,11 @@ public class GameManager : MonoBehaviour
     public List<ScriptableEnemies> EnemyList;
     public int enemytick = 60;
     public List<GameObject> deployed;
-
+   
     //instances of classes
     private Enemy_Manager Enemy_Manager;
     private MazeGeneration mazegenerator;
+   // private  SceneManagerScript Manager;
     private static GameManager _instance; //this
     //--------------------------------------------------\\
 
@@ -52,6 +53,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Keyboard.current.escapeKey.wasReleasedThisFrame)
+        {
+            SceneManagerScript.AppendScene("ControlsExplination");
+            //call the controls menu
+        }
+
         //if (playerrefrence.GetComponent<BoxCollider>().)
         //Blackboard.EnemylocationPing()
     }
