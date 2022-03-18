@@ -8,7 +8,7 @@ public static class Blackboard
     public static int width;
     public static int height;
     private static GameObject selected;
-
+    public static bool levelfinished;
 
     public static void SelectEnemy(GameObject enemy)
     {
@@ -22,9 +22,14 @@ public static class Blackboard
     public static void Interactionrequest(string Command)
     {
         //to do: translate command or number to agent action
-        if(Command.Equals("come over here"))
+        if(Command.Equals("MarkEnemy"))
         {
            // selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
+            selected.GetComponent<Agent>().MarkEnemy();
+        }
+        if (Command.Equals("Hit"))
+        {
+            // selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
             selected.GetComponent<Agent>().TakeDamage();
         }
     }

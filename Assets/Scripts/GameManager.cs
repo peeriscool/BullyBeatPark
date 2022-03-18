@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(MazeGeneration))]
@@ -12,7 +13,9 @@ public class GameManager : MonoBehaviour
     public List<ScriptableEnemies> EnemyList;
     public int enemytick = 60;
     public List<GameObject> deployed;
-   
+    bool Isfininshed = true;
+    public Text FinishText; //hints the player to go to the end of the level
+    public Canvas FinishCanvas; //interactive canvas for menu navigating
     //instances of classes
     private Enemy_Manager Enemy_Manager;
     private MazeGeneration mazegenerator;
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
 
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
         
         Blackboard.height = mazegenerator.height;
         Blackboard.width = mazegenerator.width;
@@ -53,6 +56,20 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (deployed.Count == 0 && Isfininshed)
+        {
+
+            //all enemies killed
+            //inform player to get to the end of the level
+            FinishText.enabled = true;
+            if (Blackboard.levelfinished) //player has reached end of level
+            {
+                FinishCanvas.enabled = true;
+                FinishCanvas.gameObject.SetActive(true);
+                Isfininshed = false;
+            }
+        }
         if (Keyboard.current.escapeKey.wasReleasedThisFrame)
         {
             SceneManagerScript.AppendScene("ControlsExplination");
@@ -73,8 +90,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-   
-    void Fire()
+   public void EnemyDied(GameObject deceased)
+    {
+        deployed.Remove(deceased);
+        
+    }
+    void Regenarate()
     {
         mazegenerator.RegenarateMaze();
     }
@@ -84,7 +105,6 @@ public class GameManager : MonoBehaviour
         {
             Enemy_Manager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);//currently the maze is 150 by 150 units
             yield return new WaitForSeconds(enemytick);
-
         }
     }
 }

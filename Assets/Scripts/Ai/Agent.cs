@@ -5,6 +5,7 @@ public class Agent : MonoBehaviour
     public int moveButton = 0;
     public float moveSpeed = 3;
     public int actionindex = 0;
+    private int Hp = 3;
     private enum actions { idle,walk,run,die};
     private AstarV2 Astar = new AstarV2(Blackboard.width,Blackboard.height);
     private List<Vector2Int> path = new List<Vector2Int>();
@@ -62,7 +63,7 @@ public class Agent : MonoBehaviour
         List<Vector2Int> Rawpath = Astar.FindPathToTarget(Vector3ToVector2Int(transform.position.normalized / maze.width), targetPos, maze.grid);
         for (int i = 0; i < Rawpath.Count; i++)
         {
-            Rawpath[i] = Rawpath[i] * (maze.width / 4);
+            Rawpath[i] = Rawpath[i] * (int) (Blackboard.scalefactor *2); //(maze.width / 4); //works on 20x 20x on a scalefactor of 2.5 but is not a scaleble value!
         }
         path = Rawpath;
         DrawPath();
@@ -73,12 +74,32 @@ public class Agent : MonoBehaviour
         //}
         //path = Astar.FindPathToTarget(Vector3ToVector2Int(transform.position.normalized * 10), targetPos / 5, maze.grid); //normalized example 1.1 *10 = 11
     }
-    public void TakeDamage()
+    public void TakeDamage() //should hit childeren 3 times before they die
     {
+        Debug.Log(Hp + "Health points left");
+        
+        if(Hp == 0)
+        {
+            actionindex = 3;
+        }
+        else
+        {
+            Hp--;
+        }
+       
+    }
+      public void MarkEnemy() //makes enemies slower and track there path 
+    {
+        moveSpeed = 1;
         targetVisual.GetComponent<Renderer>().material.color = Color.red;
     }
     public void Update()
     {
+        if (actionindex == 3) //kill enemy 
+        {
+            GameManager.Instance.EnemyDied(this.gameObject);
+            Destroy(this.gameObject);
+        }
 
         if (path != null && path.Count > 0)
         {

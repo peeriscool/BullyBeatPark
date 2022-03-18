@@ -5,20 +5,34 @@ using UnityEngine.InputSystem;
 
 public class EnemyInteraction : MonoBehaviour
 {
-    //"come over here"
-    // Start is called before the first frame update
-    //void Start()
-    //{
-        
-    //}
+    public BoxCollider PlayerRange;
+    private bool Inrange;
 
-    // Update is called once per frame
     void Update()
     {
-        if(Keyboard.current.xKey.wasPressedThisFrame)
+        if (Inrange)
         {
-            Debug.Log(this.gameObject.name);
-            Blackboard.Interactionrequest("come over here");
+            if (Keyboard.current.xKey.wasPressedThisFrame)
+            {
+                Blackboard.Interactionrequest("MarkEnemy");
+            }
+
+            if (Keyboard.current.eKey.wasPressedThisFrame)
+            {
+                Blackboard.Interactionrequest("Hit");
+            }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Enemy")
+        {
+            Inrange = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Inrange = false;
     }
 }
