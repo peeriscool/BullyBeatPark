@@ -8,13 +8,13 @@ public class boxtriggerhandler : MonoBehaviour
     public Collider collsioninteract;
     public Canvas SetVisableWhenEntering;
     public bool UseCountdown;
+
     // Start is called before the first frame update
     void Start()
     {
         this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
         SetVisableWhenEntering.gameObject.SetActive(false);
     }
-
     private void OnTriggerEnter(Collider other)
     {
             if(other == collsioninteract)

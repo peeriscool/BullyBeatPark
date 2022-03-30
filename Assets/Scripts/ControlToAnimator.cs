@@ -21,17 +21,14 @@ public class ControlToAnimator : MonoBehaviour
     private void Update()
     {
         keycheck();
-    }
-    private void FixedUpdate()
-    {
-     if(linkedRig.GetCurrentAnimatorStateInfo(0).IsName("WalkingInPlace"))
+        if (linkedRig.GetCurrentAnimatorStateInfo(0).IsName("WalkingInPlace"))
         {
             Debug.Log(linkedRig.GetCurrentAnimatorStateInfo(0).IsName("WalkingInPlace"));
             //linkedRig. .Play("mesh_001|walk");
             linkedRig.GetCurrentAnimatorStateInfo(0).Equals("WalkingInPlace");
         }
     }
-    // Update is called once per frame
+
     void ChangeAnimationState(string newState)
     {
         if (currentState == newState) return;
@@ -77,7 +74,6 @@ public class ControlToAnimator : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             ChangeAnimationState("hook");
-           // linkedRig.Play("mesh_001|Zombie_Punch");
             linkedRig.SetTrigger("punch");
             //punch
         }

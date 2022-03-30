@@ -9,6 +9,7 @@ public static class Blackboard
     public static int height;
     private static GameObject selected;
     public static bool levelfinished;
+    public static bool UiHintToggle = true;
 
     public static void SelectEnemy(GameObject enemy)
     {

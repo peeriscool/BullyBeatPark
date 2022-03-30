@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private MazeGeneration mazegenerator;
    // private  SceneManagerScript Manager;
     private static GameManager _instance; //this
+    private bool InUi = false;
     //--------------------------------------------------\\
 
     public static GameManager Instance   //singleton implemenetation
@@ -68,11 +69,15 @@ public class GameManager : MonoBehaviour
                 FinishCanvas.enabled = true;
                 FinishCanvas.gameObject.SetActive(true);
                 Isfininshed = false;
+
             }
         }
         if (Keyboard.current.escapeKey.wasReleasedThisFrame)
         {
-            SceneManagerScript.AppendScene("ControlsExplination");
+            if(!InUi)
+            { SceneManagerScript.AppendScene("ControlsExplination"); InUi = true; }
+            if(InUi)
+            { SceneManagerScript.DeppendScene("ControlsExplination");InUi = false; }
             //call the controls menu
         }
 

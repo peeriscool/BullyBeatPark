@@ -45,11 +45,11 @@ public class Agent : MonoBehaviour
             line.positionCount = path.Count;
             for (int i = 0; i < path.Count; i++)
             {
-                line.SetPosition(i, Vector2IntToVector3(path[i], 0.1f) ); //* Blackboard.scalefactor?
+                line.SetPosition(i, Vector2IntToVector3(path[i], 0.1f) );
             } 
         }
         else {
-            Debug.Log(path + "non working paths"); //issue 3 times the paths are null
+            Debug.Log(path + "non working paths");
         }
     }
 
