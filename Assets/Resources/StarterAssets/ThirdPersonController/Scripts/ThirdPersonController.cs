@@ -220,11 +220,11 @@ namespace StarterAssets
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
-            if (_hasAnimator)
-            {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-            }
+            //if (_hasAnimator)
+            //{
+            //    _animator.SetFloat(_animIDSpeed, _animationBlend);
+            //    _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+            //}
         }
 
         private void JumpAndGravity()
@@ -254,10 +254,10 @@ namespace StarterAssets
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
                     // update animator if using character
-                    if (_hasAnimator)
-                    {
-                        _animator.SetBool(_animIDJump, true);
-                    }
+                    //if (_hasAnimator)
+                    //{
+                    //    _animator.SetBool(_animIDJump, true);
+                    //}
                 }
 
                 // jump timeout
@@ -279,10 +279,10 @@ namespace StarterAssets
                 else
                 {
                     // update animator if using character
-                    if (_hasAnimator)
-                    {
-                        _animator.SetBool(_animIDFreeFall, true);
-                    }
+                    //if (_hasAnimator)
+                    //{
+                    //    _animator.SetBool(_animIDFreeFall, true);
+                    //}
                 }
 
                 // if we are not grounded, do not jump

@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 2447240582901531066}
   - component: {fileID: 764426073433253892}
   m_Layer: 5
-  m_Name: Image
+  m_Name: TruckImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
