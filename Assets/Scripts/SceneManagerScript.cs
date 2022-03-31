@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public  class SceneManagerScript : MonoBehaviour
 {
+    public static string returnactivescene()
+    {
+      return SceneManager.GetActiveScene().name.ToString();
+    }
     public static void callScenebyname(string SceneName)
     {
         SceneManager.LoadScene(SceneName);
+        
     }
 
     public static void AppendScene(string SceneName)
