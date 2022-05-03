@@ -19,11 +19,15 @@ public class PlayerBehavoir : MonoBehaviour
     // TODO punch behavior
     private void Update()
     {
-        if (SceneManagerScript.returnactivescene() == "Level_1 1")
+    }
+    public void ereaseplayer()
+    {
+        //to do save inventory
+        foreach (GameObject item in essentails)
         {
-            //to do save inventory
-            Destroy(this.gameObject);
+            Destroy(item);
         }
+        Destroy(this.gameObject);
     }
  
 }

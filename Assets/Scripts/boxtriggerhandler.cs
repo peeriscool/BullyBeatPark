@@ -8,14 +8,14 @@ public class boxtriggerhandler : MonoBehaviour
     public Collider collsioninteract;
     public Canvas SetVisableWhenEntering;
     public bool UseCountdown;
-    public bool useplayerascollider;
+    public bool deleteplayer;
+
 
     // Start is called before the first frame update
     void Start()
     {
         if(collsioninteract == null)
         {
-            useplayerascollider = true;
             collsioninteract = Blackboard.player.GetComponent<Collider>();
                 
         }
@@ -31,6 +31,17 @@ public class boxtriggerhandler : MonoBehaviour
             SetVisableWhenEntering.enabled = true;
             if(UseCountdown)
             {
+            ;
+                if(deleteplayer)
+                {
+                    //to do save inventory
+                    foreach (GameObject item in Blackboard.player.GetComponent<PlayerBehavoir>().essentails)
+                    {
+                        Destroy(item);
+                    }
+                    Destroy(Blackboard.player.gameObject);
+
+                }
                 countdown instance = SetVisableWhenEntering.GetComponent<countdown>();
                 // instance.OnEnable();
                 instance.callfortimer(5);
