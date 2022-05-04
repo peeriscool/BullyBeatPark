@@ -30,7 +30,7 @@ public class Enemy_Manager
     {
         return Spawnpoints;
     }
-    public Vector3 getybyindex(int i)
+    public Vector3 getybyindex(int i)///asigns 1 of the predefined spawnpoints in the object
     {
         return Spawnpoints[i];
     }

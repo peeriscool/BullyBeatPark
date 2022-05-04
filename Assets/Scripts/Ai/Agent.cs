@@ -18,12 +18,8 @@ public class Agent : MonoBehaviour
     {
         maze = FindObjectOfType<MazeGeneration>();
         renderer = GetComponentInChildren<MeshRenderer>();
-        targetVisual = this.gameObject; //GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //targetVisual.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        //targetVisual.GetComponent<MeshRenderer>().material.color = renderer.material.color;
+        targetVisual = this.gameObject; 
         line = GetComponent<LineRenderer>();
-        // Debug.Log(renderer.material.color);
-        // line.material.color = renderer.material.color;
         line.material.color = Color.white;
     }
 
@@ -58,9 +54,9 @@ public class Agent : MonoBehaviour
     public void WalkTo(Vector3 location)
     {
         Vector2Int targetPos = Vector3ToVector2Int(location); 
-        Debug.Log("i " + this.gameObject.name + Vector3ToVector2Int(transform.position.normalized * maze.width) + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
+        Debug.Log("i " + this.gameObject.name + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
        
-        List<Vector2Int> Rawpath = Astar.FindPathToTarget(Vector3ToVector2Int(transform.position.normalized / maze.width), targetPos, maze.grid);
+        List<Vector2Int> Rawpath = Astar.FindPathToTarget(Vector3ToVector2Int(transform.position), targetPos, maze.grid);
         for (int i = 0; i < Rawpath.Count; i++)
         {
             Rawpath[i] = Rawpath[i] * (int) (Blackboard.scalefactor *2); //(maze.width / 4); //works on 20x 20x on a scalefactor of 2.5 but is not a scaleble value!

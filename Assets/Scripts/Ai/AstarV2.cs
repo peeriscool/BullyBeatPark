@@ -7,18 +7,16 @@ public class AstarV2
     float height;
     Cell[,] Grid;
 
-    public AstarV2() { }
     public AstarV2(float _width, float _height)
     {
         width = _width;
         height = _height;
-     //   Debug.Log("i know were i am i work here"+ Grid);
     }
-    public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid)
+    public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid) //
     {
         if (startPos.x >= width) { Debug.Log("value outside of grid!" + startPos.x + "size:" + width); } //debug code
         List<Node> OpenSet = new List<Node>(); //has to be filled
-        Node[,] AllNodes = GridToNotes(grid, startPos, endPos); //maybe array would be better here
+        Node[,] AllNodes = GridToNodes(grid, startPos, endPos); //maybe array would be better here
         HashSet<Node> ClosedSet = new HashSet<Node>(); //final path
         width = grid.GetLength(0);
         height = grid.GetLength(1);
@@ -104,14 +102,12 @@ public class AstarV2
     }
     public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Node[,] griddata)
     {
-       
-        Cell[,] grid = Grid;
-        grid = CellsToNodes(griddata);
-        List<Node> OpenSet = new List<Node>(); //has to be filled
-        Node[,] AllNodes = GridToNotes(grid, startPos, endPos); //maybe array would be better here
-        HashSet<Node> ClosedSet = new HashSet<Node>(); //final path
-        width = grid.GetLength(0);
-        height = grid.GetLength(1);
+        Cell[,] grid = NodetoCell(griddata);
+        List<Node> OpenSet = new List<Node>(); 
+        Node[,] AllNodes = GridToNodes(grid, startPos, endPos);
+        HashSet<Node> ClosedSet = new HashSet<Node>();
+        width = grid.GetLength(0); //get length of first array
+        height = grid.GetLength(1);//get length of Second array
         Grid = grid;
 
         Node StartNode = new Node(startPos, null, 0, 0);
@@ -191,14 +187,15 @@ public class AstarV2
         }
         return null;
     }
-    int GetDistance(Node A, Node B)
+    int GetDistance(Node A, Node B) // 
     {
+        //grid position between 2 nodes
         int disX = Mathf.Abs(A.position.x - B.position.x);
         int disY = Mathf.Abs(A.position.y - B.position.y);
 
         if (disX > disY)
         {
-            return 14 * disY + 10 * (disX - disY);
+            return 14 * disY + 10 * (disX - disY); //if the x distance is bigger 14 * vertical + 10 * (diagnal distance) else use horizontal
         }
         else return 14 * disX + 10 * (disY - disX);
     }
@@ -235,7 +232,7 @@ public class AstarV2
         path.Reverse();
         return path;
     }
-    private Node[,] GridToNotes(Cell[,] _Grid, Vector2Int _StartPos, Vector2Int _EndPos) //gets a grid and converts them to notes and calculates Hscore
+    private Node[,] GridToNodes(Cell[,] _Grid, Vector2Int _StartPos, Vector2Int _EndPos) //gets a grid and converts them to notes and calculates Hscore
     {
         Node[,] nodes = new Node[_Grid.GetLength(0), _Grid.GetLength(1)];
         float H = 0;
@@ -272,19 +269,9 @@ public class AstarV2
             this.HScore = HScore;
         }
     }
-    public Cell[,] CellsToNodes(Node[,] Nodelist)
+    public Cell[,] NodetoCell(Node[,] Nodelist)
     {
         Cell[,] value = new Cell[Nodelist.Length, Nodelist.Length];
-        for (int i = 0; i < Nodelist.Length; i++)
-        {
-
-        }
-        //foreach (Cell a in Nodelist)
-        //{
-        //    Cell newnode = new Cell();
-        //    newnode.position = a.gridPosition;
-        //   // newnode.parent
-        //}
         return value;
     }
 }

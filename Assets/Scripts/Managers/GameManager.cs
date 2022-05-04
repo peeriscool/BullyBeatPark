@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     //active game data
     public GameObject playerrefrence;
     public List<ScriptableEnemies> EnemyList;
-    public int enemytick = 60;
+    public int enemytick;
     public List<GameObject> deployed;
     bool Isfininshed = true;
     public Text FinishText; //hints the player to go to the end of the level
@@ -52,13 +52,16 @@ public class GameManager : MonoBehaviour
         
         deployed = new List<GameObject>();
         SpawnEnemies();
-        StartCoroutine("TickEnemies");
+       
     }
 
     private void Update()
     {
-
-        if (deployed.Count == 0 && Isfininshed)
+        if(Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            StartCoroutine(TickEnemies(1));
+        }
+        if (deployed.Count == 0 && Isfininshed) //win condition
         {
 
             //all enemies killed
@@ -86,13 +89,15 @@ public class GameManager : MonoBehaviour
     }
     protected void SpawnEnemies()
     {
+      
         Enemy_Manager = new Enemy_Manager(EnemyList);
         List<GameObject> deployables = Enemy_Manager.SpawnableEnemies();
         for (int i = 0; i < Enemy_Manager.spawnpoints().Count; i++)
         {
-            deployed.Add(Instantiate(deployables[i], Enemy_Manager.getybyindex(i), new Quaternion()));
+            deployed.Add(Instantiate(deployables[i], Enemy_Manager.getybyindex(i), new Quaternion())); 
             Debug.Log("Spawning at "+deployables[i].name + " at " +deployables[i].transform.position);
         }
+        StartCoroutine(TickEnemies(0));
     }
 
    public void EnemyDied(GameObject deceased)
@@ -104,12 +109,13 @@ public class GameManager : MonoBehaviour
     {
         mazegenerator.RegenarateMaze();
     }
-    public IEnumerator TickEnemies() //give enmies new commands every x seconds
+    public IEnumerator TickEnemies(int duration) //give enmies new commands every x seconds
     {
         while (true)
         {
-            Enemy_Manager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);//currently the maze is 150 by 150 units
-            yield return new WaitForSeconds(enemytick);
+            Enemy_Manager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);//who/x/y
+            yield return new WaitForSeconds(duration);
+            break;
         }
     }
 }
