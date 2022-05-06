@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class MazeGeneration : MonoBehaviour
 {
-    public int width = 10, height = 10;
+    public int width, height;
     public Cell[,] grid;
-    public float scaleFactor = 1;
+    public float scaleFactor;
 
     public List<CellPrefab> CellList;
     public List<CellPrefab> obstacles;
@@ -131,47 +131,47 @@ public class MazeGeneration : MonoBehaviour
         }
 
         //Generate obstacles and others
-        List<int> RandomRow = MazeStructures.RowControl(height, width); //gives back a list of number based on every row.
-        foreach (int item in RandomRow)
-        {
-            //asign random location onrow
-            int randomX = Random.Range(0, width); 
-            int randomY = Random.Range(0, height);
-            Cell randomCell = grid[item, randomY]; //asign cell
+        //List<int> RandomRow = MazeStructures.RowControl(height, width); //gives back a list of number based on every row.
+        //foreach (int item in RandomRow)
+        //{
+        //    //asign random location onrow
+        //    int randomX = Random.Range(0, width); 
+        //    int randomY = Random.Range(0, height);
+        //    Cell randomCell = grid[item, randomY]; //asign cell
 
-            //transform isues
-            // new Quaternion(0,1,0,1) BRIDGE length
-            CellPrefab cellObject = obstacles[Random.Range(0, obstacles.Count)];
-            if(cellObject.Is2x2 == true)
-            {
-                //ToDo delete 2 cells
-                cellObject = Instantiate(cellObject, new Vector3(
-                        randomCell.gridPosition.x * scaleFactor,        //x
-                        -1.5F,                                              //y
-                        randomCell.gridPosition.y * scaleFactor) * 2,   //z
-                        Quaternion.Euler(-90,0,0),                                        //quaternion
-                        transform                                       //transform
-                );
-            }
-            if (cellObject.Is2x2 == false)
-            {
-                Quaternion rotated = Quaternion.identity;
-                rotated.z = 90;
-                rotated.y = 90;
-                cellObject = Instantiate
-                (
-                        cellObject, 
-                        new Vector3(
-                        randomCell.gridPosition.x * scaleFactor,        //x
-                        0,                                              //y
-                        randomCell.gridPosition.y * scaleFactor) * 2,   //z
-                        rotated,                                        //quaternion
-                        transform                                       //transform
-                );
-                cellObject.transform.localScale = cellObject.transform.localScale * scaleFactor; //Scale ;
-            }
-            //Direct assigning of cellprefab: (obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
-        }
+        //    //transform isues
+        //    // new Quaternion(0,1,0,1) BRIDGE length
+        //    CellPrefab cellObject = obstacles[Random.Range(0, obstacles.Count)];
+        //    if(cellObject.Is2x2 == true)
+        //    {
+        //        //ToDo delete 2 cells
+        //        cellObject = Instantiate(cellObject, new Vector3(
+        //                randomCell.gridPosition.x * scaleFactor,        //x
+        //                -1.5F,                                              //y
+        //                randomCell.gridPosition.y * scaleFactor) * 2,   //z
+        //                Quaternion.Euler(-90,0,0),                                        //quaternion
+        //                transform                                       //transform
+        //        );
+        //    }
+        //    if (cellObject.Is2x2 == false)
+        //    {
+        //        Quaternion rotated = Quaternion.identity;
+        //        rotated.z = 90;
+        //        rotated.y = 90;
+        //        cellObject = Instantiate
+        //        (
+        //                cellObject, 
+        //                new Vector3(
+        //                randomCell.gridPosition.x * scaleFactor,        //x
+        //                0,                                              //y
+        //                randomCell.gridPosition.y * scaleFactor) * 2,   //z
+        //                rotated,                                        //quaternion
+        //                transform                                       //transform
+        //        );
+        //        cellObject.transform.localScale = cellObject.transform.localScale * scaleFactor; //Scale ;
+        //    }
+        //    //Direct assigning of cellprefab: (obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
+        //}
     }
     private int GetWallCount(Cell[,] grid)
     {
@@ -303,70 +303,3 @@ public enum Wall
     RIGHT = 0x4,
     DOWN = 0x8
 }
-
-/*
-        //for (int x = 0; x < width; x++)
-        //{
-        //    for (int y = 0; y < height; y++)
-        //    {
-        //        Quaternion rotated = Quaternion.identity;
-        //        rotated.z = 90;
-        //        rotated.y = 90;
-        //        //  CellPrefab cellObject = Instantiate(CellList[Random.Range(0,CellList.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor)*2, rotated, transform);
-        //        // Missile missileCopy = Instantiate<Missile>(missile);
-        //        foreach (CellPrefab item in )
-        //        {
-        //            CellPrefab cell = Instantiate<CellPrefab>(item);
-        //            cell.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-        //            // cell.SpawnWalls(grid[x, y]);
-        //            // allCellObjects.Add(cellObject.gameObject);
-        //        }
-
-        //    }
-        //}
-        #region 
-        //int index = 0;
-        //List<int> row = new List<int>();
-        //int randomrow = Random.Range(0, width);
-        // for (int x = 0; x < width; x++)
-        // {
-        //    for (int y = 0; y < height; y++)
-        //    {
-        //        if (index == 0)
-        //        {
-
-        //        }
-        //        if(index!= y && !row.Contains(y))
-        //        {
-        //            index = y;
-        //            row.Add(index);
-        //            Debug.Log(y + "H");
-
-        //        }
-        //        if (x == randomrow)
-        //        {
-        //            Quaternion rotated = Quaternion.identity;
-        //            rotated.z = 90;
-        //            rotated.y = 90;
-        //            CellPrefab cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor)*2, rotated, transform);
-        //            cellObject.transform.localScale = cellObject.transform.localScale * 24;
-        //           //cellObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-        //        //    allCellObjects.Add(cellObject.gameObject);
-        //        }
-        //        // Debug.Log(x + "W");
-
-        //        //   int randomX = Random.Range(0, width);
-        //        //   int randomY = Random.Range(0, height);
-        //        //   Cell randomCell = grid[randomX, randomY];
-        //        //   List<Cell> neighbours = GetNeighbours(randomCell);
-        //        ////   Quaternion rotated = Quaternion.identity;
-        //        ////   rotated.z = 90;
-        //        ////   rotated.y = 90;
-        //        //   CellPrefab cellObject = Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(scaleFactor, 0, scaleFactor), transform.rotation, transform); //scale is for location?
-        //        //   cellObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-        //        //   cellObject.SpawnWalls(grid[x, y]);
-        //        //   allCellObjects.Add(cellObject.gameObject);
-        //    }
-        // }
-        #endregion
-*/

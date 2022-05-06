@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class countdown : MonoBehaviour
+public class countdown : MonoBehaviour //IEnumerator countdown to go to next scene
 {
     public int scenenumnext;
     public Text numbercountdown;

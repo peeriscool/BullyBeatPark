@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class boxtriggerhandler : MonoBehaviour
+public class boxtriggerhandler : MonoBehaviour //level triggering script communicating with countdown
 {
     public Collider collsioninteract;
     public Canvas SetVisableWhenEntering;

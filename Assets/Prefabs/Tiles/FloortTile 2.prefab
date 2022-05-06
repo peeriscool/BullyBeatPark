@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1018544473765272647}
   m_Layer: 6
   m_Name: FloortTile 2
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,3 +110,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallPrefab: {fileID: 1442959255232738744, guid: c0f9053883262994ab18f8407f0cb360,
     type: 3}
+  Is2x2: 0

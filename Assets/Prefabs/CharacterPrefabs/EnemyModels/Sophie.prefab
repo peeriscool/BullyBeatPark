@@ -15,8 +15,6 @@ GameObject:
   - component: {fileID: 7306025058658064257}
   - component: {fileID: 5008687093896182992}
   - component: {fileID: -7822634439485830840}
-  - component: {fileID: 3749898508518275108}
-  - component: {fileID: -4937477718590058135}
   m_Layer: 0
   m_Name: Sophie
   m_TagString: Enemy
@@ -103,6 +101,7 @@ MonoBehaviour:
   moveButton: 0
   moveSpeed: 9
   actionindex: 0
+  location: {x: 0, y: 0}
 --- !u!120 &5008687093896182992
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -122,7 +121,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 84b9e1d19d11078d11005b9844295342, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -242,36 +241,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3749898508518275108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 11656411613138087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969eddd3c7b9c8649af8fe270fcaa9f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveButton: 0
-  moveSpeed: 3
-  actionindex: 0
---- !u!114 &-4937477718590058135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 11656411613138087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969eddd3c7b9c8649af8fe270fcaa9f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveButton: 0
-  moveSpeed: 3
-  actionindex: 0
 --- !u!1 &896176516073593268
 GameObject:
   m_ObjectHideFlags: 0

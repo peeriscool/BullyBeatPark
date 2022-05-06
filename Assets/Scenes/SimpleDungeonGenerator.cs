@@ -13,12 +13,12 @@ public class SimpleDungeonGenerator : MonoBehaviour
     public int MaxWidth = 7;
     public int MinRoomSize = 4; //roomsize
     public int MaxRoomSize = 13; //roomsize
-    public enum tiletype {floor,wall};
-    public Dictionary<Vector3Int, tiletype> dungeon = new Dictionary<Vector3Int, tiletype>();
-    public Dictionary<Vector3Int, tiletype> map2 = new Dictionary<Vector3Int, tiletype>();
+    public enum Tiletype {floor,wall};
+    public Dictionary<Vector3Int, Tiletype> dungeon = new Dictionary<Vector3Int, Tiletype>();
+    public Dictionary<Vector3Int, Tiletype> map2 = new Dictionary<Vector3Int, Tiletype>();
     public List<GameObject> instanced = new List<GameObject>();
     public List<Room> RoomList = new List<Room>();
-    public List<obstruction> obstructionList = new List<obstruction>();
+    public List<Obstruction> obstructionList = new List<Obstruction>();
     ///ProTips:
     /// ctrl x knipt by default hele regels
     /// ctrl-rr voor alles renamen
@@ -55,7 +55,7 @@ public class SimpleDungeonGenerator : MonoBehaviour
             int maxZ = minZ + Random.Range(MinRoomSize, MaxRoomSize + 1);
             //check if room collides or tiles already used 
             Room room = new Room(minX,maxX,minZ,maxZ);
-            obstruction wall = new obstruction(minX, maxX, minZ, maxZ);
+            Obstruction wall = new Obstruction(minX, maxX, minZ, maxZ);
             if (Roomcheck(room))
             {
                 
@@ -67,35 +67,35 @@ public class SimpleDungeonGenerator : MonoBehaviour
                 i--; //to make sure we get all the rooms
             }
         }
-        spawndungeon();
+        Spawndungeon();
         //Conncet Rooms with bridges
         //generate dungeon
 
     }
-    public void spawndungeon()
+    public void Spawndungeon()
     {
-        foreach (KeyValuePair<Vector3Int,tiletype> kv in dungeon)
+        foreach (KeyValuePair<Vector3Int,Tiletype> kv in dungeon)
         {
             switch (kv.Value)
             {
-                case tiletype.floor:
+                case Tiletype.floor:
                     instanced.Add(Instantiate(FloorPrefab, kv.Key, Quaternion.Euler(-90,0,0), transform));
                     break;
 
-                case tiletype.wall:
+                case Tiletype.wall:
                //     Instantiate(WallPrefab, kv.Key,Quaternion.identity, transform);
                     break;
             }
         }
-        foreach (KeyValuePair<Vector3Int, tiletype> kv in map2)
+        foreach (KeyValuePair<Vector3Int, Tiletype> kv in map2)
         {
             switch (kv.Value)
             {
-                case tiletype.floor:
+                case Tiletype.floor:
                  //   Instantiate(FloorPrefab, kv.Key, Quaternion.Euler(-90, 0, 0), transform);
                     break;
 
-                case tiletype.wall:
+                case Tiletype.wall:
                     instanced.Add(Instantiate(WallPrefab, kv.Key, Quaternion.Euler(-90, 0, 0), transform));
                     break;
             }
@@ -108,14 +108,14 @@ public class SimpleDungeonGenerator : MonoBehaviour
         {
             for (int z = room.minZ; z < room.maxZ; z++)
             {
-                dungeon.Add(new Vector3Int(x,0,z),tiletype.floor);
+                dungeon.Add(new Vector3Int(x,0,z),Tiletype.floor);
                
             }
         }
         RoomList.Add(room);
 
     }
-    public void AddWallToDungeon(obstruction wall, Dictionary<Vector3Int,tiletype> map)
+    public void AddWallToDungeon(Obstruction wall, Dictionary<Vector3Int,Tiletype> map)
     {
         for (int x = wall.minX; x < wall.maxX; x++) //save in dictonary
         {
@@ -123,7 +123,7 @@ public class SimpleDungeonGenerator : MonoBehaviour
             {
                 try
                 {
-                    map.Add(new Vector3Int(x, 0, z), tiletype.wall);
+                    map.Add(new Vector3Int(x, 0, z), Tiletype.wall);
                 }
                 catch (System.Exception)
                 {
@@ -165,10 +165,10 @@ public class Room
     }
 
 }
-public class obstruction
+public class Obstruction
 {
     public int minX, maxX, minZ, maxZ;
-    public obstruction(int _minX, int _maxX, int _minZ, int _maxZ)
+    public Obstruction(int _minX, int _maxX, int _minZ, int _maxZ)
     {
         minX = _minX;
         maxX = _maxX;
@@ -177,3 +177,21 @@ public class obstruction
     }
 
 }
+
+/*  public void triggerMazeGeneration() //valentijn code
+    {
+        // Create action that binds to the primary action control on all devices.
+        var action = new InputAction(binding: "
+{ primaryAction}
+");
+
+        // Have it run your code when action is triggered.
+action.performed += _ => Fire();
+
+// Start listening for control changes.
+action.Enable();
+        // Keyboard.current[KeyCode.Space].wasPressedThisFrame;
+
+
+    }
+*/

@@ -14,9 +14,11 @@ public class AstarV2
     }
     public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid) //
     {
-        if (startPos.x >= width) { Debug.Log("value outside of grid!" + startPos.x + "size:" + width); } //debug code
+        if (startPos.x >= width) { Debug.Log("current location outside of grid!" + startPos.x + "size:" + width); } //debug code
+        if (endPos.x >= width) { Debug.Log("go to is outside of grid!" + endPos.x + "size:" + width); } //debug code
+
         List<Node> OpenSet = new List<Node>(); //has to be filled
-        Node[,] AllNodes = GridToNodes(grid, startPos, endPos); //maybe array would be better here
+        Node[,] AllNodes = GridToNodes(grid, startPos, endPos); //maybe array would be better here because of number 0
         HashSet<Node> ClosedSet = new HashSet<Node>(); //final path
         width = grid.GetLength(0);
         height = grid.GetLength(1);

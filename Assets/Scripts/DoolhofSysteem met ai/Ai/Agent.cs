@@ -5,6 +5,7 @@ public class Agent : MonoBehaviour
     public int moveButton = 0;
     public float moveSpeed = 3;
     public int actionindex = 0;
+    public Vector2Int location = new Vector2Int();
     private int Hp = 3;
     private enum actions { idle,walk,run,die};
     private AstarV2 Astar = new AstarV2(Blackboard.width,Blackboard.height);
@@ -14,6 +15,7 @@ public class Agent : MonoBehaviour
     private GameObject targetVisual;
     private MazeGeneration maze;
     private LineRenderer line;
+    private int pathcounter = 0;
     private void Awake()
     {
         maze = FindObjectOfType<MazeGeneration>();
@@ -28,7 +30,7 @@ public class Agent : MonoBehaviour
         path = Astar.FindPathToTarget(startPos, endPos, grid);
         for (int i = 0; i < path.Count; i++)
         {
-            path[i] = path[i] * 5; //should set the path to the world position
+            path[i] = path[i]; //should set the path to the world position
         }
         DrawPath();
     }
@@ -48,28 +50,20 @@ public class Agent : MonoBehaviour
             Debug.Log(path + "non working paths");
         }
     }
-
-
     //Move to clicked position
-    public void WalkTo(Vector3 location)
-    {
+    public void WalkTo(Vector3 location,Vector2Int current)
+    {  
         Vector2Int targetPos = Vector3ToVector2Int(location); 
-        Debug.Log("i " + this.gameObject.name + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
-       
-        List<Vector2Int> Rawpath = Astar.FindPathToTarget(Vector3ToVector2Int(transform.position), targetPos, maze.grid);
+        Debug.Log("i " + this.gameObject.name +"At " + current + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
+        List<Vector2Int> Rawpath = Astar.FindPathToTarget(current, targetPos, maze.grid);
+
         for (int i = 0; i < Rawpath.Count; i++)
         {
-            Rawpath[i] = Rawpath[i] * (int) (Blackboard.scalefactor *2); //(maze.width / 4); //works on 20x 20x on a scalefactor of 2.5 but is not a scaleble value!
+            Rawpath[i] = Rawpath[i] * (int) (Blackboard.scalefactor *2);
         }
         path = Rawpath;
         DrawPath();
-        // targetVisual.transform.position = Vector2IntToVector3(targetPos); 
-        //for (int i = 0; i < Rawpath.Count; i++)
-        //{
-        //    Rawpath[i] = Rawpath[i] * 5;
-        //}
-        //path = Astar.FindPathToTarget(Vector3ToVector2Int(transform.position.normalized * 10), targetPos / 5, maze.grid); //normalized example 1.1 *10 = 11
-    }
+        }
     public void TakeDamage() //should hit childeren 3 times before they die
     {
         Debug.Log(Hp + "Health points left");
@@ -81,8 +75,7 @@ public class Agent : MonoBehaviour
         else
         {
             Hp--;
-        }
-       
+        }  
     }
       public void MarkEnemy() //makes enemies slower and track there path 
     {
@@ -91,47 +84,39 @@ public class Agent : MonoBehaviour
     }
     public void Update()
     {
-        if (actionindex == 3) //kill enemy 
-        {
-            GameManager.Instance.EnemyDied(this.gameObject);
-            Destroy(this.gameObject);
-        }
+        //if (actionindex == 3) //kill enemy 
+        //{
+        //    GameManager.Instance.EnemyDied(this.gameObject);
+        //    Destroy(this.gameObject);
+        //}
 
         if (path != null && path.Count > 0)
         {
-            if (transform.position != Vector2IntToVector3(path[0]))
-            {
+            if (transform.position != Vector2IntToVector3(path[0])) //moving
+            {      
                 actionindex = 1;
-                // transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);
                 transform.position = Vector3.MoveTowards(transform.position, Vector2IntToVector3(path[0]), moveSpeed * Time.deltaTime); //transform.position
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);
-                /*
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);
-                Vector3 pos = Vector3.MoveTowards(transform.position, Vector2IntToVector3(path[0]), moveSpeed * Time.deltaTime); //transform.position
-                this.GetComponent<Rigidbody>().MovePosition(pos);
-                */
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);               
             }
             else
             {
-               // Debug.Log(path.Count + "Path control for" + gameObject.name);
+                location = path[0]/4; //location /4 = ~gridsize   
+                Debug.Log("location of "+ this.name +"=" + location);// Debug.Log(path.Count + "Path control for" + gameObject.name);
                 actionindex = 0;
                 path.RemoveAt(0);
                 DrawPath();
             }
+            
         }
-        
-  
     }
-    public Vector3 MouseToWorld()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        float distToGround = -1f;
-        ground.Raycast(ray, out distToGround);
-        Vector3 worldPos = ray.GetPoint(distToGround);
-
-        return worldPos;
-    }
+    //public Vector3 MouseToWorld()
+    //{
+    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //    float distToGround = -1f;
+    //    ground.Raycast(ray, out distToGround);
+    //    Vector3 worldPos = ray.GetPoint(distToGround);
+    //    return worldPos;
+    //}
 
     private Vector2Int Vector3ToVector2Int(Vector3 pos)
     {
