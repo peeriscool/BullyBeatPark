@@ -23,10 +23,10 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.61
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: f73388aec2bcdbf48af7d7227a1d59bb, type: 2}
   m_HaloStrength: 0.569
   m_FlareStrength: 0.536
   m_FlareFadeSpeed: 3
@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
+  m_Sun: {fileID: 504187116}
+  m_IndirectSpecularColor: {r: 0.9614517, g: 0.9946355, b: 1.0775676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -178,7 +178,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.44
+  m_Intensity: 0.08
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -910,7 +910,7 @@ PrefabInstance:
     - target: {fileID: 2879562565744896837, guid: 486b52033fb5ce84a853cfc9458d4021,
         type: 3}
       propertyPath: near clip plane
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2879562565744896839, guid: 486b52033fb5ce84a853cfc9458d4021,
         type: 3}
@@ -992,25 +992,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
-  m_ActionsAsset: {fileID: -944628639613478452, guid: 7dead05c54ca85b4681351aafd8bd03a,
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: 87016701508393817, guid: 7dead05c54ca85b4681351aafd8bd03a,
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_SubmitAction: {fileID: 2083516769760218763, guid: 4419d82f33d36e848b3ed5af4c8da37e,
+  m_MoveAction: {fileID: -1680190386980627800, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_CancelAction: {fileID: -4100577709878604115, guid: 4419d82f33d36e848b3ed5af4c8da37e,
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_LeftClickAction: {fileID: 8869000069951455580, guid: 7dead05c54ca85b4681351aafd8bd03a,
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_MiddleClickAction: {fileID: 6329620052389121472, guid: 4419d82f33d36e848b3ed5af4c8da37e,
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_RightClickAction: {fileID: 1820371378793222660, guid: 4419d82f33d36e848b3ed5af4c8da37e,
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_ScrollWheelAction: {fileID: 2975022137192793729, guid: 4419d82f33d36e848b3ed5af4c8da37e,
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_TrackedDevicePositionAction: {fileID: 0}
-  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
   m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 2
 --- !u!114 &1423137943
@@ -1146,8 +1149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collsioninteract: {fileID: 0}
   SetVisableWhenEntering: {fileID: 595885393}
-  UseCountdown: 0
-  deleteplayer: 0
 --- !u!65 &1865202653
 BoxCollider:
   m_ObjectHideFlags: 0

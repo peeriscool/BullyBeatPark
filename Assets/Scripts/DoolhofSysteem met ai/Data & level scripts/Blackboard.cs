@@ -3,36 +3,38 @@ using UnityEngine;
 
 public static class Blackboard
 {
-    public static GameObject player;
-    public static float scalefactor;
     public static List<GameObject> Enemies;
+    public static GameObject player;
+
+    public static float scalefactor;
     public static int width;
     public static int height;
-    private static GameObject selected;
+    
     public static bool levelfinished;
     public static bool UiHintToggle = true;
 
+    private static GameObject enemyrange;
+
     public static void SelectEnemy(GameObject enemy)
     {
-        selected = enemy;
-        
+        enemyrange = enemy;    
     }
     public static void EnemylocationPing()
     {
-        Debug.Log(selected.transform.position + "Is in the player range");
+        Debug.Log(enemyrange.transform.position + "Is in the player range");
     }
     public static void Interactionrequest(string Command)
     {
         //to do: translate command or number to agent action
         if(Command.Equals("MarkEnemy"))
         {
-           // selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
-            selected.GetComponent<Agent>().MarkEnemy();
+            // selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
+            enemyrange.GetComponent<Agent>().MarkEnemy();
         }
         if (Command.Equals("Hit"))
         {
             // selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
-            selected.GetComponent<Agent>().TakeDamage();
+            enemyrange.GetComponent<Agent>().TakeDamage();
         }
     }
 }
