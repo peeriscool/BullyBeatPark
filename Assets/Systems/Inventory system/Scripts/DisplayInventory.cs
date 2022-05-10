@@ -9,6 +9,7 @@ using UnityEngine.Events;
 public class DisplayInventory : MonoBehaviour
 {
     public InventoryObject inventory; //displayed inventory
+    public ItemInteraction activeinventory;
     public int X_start; //horizontal offset
     public int Y_start; //vertical offset
     public int X_Spacer;
@@ -18,6 +19,11 @@ public class DisplayInventory : MonoBehaviour
     Dictionary<InventorySlot, GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
     private void Start()
     {
+        if(activeinventory != null & inventory == null) //use item interaction inventory when we have no inventory
+        {
+            inventory = activeinventory.inventory;
+        }
+
         CreateDisplay();
     }
     private void Update()

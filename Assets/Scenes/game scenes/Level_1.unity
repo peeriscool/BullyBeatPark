@@ -331,6 +331,11 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3468059429517699877, guid: 75c3ff9c951e54c4c81d576aab3b752d,
+        type: 3}
+      propertyPath: activeinventory
+      value: 
+      objectReference: {fileID: 919132148389708250}
     - target: {fileID: 3468059429517699878, guid: 75c3ff9c951e54c4c81d576aab3b752d,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -2085,7 +2090,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853c2677189fa9a4795223d4b00a964d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
   cursor: {fileID: 1873160407}
+  clicktrigger: 0
+  camtrigger: 0
+  origin: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
 --- !u!1 &1779627191
 GameObject:
   m_ObjectHideFlags: 0
@@ -2668,6 +2678,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958411125}
   m_CullTransparentMesh: 1
+--- !u!1 &919132148389708249 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3029780724686312392, guid: 3bdc360982a9f4b4c9f79da76957c684,
+    type: 3}
+  m_PrefabInstance: {fileID: 2795214013672837649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &919132148389708250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148389708249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d658f7232d4ffcf4098fb6ba07925294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: 6a5becd6cf13f8c47b9cde7e6e078c39, type: 2}
 --- !u!1001 &2795214013672837649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2735,6 +2764,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bpw2Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5911098876562627056, guid: 3bdc360982a9f4b4c9f79da76957c684,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 102ee7288b1eab245a2bb5cac809f0ba, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdc360982a9f4b4c9f79da76957c684, type: 3}
 --- !u!224 &4741920563248901714 stripped

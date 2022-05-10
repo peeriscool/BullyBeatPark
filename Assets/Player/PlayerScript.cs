@@ -21,6 +21,7 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+        Blackboard.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
         SavedSpeed = Speed;
     }
@@ -34,17 +35,17 @@ public class PlayerScript : MonoBehaviour
     {
         MouseHandler();
         #region ControllerIndex switch for multiple enum based controls (Z button)
-        if (Keyboard.current.zKey.wasPressedThisFrame)
-        {
-            if (ControllerIndex == controllerInputs.Crouch) //loop enum with last and first
-            {
-                ControllerIndex = controllerInputs.walking;
-            }
-            else
-            {
-                ControllerIndex += 1;
-            }
-        }
+        //if (Keyboard.current.zKey.wasPressedThisFrame)
+        //{
+        //    if (ControllerIndex == controllerInputs.Crouch) //loop enum with last and first
+        //    {
+        //        ControllerIndex = controllerInputs.walking;
+        //    }
+        //    else
+        //    {
+        //        ControllerIndex += 1;
+        //    }
+        //}
 
         if (ControllerIndex == controllerInputs.walking) //link controller to different ways of movement 
         {
@@ -86,60 +87,14 @@ public class PlayerScript : MonoBehaviour
     }
     public void MouseHandler()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            if (playerrig != null)
-            {
-                // play Bounce but start at a quarter of the way though
-                playerrig.Play("Stunned", 0, 0.25f);
-            }
-            //playerrig.Play("Mixamo_com");
-        }
+        //if (Mouse.current.leftButton.wasPressedThisFrame)
+        //{
+        //    if (playerrig != null)
+        //    {
+        //        playerrig.Play("Stunned", 0, 0.25f);
+        //    }
+        //}
 
-    }
-
-    //different controls methods
-  
-    void TpPlayerMotion(controllerInputs input)//tp controlls
-    {
-        MoveX = this.gameObject.transform.position.x;
-        MoveZ = this.gameObject.transform.position.z;
-        if (Keyboard.current.wKey.wasPressedThisFrame)
-        {
-            transform = this.gameObject.transform.position;
-            MoveZ += Speed;
-            transform.z = MoveZ;
-            this.gameObject.transform.position = transform;
-        }
-        if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            transform = this.gameObject.transform.position;
-            MoveZ -= Speed;
-            transform.z = MoveZ;
-            this.gameObject.transform.position = transform;
-        }
-        if (Keyboard.current.aKey.wasPressedThisFrame)
-        {
-            transform = this.gameObject.transform.position;
-            MoveX -= Speed;
-            transform.x = MoveX;
-            this.gameObject.transform.position = transform;
-        }
-        if (Keyboard.current.dKey.wasPressedThisFrame)
-        {
-            transform = this.gameObject.transform.position;
-            MoveX += Speed;
-            transform.x = MoveX;
-            this.gameObject.transform.position = transform;
-
-        }
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            transform = this.gameObject.transform.position;
-            JumpForce += Speed;
-            transform.y = MoveX;
-            this.gameObject.transform.position = transform;
-        }
     }
     void Orientation(controllerInputs input)//tp controlls
     {
@@ -223,32 +178,5 @@ public class PlayerScript : MonoBehaviour
         {
             this.gameObject.transform.position = new Vector3(transform.x, Mathf.Lerp(this.gameObject.transform.position.y, Speed, Time.deltaTime), transform.z);
         }
-    }
-    void Fly(controllerInputs input) //exponentially increases with time
-    {
-        float weight = 1000;
-        if (Keyboard.current.wKey.wasPressedThisFrame)
-        {
-            Debug.Log("W");
-            rb.AddForce(Vector3.forward * (Time.deltaTime * weight));
-        }
-        if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            rb.AddForce(Vector3.back * (Time.deltaTime * weight));
-        }
-        if (Keyboard.current.aKey.wasPressedThisFrame)
-        {
-            rb.AddForce(Vector3.left * (Time.deltaTime * weight));
-        }
-        if (Keyboard.current.dKey.wasPressedThisFrame)
-        {
-            rb.AddForce(Vector3.right * (Time.deltaTime * weight));
-
-        }
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            rb.AddForce(Vector3.up * (Time.deltaTime * weight));
-        }
-        // rb.AddForce(Vector3.down * 10f); //extra gravity for ground control
     }
 }

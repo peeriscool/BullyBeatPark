@@ -142,6 +142,93 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UIMenu",
+            "id": "3ef23688-080c-46ba-b61a-d2f9d74a3ff9",
+            "actions": [
+                {
+                    "name": "UIaction",
+                    "type": "Button",
+                    "id": "a0cc28d8-9422-4a34-aeae-16ce3e4f1c3c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "selecting",
+                    "type": "Value",
+                    "id": "d7abfe6f-7866-4709-bbea-db5327f81325",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "mouseui",
+                    "type": "Value",
+                    "id": "370b64b0-9f55-4dcd-ab73-e9f75884a476",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "89c1d79c-d22f-40ed-9a65-bc81d2fc75e4",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UIaction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4391af4b-a6b8-49cf-b10c-b9d1147a91c0",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UIaction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe73cb59-707a-47f4-9abb-f54738ed03ac",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "selecting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7fe395f-ffdc-41a4-8944-70edf16a0fb3",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "selecting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00db676d-5c25-431d-b6c5-0a4790312f8c",
+                    "path": "<VirtualMouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "mouseui",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

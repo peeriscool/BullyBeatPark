@@ -5,6 +5,8 @@ public class SmoothLerpFollow : MonoBehaviour
     // Start is called before the first frame update\
 
     public Transform follow;
+    public bool followofsset;
+    public Vector3 offset;
     Transform FollowObject;
     Transform local;
     void Start()
@@ -17,12 +19,23 @@ public class SmoothLerpFollow : MonoBehaviour
     {
 
         FollowObject = this.gameObject.transform;
-        this.transform.position = Vector3.MoveTowards(FollowObject.position,
-        new Vector3
-        (
-        Mathf.Lerp(follow.position.x, FollowObject.position.x, Time.deltaTime),
-        Mathf.Lerp(follow.position.y, FollowObject.position.y, Time.deltaTime),
-        Mathf.Lerp(follow.position.z, FollowObject.position.z, Time.deltaTime)), 0.9f);
-
+        if (followofsset)
+        {
+            this.transform.position = Vector3.MoveTowards(FollowObject.position,
+                     new Vector3
+                     (
+                     Mathf.Lerp(follow.position.x + offset.x, FollowObject.position.x, Time.deltaTime),
+                     Mathf.Lerp(follow.position.y+ offset.y, FollowObject.position.y, Time.deltaTime),
+                     Mathf.Lerp(follow.position.z + offset.z, FollowObject.position.z, Time.deltaTime)), 0.9f);
+        }
+        else
+        {
+            this.transform.position = Vector3.MoveTowards(FollowObject.position,
+            new Vector3
+            (
+            Mathf.Lerp(follow.position.x, FollowObject.position.x, Time.deltaTime),
+            Mathf.Lerp(follow.position.y, FollowObject.position.y, Time.deltaTime),
+            Mathf.Lerp(follow.position.z, FollowObject.position.z, Time.deltaTime)), 0.9f);
+        }
     }
 }

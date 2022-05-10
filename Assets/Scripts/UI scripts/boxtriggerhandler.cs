@@ -50,7 +50,11 @@ public class boxtriggerhandler : MonoBehaviour //level triggering script communi
     }
     private void OnTriggerExit(Collider other)
     {
-        SetVisableWhenEntering.gameObject.SetActive(false);
-        SetVisableWhenEntering.enabled = false;
+        if(other = collsioninteract)
+        {
+            SetVisableWhenEntering.gameObject.SetActive(false);
+            SetVisableWhenEntering.enabled = false;
+        }
+       
     }
 }
