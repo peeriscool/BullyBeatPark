@@ -12,7 +12,7 @@ public class PlayerScript : MonoBehaviour
     private float SavedSpeed;
     Rigidbody rb;
     new Vector3 transform;
-
+    CellPrefab currentcell;
     controllerInputs ControllerIndex = controllerInputs.walking;
     enum controllerInputs
     {
@@ -26,26 +26,15 @@ public class PlayerScript : MonoBehaviour
         SavedSpeed = Speed;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         InputHandler();
     }
-
+   
     public void InputHandler() //mixing diffrent control sets allowing for crouch,running,walking
     {
         MouseHandler();
-        #region ControllerIndex switch for multiple enum based controls (Z button)
-        //if (Keyboard.current.zKey.wasPressedThisFrame)
-        //{
-        //    if (ControllerIndex == controllerInputs.Crouch) //loop enum with last and first
-        //    {
-        //        ControllerIndex = controllerInputs.walking;
-        //    }
-        //    else
-        //    {
-        //        ControllerIndex += 1;
-        //    }
-        //}
+
 
         if (ControllerIndex == controllerInputs.walking) //link controller to different ways of movement 
         {
@@ -65,7 +54,6 @@ public class PlayerScript : MonoBehaviour
             {
                 Speed = SavedSpeed;
             }
-            //add animations
         }
         if (ControllerIndex == controllerInputs.Running)
         {
@@ -83,7 +71,6 @@ public class PlayerScript : MonoBehaviour
             Orientation(ControllerIndex);
             //toDo after animation controller
         }
-        #endregion
     }
     public void MouseHandler()
     {
@@ -174,9 +161,10 @@ public class PlayerScript : MonoBehaviour
 
 
         }
-        if (Keyboard.current.spaceKey.isPressed)
-        {
-            this.gameObject.transform.position = new Vector3(transform.x, Mathf.Lerp(this.gameObject.transform.position.y, Speed, Time.deltaTime), transform.z);
-        }
+        //if (Keyboard.current.spaceKey.isPressed)
+        //{
+        //    //rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+        //   // this.gameObject.transform.position = new Vector3(transform.x, Mathf.Lerp(this.gameObject.transform.position.y, Speed, Time.deltaTime), transform.z);
+        //}
     }
 }

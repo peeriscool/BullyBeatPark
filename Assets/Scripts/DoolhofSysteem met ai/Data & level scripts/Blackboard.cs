@@ -15,6 +15,7 @@ public static class Blackboard
 
     private static GameObject enemyrange;
 
+    public static List<Vector2Int> moves;
     public static void SelectEnemy(GameObject enemy)
     {
         enemyrange = enemy;    

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerBehavoir : MonoBehaviour //script that sets player to blackboard value
 {
+     
     public List<GameObject> essentails;
     bool ingame = false;
     void Start()

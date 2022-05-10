@@ -3,15 +3,16 @@ using UnityEngine;
 
 public class MazeGeneration : MonoBehaviour
 {
+    //inspector fields
     public int width, height;
-    public Cell[,] grid;
     public float scaleFactor;
-
     public List<CellPrefab> CellList;
     public List<CellPrefab> obstacles;
     public float desiredWallpercentage = 0.4f;
-    private List<GameObject> allCellObjects = new List<GameObject>();
     public int seed = 1234;
+
+    public Cell[,] grid;
+    private List<GameObject> allCellObjects = new List<GameObject>();
 
     private void Awake()
     {
@@ -109,6 +110,7 @@ public class MazeGeneration : MonoBehaviour
                 rotated.z = 90;
                 rotated.y = 90;
                 CellPrefab cellObject = Instantiate(CellList[Random.Range(0, CellList.Count)], new Vector3(x * scaleFactor, 0, y * scaleFactor) * 2, rotated, transform);
+                cellObject.name = "Tile" + y +":"+ x;
                 cellObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                 cellObject.SpawnWalls(grid[x, y]);
                 allCellObjects.Add(cellObject.gameObject);
