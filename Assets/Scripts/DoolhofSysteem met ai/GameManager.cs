@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     //
     public GameObject player;
     public List<ScriptableEnemies> EnemyList;
-    public int enemytick;
     public List<GameObject> deployed;
     //bool Isfininshed = true;
     public Text FinishText; //hints the player to go to the end of the level
@@ -52,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Mouse.current.leftButton.wasReleasedThisFrame)
+        if(Mouse.current.rightButton.wasReleasedThisFrame)
         {
             StartCoroutine(TickEnemies(1));
         }
@@ -90,8 +89,6 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < Enemy_Manager.enemycount; i++) //for every spawnpoint instantiate enemy
         {
             deployed.Add(Instantiate(deployables[i], Enemy_Manager.setRandomposition(mazegenerator.height,mazegenerator.width), new Quaternion()));
-            //Debug.Log("Spawning at "+deployables[i].name + " at " +deployables[i].transform.position);
-            //Debug.Log("compare: " + deployed[i].transform.position.ToString());
         }
         StartCoroutine(TickEnemies(0)); //start by going to a random location
     }

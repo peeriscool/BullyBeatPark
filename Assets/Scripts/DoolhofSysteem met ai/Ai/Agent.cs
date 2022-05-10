@@ -57,12 +57,21 @@ public class Agent : MonoBehaviour
         Debug.Log("i " + this.gameObject.name +"At " + current + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
         List<Vector2Int> Rawpath = Astar.FindPathToTarget(current, targetPos, maze.grid);
 
-        for (int i = 0; i < Rawpath.Count; i++)
+        try
         {
-            Rawpath[i] = Rawpath[i] * (int) (Blackboard.scalefactor *2);
+            for (int i = 0; i < Rawpath.Count; i++)
+            {
+                Rawpath[i] = Rawpath[i] * (int)(Blackboard.scalefactor * 2);
+            }
+            path = Rawpath;
+            DrawPath();
         }
-        path = Rawpath;
-        DrawPath();
+        catch (System.Exception)
+        {
+            Debug.Log("path resulted in no instance: " + location + "from " +current );
+            throw;
+        }
+      
         }
     public void TakeDamage() //should hit childeren 3 times before they die
     {
@@ -100,8 +109,8 @@ public class Agent : MonoBehaviour
             }
             else
             {
-                location = path[0]/4; //location /4 = ~gridsize   
-                Debug.Log("location of "+ this.name +"=" + location);// Debug.Log(path.Count + "Path control for" + gameObject.name);
+                location = path[0]/5; //location /4 = ~gridsize world/ location  
+             //   Debug.Log("location of "+ this.name +"=" + location + "world = "+this.gameObject.transform.position);// Debug.Log(path.Count + "Path control for" + gameObject.name);
                 actionindex = 0;
                 path.RemoveAt(0);
                 DrawPath();

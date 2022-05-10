@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerBehavoir : MonoBehaviour
+public class PlayerBehavoir : MonoBehaviour //script that sets player to blackboard value
 {
     public List<GameObject> essentails;
     bool ingame = false;

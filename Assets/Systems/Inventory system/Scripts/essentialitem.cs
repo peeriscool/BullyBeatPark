@@ -8,7 +8,7 @@ public class Essentailitem : ItemObject
     //set to toy by default
     public void Awake()
     {
-        type = ItemType.toy;
+        type = ItemType.essential;
     }
 
 }

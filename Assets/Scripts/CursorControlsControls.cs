@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 //https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html
 //https://stackoverflow.com/questions/67280366/unity-raycast-not-detecting-parent-objects-tag
 //https://docs.unity3d.com/Manual/CameraRays.html
-public class Controls : MonoBehaviour
+public class CursorControls : MonoBehaviour
 {
     private Camera cam;//top down camera
     public GameObject cursor;

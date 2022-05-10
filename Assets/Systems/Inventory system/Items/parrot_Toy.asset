@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: parrot_Toy
   m_EditorClassIdentifier: 
   prefab: {fileID: 919132149155446097, guid: 452d59dbc87f826418ec966cd114383c, type: 3}
-  UI: {fileID: 5697400387058012725, guid: e1bd1821dce4ed44f82ffe5836a29e16, type: 3}
+  UI: {fileID: 4707509301855253257, guid: 18edfa7a55541c04bb35912a1855cfc8, type: 3}
   type: 0
   description: a small companion for the journey

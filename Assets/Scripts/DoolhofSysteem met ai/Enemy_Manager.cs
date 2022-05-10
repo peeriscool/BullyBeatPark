@@ -49,7 +49,7 @@ public class Enemy_Manager
             }
             else
             {
-                instances[i].gameObject.GetComponent<Agent>().WalkTo(setRandomposition(sizeX - 1, sizeY - 2),instances[i].gameObject.GetComponent<Agent>().location); //walking range should be width height maze
+                instances[i].gameObject.GetComponent<Agent>().WalkTo(setRandomposition(sizeX-1 , sizeY-1),instances[i].gameObject.GetComponent<Agent>().location); //walking range should be width height maze
                // instances[i].gameObject.GetComponent<Agent>(). = ;
             }
             //go throug array and change path location for agent  
