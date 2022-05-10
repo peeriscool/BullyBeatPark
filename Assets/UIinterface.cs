@@ -38,7 +38,7 @@ public class UIinterface : MonoBehaviour
         {
             if (Blackboard.Enemies != null)
             {
-                childcount.text = GameManager.Instance.deployed.Count.ToString();
+                childcount.text = Blackboard.Enemies.Count.ToString();//GameManager.Instance.deployed.Count.ToString();
             }
         }
         catch (System.Exception)

@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
         Blackboard.height = mazegenerator.height;
         Blackboard.width = mazegenerator.width;
         deployed = new List<GameObject>();
+        Blackboard.Enemies = deployed;
         SpawnEnemies();      
     }
 
