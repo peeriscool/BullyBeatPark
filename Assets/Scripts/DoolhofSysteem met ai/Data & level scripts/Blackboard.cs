@@ -12,7 +12,7 @@ public static class Blackboard
     
     public static bool levelfinished;
     public static bool UiHintToggle = true;
-
+    public static bool EnemySelected;
     private static GameObject enemyrange;
 
     public static List<Vector2Int> moves;

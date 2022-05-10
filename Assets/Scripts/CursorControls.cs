@@ -76,6 +76,14 @@ public class CursorControls : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit)) //cursor to floor detection
         {
+            if(hit.transform.tag == "Enemy") //Enemy selecting
+            {
+                //enemy selected
+                //enable action buttton
+                //blackboard enemy selected = true
+                //actions form UIinterface 
+                Blackboard.EnemySelected = true;
+            }
             if (hit.transform.tag == "Floor")
             {
                 clicktrigger = false;
@@ -83,6 +91,7 @@ public class CursorControls : MonoBehaviour
                 {
                     return hit.distance - 1;
                 }
+                Blackboard.EnemySelected = false;
             }
         }
         return -10f; //out of screen location

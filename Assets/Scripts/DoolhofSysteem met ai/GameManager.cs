@@ -51,10 +51,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Mouse.current.rightButton.wasReleasedThisFrame)
-        {
-            StartCoroutine(TickEnemies(1));
-        }
+  
 
         //if (deployed.Count == 0 && Isfininshed) //win condition
         //{
@@ -81,6 +78,13 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Enemy initialization and first location
     /// </summary>
+    public void EndTurn() //when player hits end turn
+    {
+        Blackboard.moves = new List<Vector2Int>();
+        Blackboard.player.GetComponent<PlayerScript>().enabled = true;
+        // move enemies
+        StartCoroutine(TickEnemies(1));
+    }
     protected void SpawnEnemies()
     {    
         Enemy_Manager = new Enemy_Manager(EnemyList,EnemyList.Count); //initialize enemies

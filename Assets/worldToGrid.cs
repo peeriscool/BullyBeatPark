@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
 {
+    //should the player be able to walk back before reseting the values?
+    // in this case whe would remove from the moves list if the position has already been walked on
     char[] seperators = new char[] { ':' };
     Vector2Int location;
     bool dataretrieved = false;
