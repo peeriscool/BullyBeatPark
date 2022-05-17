@@ -31,18 +31,18 @@ public class SimpleDungeonGenerator : MonoBehaviour
     }
     private void Update()
     {
-        if(Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            // SceneManagerScript.callScenebyname(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-            foreach (GameObject inst in instanced)
-            {
-                Destroy(inst);
-            }
-            GridWidth += GridWidth/10;
-            GridHeight += GridHeight/10;
-            Generate();
+        //if(Mouse.current.leftButton.wasPressedThisFrame)
+        //{
+        //    // SceneManagerScript.callScenebyname(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        //    foreach (GameObject inst in instanced)
+        //    {
+        //        Destroy(inst);
+        //    }
+        //    GridWidth += GridWidth/10;
+        //    GridHeight += GridHeight/10;
+        //    Generate();
 
-        }
+        //}
     }
     public void Generate() ///Generate dungeon
     {

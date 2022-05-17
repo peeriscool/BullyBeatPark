@@ -4,16 +4,16 @@ using UnityEngine.InputSystem;
 public class PlayerScript : MonoBehaviour
 {
     public Animator playerrig;
+    ControlToAnimator animationsystem;
     public float Speed;
     public float JumpForce;
-
     private float MoveX;
     private float MoveZ;
     private float SavedSpeed;
     Rigidbody rb;
-    new Vector3 transform;
-    CellPrefab currentcell;
+    new Transform transform;
     controllerInputs ControllerIndex = controllerInputs.walking;
+    
     enum controllerInputs
     {
         walking = 0, Running = 1, Crouch = 2
@@ -22,6 +22,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         Blackboard.player = this.gameObject;
+        animationsystem = new ControlToAnimator(playerrig);
         rb = GetComponent<Rigidbody>();
         SavedSpeed = Speed;
     }
@@ -29,37 +30,23 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         InputHandler();
+        MouseHandler();
+        animationsystem.Tick();
     }
    
     public void InputHandler() //mixing diffrent control sets allowing for crouch,running,walking
     {
-        MouseHandler();
-
-
-        if (ControllerIndex == controllerInputs.walking) //link controller to different ways of movement 
+        if (ControllerIndex == controllerInputs.walking) //link controller to movement 
         {
+            Speed = SavedSpeed;
             Orientation(ControllerIndex);
             Movement(ControllerIndex);
-          //  TpPlayerMotion(ControllerIndex);
-
-            if (Keyboard.current.shiftKey.wasPressedThisFrame) //hold shift for going faster //ToDo run animations, enum control... //UIScript.changevalue(null,Cooldown);
-            {
-                if (Speed < SavedSpeed * 4)
-                {
-                    Speed = Speed * 1.1f;
-                    Speed = Mathf.Lerp(Speed, 0f, Time.deltaTime);
-                }
-            }
-            if (Keyboard.current.wKey.wasReleasedThisFrame) //release key to reset
-            {
-                Speed = SavedSpeed;
-            }
         }
         if (ControllerIndex == controllerInputs.Running)
         {
+            Speed = SavedSpeed * 2;
                Movement(ControllerIndex);
-           // TpPlayerMotion(ControllerIndex);
-            Orientation(ControllerIndex);
+               Orientation(ControllerIndex);
             if (Input.GetKey(KeyCode.LeftShift)) //hold shift for going faster //ToDo run animations, enum control... //UIScript.changevalue(null,Cooldown);
             {
                 Speed = Mathf.Min(5, Mathf.Lerp(0.03f, Speed, Time.deltaTime) + Speed);
@@ -67,6 +54,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (ControllerIndex == controllerInputs.Crouch)
         {
+            Speed = SavedSpeed / 2;
             Movement(ControllerIndex);
             Orientation(ControllerIndex);
             //toDo after animation controller
@@ -83,88 +71,80 @@ public class PlayerScript : MonoBehaviour
         //}
 
     }
-    void Orientation(controllerInputs input)//tp controlls
+    void Orientation(controllerInputs input)//sets this gameobject's rotation
     {
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
-            this.gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-
+            this.gameObject.transform.rotation = Quaternion.AngleAxis(0, Vector3.forward); ////new Quaternion(0, 0, 0, 0);
+            return;
         }
         if (Keyboard.current.sKey.wasPressedThisFrame)
         {
-            this.gameObject.transform.rotation = new Quaternion(0, 1, 0, 0);
-
+            this.gameObject.transform.rotation = Quaternion.AngleAxis(180, Vector3.down);
+            return;
         }
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
             this.gameObject.transform.rotation = new Quaternion(0, 90, 0, -90);
-
+            return;
         }
         if (Keyboard.current.dKey.wasPressedThisFrame)
         {
             this.gameObject.transform.rotation = new Quaternion(0, 90, 0, 90);
-
+            return;
         }
-        if (Keyboard.current.wKey.wasPressedThisFrame && Keyboard.current.aKey.wasPressedThisFrame)
+        if (Keyboard.current.wKey.isPressed && Keyboard.current.aKey.isPressed)
         {
             this.gameObject.transform.rotation = new Quaternion(0, -45, 0, 90);
 
-
+            return;
         }
-        if (Keyboard.current.wKey.wasPressedThisFrame && Keyboard.current.dKey.wasPressedThisFrame)
+        if (Keyboard.current.wKey.isPressed && Keyboard.current.dKey.isPressed)
         {
             this.gameObject.transform.rotation = new Quaternion(0, 45, 0, 90);
-
+            return;
         }
-        if (Keyboard.current.sKey.wasPressedThisFrame && Keyboard.current.dKey.wasPressedThisFrame)
+        if (Keyboard.current.sKey.isPressed && Keyboard.current.dKey.isPressed)
         {
             this.gameObject.transform.rotation = new Quaternion(0, -135, 0, -45);
-
+            return;
         }
-        if (Keyboard.current.sKey.wasPressedThisFrame && Keyboard.current.aKey.wasPressedThisFrame)
+        if (Keyboard.current.sKey.isPressed && Keyboard.current.aKey.isPressed)
         {
             this.gameObject.transform.rotation = new Quaternion(0, -135, 0, 45);
-
+            return;
         }
 
     }
-    void Movement(controllerInputs input)//tp controlls
+    void Movement(controllerInputs input)//sets this gameobject's position
     {
         MoveX = this.gameObject.transform.position.x;
         MoveZ = this.gameObject.transform.position.z;
+        transform = this.gameObject.transform;
         if (Keyboard.current.wKey.isPressed)
-        {
-            transform = this.gameObject.transform.position;
+        {        
             MoveZ += Speed;
-            this.gameObject.transform.position = new Vector3(transform.x, transform.y, Mathf.Lerp(this.gameObject.transform.position.z, MoveZ, Time.deltaTime));
-
+            this.gameObject.transform.position = new Vector3(MoveX, transform.position.y, Mathf.Lerp(MoveZ, MoveZ, Time.deltaTime));
         }
         if (Keyboard.current.sKey.isPressed)
         {
-            transform = this.gameObject.transform.position;
             MoveZ -= Speed;
-            this.gameObject.transform.position = new Vector3(transform.x, transform.y, Mathf.Lerp(this.gameObject.transform.position.z, MoveZ, Time.deltaTime));
-
+            this.gameObject.transform.position = new Vector3(MoveX, transform.position.y, Mathf.Lerp(MoveZ, MoveZ, Time.deltaTime));
         }
         if (Keyboard.current.aKey.isPressed)
         {
             MoveX -= Speed;
-            transform = this.gameObject.transform.position;
-            this.gameObject.transform.position = new Vector3(Mathf.Lerp(this.gameObject.transform.position.x, MoveX, Time.deltaTime), transform.y, transform.z);
-
+            this.gameObject.transform.position = new Vector3(Mathf.Lerp(MoveX, MoveX, Time.deltaTime), transform.position.y, MoveZ);
         }
         if (Keyboard.current.dKey.isPressed)
         {
             MoveX += Speed;
-            transform = this.gameObject.transform.position;
-            this.gameObject.transform.position = new Vector3(Mathf.Lerp(this.gameObject.transform.position.x, MoveX, Time.deltaTime), transform.y, transform.z);
-
-
+            this.gameObject.transform.position = new Vector3(Mathf.Lerp(MoveX, MoveX, Time.deltaTime), transform.position.y, MoveZ);
         }
-        //if (Keyboard.current.spaceKey.isPressed)
-        //{
-        //    //rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
-        //   // this.gameObject.transform.position = new Vector3(transform.x, Mathf.Lerp(this.gameObject.transform.position.y, Speed, Time.deltaTime), transform.z);
-        //}
+        if (Keyboard.current.spaceKey.isPressed)
+        {
+            rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
+           //  this.gameObject.transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, JumpForce, Time.deltaTime), transform.position.z);
+        }
     }
 }

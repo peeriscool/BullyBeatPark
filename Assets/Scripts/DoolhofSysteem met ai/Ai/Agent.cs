@@ -76,17 +76,17 @@ public class Agent : MonoBehaviour
     public void TakeDamage() //should hit childeren 3 times before they die
     {
         Debug.Log(Hp + "Health points left");
-        
-        if(Hp == 0)
+
+        if (Hp == 0)
         {
             actionindex = 3;
         }
         else
         {
             Hp--;
-        }  
+        }
     }
-      public void MarkEnemy() //makes enemies slower and track there path 
+    public void MarkEnemy() //makes enemies slower and track there path 
     {
         moveSpeed = 1;
         targetVisual.GetComponent<Renderer>().material.color = Color.red;

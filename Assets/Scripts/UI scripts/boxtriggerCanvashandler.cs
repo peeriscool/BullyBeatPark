@@ -5,16 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class boxtriggerCanvashandler : MonoBehaviour //canvas triggering script
 {
+    public Camera UseDiffrentCam;
+    Camera current;
     public Collider collsioninteract;
     public Canvas SetVisableWhenEntering;
-   // public bool UseCountdown;
-  //  public bool deleteplayer;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        if(collsioninteract == null)
+        current = Camera.main;
+        if (collsioninteract == null)
         {
             collsioninteract = Blackboard.player.GetComponent<Collider>();
                 
@@ -29,23 +28,12 @@ public class boxtriggerCanvashandler : MonoBehaviour //canvas triggering script
             Debug.Log(other.name + " has entered the dome");
             SetVisableWhenEntering.gameObject.SetActive(true);
             SetVisableWhenEntering.enabled = true;
-            //if(UseCountdown)
-            //{
-            //;
-            //    if(deleteplayer)
-            //    {
-            //        //to do save inventory
-            //        foreach (GameObject item in Blackboard.player.GetComponent<PlayerBehavoir>().essentails)
-            //        {
-            //            Destroy(item);
-            //        }
-            //        Destroy(Blackboard.player.gameObject);
 
-            //    }
-            //    countdown instance = SetVisableWhenEntering.GetComponent<countdown>();
-            //    // instance.OnEnable();
-            //    instance.callfortimer(5);
-            //}
+            if (UseDiffrentCam != null)
+            {
+                current.enabled = false;
+                UseDiffrentCam.enabled = true;
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -54,6 +42,11 @@ public class boxtriggerCanvashandler : MonoBehaviour //canvas triggering script
         {
             SetVisableWhenEntering.gameObject.SetActive(false);
             SetVisableWhenEntering.enabled = false;
+            if (UseDiffrentCam != null)
+            {
+                current.enabled = true;
+                UseDiffrentCam.enabled = false;
+            }
         }
        
     }

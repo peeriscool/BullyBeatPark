@@ -2,34 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class ControlToAnimator : MonoBehaviour
+public class ControlToAnimator
 {
     public Animator linkedRig;
     private string currentState;
-    AnimatorControllerParameter[] a;
-    // Start is called before the first frame update
-    void Start()
+    public ControlToAnimator(Animator _playerController)
     {
-        //linkedRig.runtimeAnimatorController.animationClips()
-        //foreach (var item in linkedRig.parameters)
-        //{
-        //    Debug.Log(item.name);
-        //}
-
-        a = linkedRig.parameters;
+        linkedRig = _playerController;
     }
-    private void Update()
+    public void Tick()
     {
         keycheck();
-        if (linkedRig.GetCurrentAnimatorStateInfo(0).IsName("WalkingInPlace"))
-        {
-            Debug.Log(linkedRig.GetCurrentAnimatorStateInfo(0).IsName("WalkingInPlace"));
-            //linkedRig. .Play("mesh_001|walk");
-            linkedRig.GetCurrentAnimatorStateInfo(0).Equals("WalkingInPlace");
-        }
+        Diagnalcheck();
     }
 
-    void ChangeAnimationState(string newState)
+    void ChangeAnimationState(string newState) //Keycheck uses this for linking back to the Animator component
     {
         if (currentState == newState) return;
         linkedRig.Play(newState);
@@ -81,5 +68,34 @@ public class ControlToAnimator : MonoBehaviour
         {
             linkedRig.ResetTrigger("punch");
         }
+    }
+    void Diagnalcheck()
+    {
+        if (Keyboard.current.wKey.isPressed && Keyboard.current.aKey.isPressed)
+        {
+            Debug.Log("front left ");
+            //diagonal forward
+            ChangeAnimationState("diagonal forward");
+        }
+        if (Keyboard.current.wKey.isPressed && Keyboard.current.dKey.isPressed)
+        {
+            Debug.Log("front right");
+            ChangeAnimationState("diagonal forward 0");
+        }
+
+        if (Keyboard.current.sKey.isPressed &&Keyboard.current.aKey.isPressed)
+        {
+            Debug.Log("left back");
+            //diagonal backwards
+            ChangeAnimationState("diagonal forward");
+        }
+        if (Keyboard.current.sKey.isPressed && Keyboard.current.dKey.isPressed)
+        {
+            Debug.Log("right back ");
+            ChangeAnimationState("diagonal forward 0");
+            //linkedRig.
+      
+        }
+       
     }
 }

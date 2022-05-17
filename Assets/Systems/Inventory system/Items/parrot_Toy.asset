@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef0376c00092af49b749d8b2cfe5623, type: 3}
   m_Name: parrot_Toy
   m_EditorClassIdentifier: 
-  prefab: {fileID: 919132149155446097, guid: 452d59dbc87f826418ec966cd114383c, type: 3}
   UI: {fileID: 4707509301855253257, guid: 18edfa7a55541c04bb35912a1855cfc8, type: 3}
   type: 0
   description: a small companion for the journey
