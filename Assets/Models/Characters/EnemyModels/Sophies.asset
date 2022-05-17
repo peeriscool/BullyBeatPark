@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sophies
   m_EditorClassIdentifier: 
   prefabName: '"Sophie"'
-  numberOfPrefabsToCreate: 1
+  amountTomake: 2
   spawnPoints:
   - {x: 19, y: 0, z: 4}
   - {x: 10, y: 0, z: 16}

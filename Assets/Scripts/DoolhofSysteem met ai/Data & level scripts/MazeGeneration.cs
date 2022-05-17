@@ -18,7 +18,9 @@ public class MazeGeneration : MonoBehaviour
     {
         Random.InitState(seed);//assign seed
         GenerateMaze();
-        Blackboard.scalefactor = scaleFactor;
+        //    Blackboard.scalefactor = scaleFactor;
+        Blackboard.Mazeheight = height;
+        Blackboard.Mazewidth = width;
     }
 
     public void RegenarateMaze()
@@ -121,7 +123,7 @@ public class MazeGeneration : MonoBehaviour
                 {
                     cellObject.gameObject.AddComponent<SphereCollider>();
                     cellObject.gameObject.GetComponent<SphereCollider>().isTrigger = true;
-                    cellObject.gameObject.AddComponent<FinishComponent>();
+                 //   cellObject.gameObject.AddComponent<FinishComponent>();
                     
                     //Pole for indication of ending
                     GameObject end =  GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -275,7 +277,7 @@ public class MazeGeneration : MonoBehaviour
 public class Cell
 {
     public Vector2Int gridPosition;
-    public Wall walls; //bitwise Encoded
+    public Wall walls; //bitwise Encoded https://www.alanzucconi.com/2015/07/26/enum-flags-and-bitwise-operators/
     public void RemoveWall(Wall wallToRemove)
     {
         walls = (walls & ~wallToRemove);

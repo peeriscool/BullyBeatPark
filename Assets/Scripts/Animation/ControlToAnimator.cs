@@ -73,25 +73,25 @@ public class ControlToAnimator
     {
         if (Keyboard.current.wKey.isPressed && Keyboard.current.aKey.isPressed)
         {
-            Debug.Log("front left ");
+          //  Debug.Log("front left ");
             //diagonal forward
             ChangeAnimationState("diagonal forward");
         }
         if (Keyboard.current.wKey.isPressed && Keyboard.current.dKey.isPressed)
         {
-            Debug.Log("front right");
+          //  Debug.Log("front right");
             ChangeAnimationState("diagonal forward 0");
         }
 
         if (Keyboard.current.sKey.isPressed &&Keyboard.current.aKey.isPressed)
         {
-            Debug.Log("left back");
+          //  Debug.Log("left back");
             //diagonal backwards
             ChangeAnimationState("diagonal forward");
         }
         if (Keyboard.current.sKey.isPressed && Keyboard.current.dKey.isPressed)
         {
-            Debug.Log("right back ");
+          //  Debug.Log("right back ");
             ChangeAnimationState("diagonal forward 0");
             //linkedRig.
       

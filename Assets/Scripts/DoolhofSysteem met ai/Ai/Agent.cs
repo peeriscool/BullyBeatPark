@@ -7,15 +7,14 @@ public class Agent : MonoBehaviour
     public int actionindex = 0;
     public Vector2Int location = new Vector2Int();
     private int Hp = 3;
-    private enum actions { idle,walk,run,die};
-    private AstarV2 Astar = new AstarV2(Blackboard.width,Blackboard.height);
+    private AstarV2 Astar = new AstarV2(Blackboard.Mazewidth,Blackboard.Mazeheight);
     private List<Vector2Int> path = new List<Vector2Int>();
-    private Plane ground = new Plane(Vector3.up, 0f);
+
     private MeshRenderer renderer;
     private GameObject targetVisual;
     private MazeGeneration maze;
     private LineRenderer line;
-    private int pathcounter = 0;
+
     private void Awake()
     {
         maze = FindObjectOfType<MazeGeneration>();
@@ -61,7 +60,7 @@ public class Agent : MonoBehaviour
         {
             for (int i = 0; i < Rawpath.Count; i++)
             {
-                Rawpath[i] = Rawpath[i] * (int)(Blackboard.scalefactor * 2);
+                Rawpath[i] = Rawpath[i] * (int)(maze.scaleFactor * 2);
             }
             path = Rawpath;
             DrawPath();
@@ -118,14 +117,6 @@ public class Agent : MonoBehaviour
             
         }
     }
-    //public Vector3 MouseToWorld()
-    //{
-    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    float distToGround = -1f;
-    //    ground.Raycast(ray, out distToGround);
-    //    Vector3 worldPos = ray.GetPoint(distToGround);
-    //    return worldPos;
-    //}
 
     private Vector2Int Vector3ToVector2Int(Vector3 pos)
     {

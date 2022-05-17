@@ -43,7 +43,7 @@ public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
             catch (Exception e) //player not on known floor
             {
                
-                Debug.Log("Grid position not detected" + e);
+                Debug.Log("Grid position not detected: " + e);
                 throw;
             }
             if(dataretrieved)

@@ -8,52 +8,27 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     //---------------------active game data-----------------------------\\
-    //
     public GameObject player;
     public List<ScriptableEnemies> EnemyList;
     public List<GameObject> deployed;
     //bool Isfininshed = true;
-    public Text FinishText; //hints the player to go to the end of the level
-    public Canvas FinishCanvas; //interactive canvas for menu navigating
-
     //---------------------instances of classes-----------------------------\\
-    private Enemy_Manager Enemy_Manager;
+    private Enemy_Manager EManager;
     private MazeGeneration mazegenerator;
-    private static GameManager _instance; //this
+
     // private bool InUi = false;
-    // private  SceneManagerScript Manager;
     //--------------------------------------------------\\
 
-    public static GameManager Instance   //singleton implemenetation
-    {
-        get
-        {
-            return _instance;
-        }
-    }
-    
     void Start()
     {
-        if (_instance != null && _instance != this) //ToDo : alowing singleton to be switched with baseclass gamemanager
-        {
-            Destroy(this);
-        }
-        else
-        {
-            _instance = this;
-        }
         mazegenerator = this.gameObject.GetComponent<MazeGeneration>();
-        Blackboard.height = mazegenerator.height;
-        Blackboard.width = mazegenerator.width;
-        deployed = new List<GameObject>();
-        Blackboard.Enemies = deployed;
+        Blackboard.player = player;
+        EManager = new Enemy_Manager(EnemyList); //initialize enemies
         SpawnEnemies();      
     }
 
     private void Update()
     {
-  
-
         //if (deployed.Count == 0 && Isfininshed) //win condition
         //{
         //    //all enemies killed
@@ -76,25 +51,23 @@ public class GameManager : MonoBehaviour
         //}
     }
 
-    /// <summary>
-    /// Enemy initialization and first location
-    /// </summary>
     public void EndTurn() //when player hits end turn
     {
         Blackboard.moves = new List<Vector2Int>();
-        Blackboard.player.GetComponent<PlayerScript>().enabled = true;
+        player.GetComponent<PlayerScript>().enabled = true;
         // move enemies
         StartCoroutine(TickEnemies(1));
     }
     protected void SpawnEnemies()
-    {    
-        Enemy_Manager = new Enemy_Manager(EnemyList,EnemyList.Count); //initialize enemies
+    {
+        List<GameObject> plot = EManager.enemyModels;
 
-        List<GameObject> deployables = Enemy_Manager.SpawnableEnemies();
-        for (int i = 0; i < Enemy_Manager.enemycount; i++) //for every spawnpoint instantiate enemy
+        for (int i = 0; i < EManager.enemyModels.Count; i++) //for every enemymodel instantiate x enemy's
         {
-            deployed.Add(Instantiate(deployables[i], Enemy_Manager.setRandomposition(mazegenerator.height,mazegenerator.width), new Quaternion()));
+         //   Debug.Log("test for enemies" + EManager.setRandomposition(mazegenerator.height, mazegenerator.width));
+            deployed.Add(Instantiate(plot[i], EManager.setRandomposition(mazegenerator.height, mazegenerator.width), new Quaternion()));
         }
+        Blackboard.Enemies = deployed;
         StartCoroutine(TickEnemies(0)); //start by going to a random location
     }
 
@@ -102,7 +75,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            Enemy_Manager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);//who/x/y
+            EManager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);//who/x/y
             yield return new WaitForSeconds(duration);
             break;
         }

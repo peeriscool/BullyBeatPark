@@ -14,12 +14,12 @@ public class EnemyInteraction : MonoBehaviour
         {
             if (Keyboard.current.xKey.wasPressedThisFrame)
             {
-                Blackboard.Interactionrequest("MarkEnemy");
+            //    Blackboard.Interactionrequest("MarkEnemy");
             }
 
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
-                Blackboard.Interactionrequest("Hit");
+          //      Blackboard.Interactionrequest("Hit");
             }
         }
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Broekie
   m_EditorClassIdentifier: 
   prefabName: Broekie
-  numberOfPrefabsToCreate: 1
+  amountTomake: 2
   spawnPoints:
   - {x: 2, y: 0, z: 2}
   - {x: 10, y: 0, z: 19}

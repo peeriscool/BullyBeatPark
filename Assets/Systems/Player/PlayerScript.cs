@@ -144,7 +144,12 @@ public class PlayerScript : MonoBehaviour
         if (Keyboard.current.spaceKey.isPressed)
         {
             rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
-           //  this.gameObject.transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, JumpForce, Time.deltaTime), transform.position.z);
+            //  this.gameObject.transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, JumpForce, Time.deltaTime), transform.position.z);
         }
+        if (!Keyboard.current.spaceKey.isPressed)
+        {
+            rb.AddForce(new Vector3(0, -JumpForce * 4, 0), ForceMode.Acceleration);
+        }
+       
     }
 }

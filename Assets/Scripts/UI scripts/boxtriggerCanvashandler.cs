@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class boxtriggerCanvashandler : MonoBehaviour //canvas triggering script
+public class boxtriggerCanvashandler : MonoBehaviour //canvas triggering script including camera enable disable
 {
     public Camera UseDiffrentCam;
     Camera current;

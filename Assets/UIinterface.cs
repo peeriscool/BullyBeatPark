@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-public class UIinterface : MonoBehaviour
+public class UIinterface : MonoBehaviour //updates the UItext with data from the blackboard
 {
     public TextMeshProUGUI stepcount;
     public TextMeshProUGUI childcount;
@@ -18,7 +18,7 @@ public class UIinterface : MonoBehaviour
     }
     void Update()
     {
-        if(Blackboard.EnemySelected == true ) //To DO: detect if player is in range of enemy 
+        if(Blackboard.Enemies.Count >= 0 ) //To DO: detect if player is in range of enemy 
         {
             //allow player to interact with enemy
             actions.interactable = true;

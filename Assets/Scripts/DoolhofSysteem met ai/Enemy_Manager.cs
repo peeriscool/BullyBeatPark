@@ -3,31 +3,29 @@ using UnityEngine;
 
 public class Enemy_Manager
 {
-    public int enemycount;
-    private List<GameObject> enemyModels = new List<GameObject>();
+    public List<GameObject> enemyModels = new List<GameObject>();
   //  private List<Vector3> Spawnpoints = new List<Vector3>();
     private List<Agent> agents;
-    public Enemy_Manager(List<ScriptableEnemies> horde,int _enemycount) //recieve a list of enemies make them in to models
+    public Enemy_Manager(List<ScriptableEnemies> horde) //recieve a list of enemies make them in to models
     {
-        enemycount = _enemycount;
+
         int X = 0;
         foreach (ScriptableEnemies Enemydata in horde)
         {
-            for (int i = 0; i < Enemydata.numberOfPrefabsToCreate; i++)
+            for (int i = 0; i < Enemydata.amountTomake; i++)
             {
-                enemyModels.Add(Enemydata.Prefab);
-                enemyModels[X].name = Enemydata.prefabName;
-                enemyModels[X].transform.position = Enemydata.spawnPoints[i];
-             //   Spawnpoints.Add(Enemydata.spawnPoints[i]);
+                enemyModels.Add(Enemydata.Prefab); //get gameobject
+                enemyModels[X].name = Enemydata.prefabName; //get name
+                enemyModels[X].transform.position = Enemydata.spawnPoints[i]; //get initial spawnlocation
                 X++;          
             }
         }     
     }
 
-    public List<GameObject> SpawnableEnemies()
-    {
-        return enemyModels;
-    }
+    //public List<GameObject> SpawnableEnemies()
+    //{
+    //    return enemyModels;
+    //}
     //public List<Vector3> spawnpoints()
     //{
     //    return Spawnpoints;
@@ -66,3 +64,27 @@ public class Enemy_Manager
         return new Vector2Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.z));
     }
 }
+/*
+ *  public static void SelectEnemy(GameObject enemy)
+    {
+        selectedenemy = enemy;    
+    }
+    public static void EnemylocationPing()
+    {
+        Debug.Log(selectedenemy.transform.position + "Is in the player range");
+    }
+    public static void Interactionrequest(string Command)
+    {
+        //to do: translate command or number to agent action
+        if(Command.Equals("MarkEnemy"))
+        {
+            // selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
+            selectedenemy.GetComponent<Agent>().MarkEnemy();
+        }
+        if (Command.Equals("Hit"))
+        {
+            // selected.GetComponent<Agent>().WalkTo(new Vector3(0,0,0));
+            selectedenemy.GetComponent<Agent>().TakeDamage();
+        }
+    }
+*/

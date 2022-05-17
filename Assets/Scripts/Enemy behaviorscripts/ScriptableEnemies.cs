@@ -4,7 +4,7 @@
 public class ScriptableEnemies : ScriptableObject
 {
     public string prefabName;
-    public int numberOfPrefabsToCreate;
+    public int amountTomake;
     public Vector3[] spawnPoints;
     public GameObject Prefab;
 }
