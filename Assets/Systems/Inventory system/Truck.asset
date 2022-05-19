@@ -10,8 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cef0376c00092af49b749d8b2cfe5623, type: 3}
-  m_Name: parrot_Toy
+  m_Name: Truck
   m_EditorClassIdentifier: 
-  UI: {fileID: 4707509301855253257, guid: 18edfa7a55541c04bb35912a1855cfc8, type: 3}
+  id: 1
+  UI: {fileID: 21300000, guid: fececef88199ec447a6eba672605de8a, type: 3}
   type: 0
-  description: a small companion for the journey
+  description: Need Litlle truck
+  mybuffs:
+  - myattribute: 0
+    value: 1
+    min: 1
+    max: 1

@@ -13,4 +13,16 @@ MonoBehaviour:
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
   savepath: /Inventory.save
-  Container: []
+  database: {fileID: 11400000, guid: bed36ec352377bc4e9ee01c0a4862b04, type: 2}
+  Container:
+    items:
+    - id: 1
+      item:
+        name: 
+        id: 0
+        buffs:
+        - myattribute: 0
+          value: 0
+          min: 0
+          max: 0
+      amount: 1

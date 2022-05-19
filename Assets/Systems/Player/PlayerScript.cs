@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(worldToGrid))]
 public class PlayerScript : MonoBehaviour
 {
     public Animator playerrig;
@@ -21,6 +22,7 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(this);
         Blackboard.player = this.gameObject;
         animationsystem = new ControlToAnimator(playerrig);
         rb = GetComponent<Rigidbody>();

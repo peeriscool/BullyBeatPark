@@ -11,10 +11,10 @@ public class ItemInteraction : MonoBehaviour
     public InventoryObject inventory; //reffered to as player in tutorial
     public void OnTriggerEnter(Collider other)
     {
-        var item = other.GetComponent<Item>();
+        var item = other.GetComponent<ItemIngame>();
         if(item)
         {
-            inventory.Additem(item.item, 1);
+            inventory.Additem(new Item(item.item), 1);
             Destroy(other.gameObject);
         }
     }
@@ -22,16 +22,16 @@ public class ItemInteraction : MonoBehaviour
     {
       if(Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            inventory.Save();
+            inventory.SaveIformat();
         }
         if (Keyboard.current.enterKey.wasPressedThisFrame)
         {
-            inventory.Load();
+            inventory.LoadIformat();
         }
     }
     public void OnApplicationQuit()
     {
-        inventory.Container.Clear();
+        inventory.Container.items.Clear();
     }
 
 }

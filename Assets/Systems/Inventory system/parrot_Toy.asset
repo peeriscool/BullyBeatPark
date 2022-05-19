@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cef0376c00092af49b749d8b2cfe5623, type: 3}
-  m_Name: Truck
+  m_Name: parrot_Toy
   m_EditorClassIdentifier: 
-  prefab: {fileID: 919132149155446097, guid: cd53773fa9011ef4a83e9480dbbef3a4, type: 3}
-  UI: {fileID: 2417618348121047919, guid: 98347fbbcf929434c96f849523b653b0, type: 3}
+  id: 2
+  UI: {fileID: 21300000, guid: 7dca43eff7c4f4c4f8d4b5ba190d5373, type: 3}
   type: 0
-  description: Need Litlle truck
+  description: a small companion for the journey
+  mybuffs: []

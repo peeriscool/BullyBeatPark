@@ -195,3 +195,4 @@ MonoBehaviour:
   X_Spacer: 10
   Column: 6
   Y_Spacer: 10
+  inventoryprefab: {fileID: 0}

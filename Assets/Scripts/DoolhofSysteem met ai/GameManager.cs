@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     //---------------------active game data-----------------------------\\
+    public List<GameObject> Dondestroyonload;
     public GameObject player;
     public List<ScriptableEnemies> EnemyList;
     public List<GameObject> deployed;
@@ -16,38 +17,57 @@ public class GameManager : MonoBehaviour
     private Enemy_Manager EManager;
     private MazeGeneration mazegenerator;
 
-    // private bool InUi = false;
+    int[] levels;
     //--------------------------------------------------\\
 
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
+        foreach (GameObject item in Dondestroyonload)
+        {
+            DontDestroyOnLoad(item);
+        }
         mazegenerator = this.gameObject.GetComponent<MazeGeneration>();
-        Blackboard.player = player;
+        // Blackboard.player = player;
         EManager = new Enemy_Manager(EnemyList); //initialize enemies
-        SpawnEnemies();      
+        levels = new int[UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings];
+        lobby();
+        levels[1] = 1; //   1 = on , 0 = off
     }
-
+    void lobby()
+    {
+        Blackboard.player = player;
+    }
+    void level1()
+    {
+       
+        player.transform.position = Vector3.zero;
+        levels[1] = 0;
+        mazegenerator.init();
+        SpawnEnemies();
+        player.GetComponent<worldToGrid>().enabled = true;
+    }
     private void Update()
     {
-        //if (deployed.Count == 0 && Isfininshed) //win condition
+
+        if(SceneManagerScript.returnactivesceneint() == 0) //lobby
+        {
+
+        }
+        if (SceneManagerScript.returnactivesceneint() == 1 && levels[1] == 1) //lobby
+        {
+            level1();
+        }
+        //if (deployed.Count == 0) //win condition
         //{
         //    //all enemies killed
         //    //inform player to get to the end of the level
-        //    FinishText.enabled = true;
-        //    if (Blackboard.levelfinished) //player has reached end of level
-        //    {
-        //        FinishCanvas.enabled = true;
-        //        FinishCanvas.gameObject.SetActive(true);
-        //        Isfininshed = false;
-        //    }
+
+
         //}
         //if (Keyboard.current.escapeKey.wasReleasedThisFrame)
         //{
-        //    if(!InUi)
-        //    { SceneManagerScript.AppendScene("ControlsExplination"); InUi = true; }
-        //    if(InUi)
-        //    { SceneManagerScript.DeppendScene("ControlsExplination");InUi = false; }
-        //    //call the controls menu
+
         //}
     }
 

@@ -9,21 +9,25 @@ public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
     char[] seperators = new char[] { ':' };
     Vector2Int location;
     bool dataretrieved = false;
+    BoxCollider mycollider;
     void Start()
     {
         Blackboard.moves = new List<Vector2Int>();
+        mycollider =  this.gameObject.AddComponent<BoxCollider>();
+        mycollider.isTrigger = true;
     }
 
-    void Update()
-    {
-       
-    }
+   
     public void OnTriggerExit(Collider other)
     {
         
     }
     public void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.tag == "Floor")
+        {
+            Debug.Log("grounded");
+        }
         ///var item = other.GetComponent<Item>();
         if (other.gameObject.layer == 6)// 6 = "walls and floors"
         {

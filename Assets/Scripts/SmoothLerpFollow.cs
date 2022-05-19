@@ -4,14 +4,18 @@ public class SmoothLerpFollow : MonoBehaviour
 {
     // Start is called before the first frame update\
 
-    public Transform follow;
+    Transform follow;
     public bool followofsset;
     public Vector3 offset;
     Transform FollowObject;
-    Transform local;
     void Start()
     {
         FollowObject = this.gameObject.transform;
+       
+            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            follow = player.transform;
+        }
     }
 
     // Update is called once per frame

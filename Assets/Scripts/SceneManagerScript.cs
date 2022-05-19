@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public  class SceneManagerScript : MonoBehaviour
+public class SceneManagerScript : MonoBehaviour
 {
     public static string returnactivescene()
     {
       return SceneManager.GetActiveScene().name.ToString();
+    }
+    public static int returnactivesceneint()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
     }
     public static void callScenebyname(string SceneName)
     {

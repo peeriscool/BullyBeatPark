@@ -14,7 +14,7 @@ public class MazeGeneration : MonoBehaviour
     public Cell[,] grid;
     private List<GameObject> allCellObjects = new List<GameObject>();
 
-    private void Awake()
+    public void init()
     {
         Random.InitState(seed);//assign seed
         GenerateMaze();

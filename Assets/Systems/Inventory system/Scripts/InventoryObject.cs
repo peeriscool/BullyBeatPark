@@ -3,79 +3,91 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 using System.IO;
 
 [CreateAssetMenu(fileName ="new inventory",menuName = "Inventory system/Inventory")]
-public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
+public class InventoryObject : ScriptableObject
 {
     public string savepath;
-    private ItemDatabaseObject database;
-    public List<InventorySlot> Container = new List<InventorySlot>();
+    public ItemDatabaseObject database;
+    public Inventory Container;
 
+    public void Additem(Item _item, int _amount)
+    {
 
-    private void OnEnable() //unityeditor load items
-    {
-        #if UNITY_EDITOR
-          database = (ItemDatabaseObject)AssetDatabase.LoadAssetAtPath("Assets/Resources/ItemDatabase1.asset", typeof(ItemDatabaseObject));
-#else
-        database = Resources.Load<ItemDatabaseObject>("ItemDatabase1"); //needs to be in the resources folder
-#endif
-    }
-    
-    public void Save() //serializ using json scriptable object instances
-    {
-        string savedata =  JsonUtility.ToJson(this,true);
-        BinaryFormatter bf = new BinaryFormatter();
-        Debug.Log("Saving on: " + string.Concat(Application.persistentDataPath, savepath));
-        FileStream file = File.Create(string.Concat(Application.persistentDataPath,savepath));
-        bf.Serialize(file, savedata);
-        file.Close();
-    }
-
-    public void Load()
-    {
-        if(File.Exists(string.Concat(Application.persistentDataPath, savepath)))
+        for (int i = 0; i < Container.items.Count; i++)
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            Debug.Log("Loading from: "+string.Concat(Application.persistentDataPath, savepath));
-            FileStream file = File.Open(string.Concat(Application.persistentDataPath, savepath), FileMode.Open);
-            JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this);
-            file.Close();
-        }
-    }
-    public void Additem(ItemObject _item, int _amount)
-    {
-
-        for (int i = 0; i < Container.Count; i++)
-        {
-            if (Container[i].item == _item)
+            if (Container.items[i].item.id == _item.id)
             {
-                Container[i].AddAmount(_amount);
+                Container.items[i].AddAmount(_amount);
                 return;
             }
         }
-        Container.Add(new InventorySlot(database.GetId[_item], _item, _amount));
-    }
-    public void OnAfterDeserialize()
-    {
-        for (int i = 0; i < Container.Count; i++) Container[i].item = database.GetItem[Container[i].id];
-        
+        Container.items.Add(new InventorySlot(_item.id, _item, _amount));
     }
 
-    public void OnBeforeSerialize()
+    #region Saving and clearing
+    //public void Save() //serializ using json scriptable object instances
+    //{
+    //    string savedata =  JsonUtility.ToJson(this,true);
+    //    BinaryFormatter bf = new BinaryFormatter();
+    //    Debug.Log("Saving on: " + string.Concat(Application.persistentDataPath, savepath));
+    //    FileStream file = File.Create(string.Concat(Application.persistentDataPath,savepath));
+    //    bf.Serialize(file, savedata);
+    //    file.Close();
+    //}
+    //public void Load()
+    //{
+    //    if (File.Exists(string.Concat(Application.persistentDataPath, savepath)))
+    //    {
+    //        BinaryFormatter bf = new BinaryFormatter();
+    //        Debug.Log("Loading from: " + string.Concat(Application.persistentDataPath, savepath));
+    //        FileStream file = File.Open(string.Concat(Application.persistentDataPath, savepath), FileMode.Open);
+    //        JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this);
+    //        file.Close();
+    //    }
+    //}
+    [ContextMenu("Save inventory")] //save in editor using cog wheel
+    public void SaveIformat()
     {
-    
+        IFormatter formatter = new BinaryFormatter();
+        Stream stream = new FileStream((string.Concat(Application.persistentDataPath, savepath)), FileMode.Create, FileAccess.Write);
+        formatter.Serialize(stream, Container);
+        stream.Close();
+
     }
+    [ContextMenu("Load inventory")]//save in editor using cog wheel
+    public void LoadIformat()
+    {
+        if (File.Exists(string.Concat(Application.persistentDataPath, savepath)))
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream((string.Concat(Application.persistentDataPath, savepath)), FileMode.Open, FileAccess.Read);
+            Container = (Inventory)formatter.Deserialize(stream);
+            stream.Close();
+        }
+    }
+    [ContextMenu("Clear inventory")]
+    public void Clear()
+    {
+        Container = new Inventory();
+    }
+    #endregion
+   
 }
-
-
+[System.Serializable]
+public class Inventory
+{
+    public List<InventorySlot> items = new List<InventorySlot>();
+}
 [System.Serializable]
 public class InventorySlot
 {
     public int id;
-    public ItemObject item;
+    public Item item;
     public int amount;
-    public InventorySlot(int _id, ItemObject _item, int _amount)
+    public InventorySlot(int _id, Item _item, int _amount)
     {
         id = _id;
         item = _item;
