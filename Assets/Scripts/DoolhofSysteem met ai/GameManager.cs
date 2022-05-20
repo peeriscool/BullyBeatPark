@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
+        ItemInteraction inventory = player.GetComponent<ItemInteraction>();
+        InventoryObject inv = inventory.GetInventoryobject();
+        inv.LoadIformat();
+
         DontDestroyOnLoad(this.gameObject);
         foreach (GameObject item in Dondestroyonload)
         {
@@ -94,7 +99,7 @@ public class GameManager : MonoBehaviour
         Blackboard.moves = new List<Vector2Int>();
         player.GetComponent<PlayerScript>().enabled = true;
         // move enemies
-        StartCoroutine(TickEnemies(1));
+      //  StartCoroutine(TickEnemies(1));
     }
     protected void SpawnEnemies()
     {
@@ -106,18 +111,18 @@ public class GameManager : MonoBehaviour
             deployed.Add(Instantiate(plot[i], plot[i].transform.position, new Quaternion()));
         }
         Blackboard.Enemies = deployed;
-        StartCoroutine(TickEnemies(0)); //start by going to a random location
+      //  StartCoroutine(TickEnemies(0)); //start by going to a random location
     }
 
-    public IEnumerator TickEnemies(int duration) //give enmies new commands every x seconds
-    {
-        while (true)
-        {
-            EManager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);//who/x/y
-            yield return new WaitForSeconds(duration);
-            break;
-        }
-    }
+    //public IEnumerator TickEnemies(int duration) //give enmies new commands every x seconds
+    //{
+    //    while (true)
+    //    {
+    //        EManager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);//who/x/y
+    //        yield return new WaitForSeconds(duration);
+    //        break;
+    //    }
+    //}
     public void EnemyDied(GameObject deceased)
     {
         deployed.Remove(deceased);

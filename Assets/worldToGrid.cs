@@ -38,7 +38,7 @@ public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
 
                  int numVal1 = Int32.Parse(data[0]);
                  int numVal2 = Int32.Parse(data[1]);            
-                 Debug.Log(numVal1 +","+ numVal2);
+                 //Debug.Log(numVal1 +","+ numVal2);
                 // //UIupdatable
                 location = new Vector2Int(numVal1,numVal2);
 

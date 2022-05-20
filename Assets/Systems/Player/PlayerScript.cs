@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(worldToGrid))]
 public class PlayerScript : MonoBehaviour
 {
+    public BoxCollider playerange;
+    bool Inrange = false;
+    Agent activEenemy;
     public Animator playerrig;
     public static bool isgrounded;
     ControlToAnimator animationsystem;
@@ -34,6 +37,7 @@ public class PlayerScript : MonoBehaviour
     {
         InputHandler();
         MouseHandler();
+        actionhandler();
         animationsystem.Tick();
     }
    
@@ -48,19 +52,32 @@ public class PlayerScript : MonoBehaviour
         if (ControllerIndex == controllerInputs.Running)
         {
             Speed = SavedSpeed * 2;
-               Movement(ControllerIndex);
-               Orientation(ControllerIndex);
-            if (Input.GetKey(KeyCode.LeftShift)) //hold shift for going faster //ToDo run animations, enum control... //UIScript.changevalue(null,Cooldown);
-            {
-                Speed = Mathf.Min(5, Mathf.Lerp(0.03f, Speed, Time.deltaTime) + Speed);
-            }
+            Movement(ControllerIndex);
+            Orientation(ControllerIndex);
+            //if (Input.GetKey(KeyCode.LeftShift)) //hold shift for going faster //ToDo run animations, enum control... //UIScript.changevalue(null,Cooldown);
+            //{
+            //    //  Speed = Mathf.Min(5, Mathf.Lerp(0.03f, Speed, Time.deltaTime) + Speed);
+            //}
         }
         if (ControllerIndex == controllerInputs.Crouch)
         {
             Speed = SavedSpeed / 2;
             Movement(ControllerIndex);
             Orientation(ControllerIndex);
-            //toDo after animation controller
+        }
+    }
+    public void actionhandler()
+    {
+        if(Keyboard.current.eKey.wasPressedThisFrame && Inrange)
+        {
+            // if(activEenemy.actionindex == 3)//ded
+            if (activEenemy.Hp != 0)
+            {
+                activEenemy.TakeDamage();
+                activEenemy.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), activEenemy.location); //go somewhere els after getting hit
+            }
+            Inrange = false;
+            //deal damage to enemy and consume an action point if in range
         }
     }
     public void MouseHandler()
@@ -73,6 +90,17 @@ public class PlayerScript : MonoBehaviour
         //    }
         //}
 
+    }
+    void OnCollisionEnter(Collision dataFromCollision)
+    {
+        
+        if (dataFromCollision.gameObject.tag == "Enemy")
+        {
+            //if enemy is in range allow punch
+            activEenemy = dataFromCollision.gameObject.GetComponent<Agent>();
+            Inrange = true;
+
+        }
     }
     void Orientation(controllerInputs input)//sets this gameobject's rotation
     {

@@ -150,11 +150,11 @@ public class MazeGeneration : MonoBehaviour
             {
                 //ToDo delete 2 cells
                 cellObject = Instantiate(cellObject, new Vector3(
-                        randomCell.gridPosition.x * scaleFactor,        //x
-                        -1.5F,                                              //y
-                        randomCell.gridPosition.y * scaleFactor) * 2,   //z
-                        Quaternion.Euler(-90, 0, 0),                                        //quaternion
-                        transform                                       //transform
+                        randomCell.gridPosition.x * scaleFactor,            //x
+                        -0.15F,                                             //y
+                        randomCell.gridPosition.y * scaleFactor) * 2,       //z
+                        Quaternion.Euler(-90, 90, 0),                        //quaternion
+                        transform                                           //transform
                 );
             }
             if (cellObject.Is2x2 == false)

@@ -16,19 +16,17 @@ public class ItemInteraction : MonoBehaviour
         {
             inventory.Additem(new Item(item.item), 1);
             Destroy(other.gameObject);
+            inventory.SaveIformat();
         }
     }
-    private void Update() //used for saving file 
+    public InventoryObject GetInventoryobject()
     {
-      if(Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-          //  inventory.SaveIformat();
-        }
-        if (Keyboard.current.enterKey.wasPressedThisFrame)
-        {
-        //    inventory.LoadIformat();
-        }
+        return inventory;
     }
+    //  
+
+
+    //     
     public void OnApplicationQuit()
     {
         inventory.Container.items.Clear();

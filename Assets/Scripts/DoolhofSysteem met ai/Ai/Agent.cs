@@ -4,9 +4,9 @@ public class Agent : MonoBehaviour
 {
     public int moveButton = 0;
     public float moveSpeed = 3;
-    public int actionindex = 0;
+    public int actionindex = 0; // 3 = ded 2 =? 1= walking 0= ready for action
     public Vector2Int location = new Vector2Int();
-    private int Hp = 3;
+    public int Hp = 3;
     private AstarV2 Astar = new AstarV2(Blackboard.Mazewidth,Blackboard.Mazeheight);
     private List<Vector2Int> path = new List<Vector2Int>();
 
@@ -50,9 +50,9 @@ public class Agent : MonoBehaviour
         }
     }
     //Move to clicked position
-    public void WalkTo(Vector3 location,Vector2Int current)
+    public void WalkTo(Vector3 _location, Vector2Int current)
     {  
-        Vector2Int targetPos = Vector3ToVector2Int(location); 
+        Vector2Int targetPos = Vector3ToVector2Int(_location); 
         Debug.Log("i " + this.gameObject.name +"At " + current + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
         List<Vector2Int> Rawpath = Astar.FindPathToTarget(current, targetPos, maze.grid);
 
@@ -64,6 +64,7 @@ public class Agent : MonoBehaviour
             }
             path = Rawpath;
             DrawPath();
+            location = targetPos;
         }
         catch (System.Exception)
         {
@@ -75,13 +76,16 @@ public class Agent : MonoBehaviour
     public void TakeDamage() //should hit childeren 3 times before they die
     {
         Debug.Log(Hp + "Health points left");
-
         if (Hp == 0)
         {
             actionindex = 3;
+            Debug.Log(Hp + "IM DED REMOVE ME");
+            Blackboard.Enemies.Remove(this.gameObject);
+            GameObject.Destroy(this);
         }
         else
         {
+            
             Hp--;
         }
     }
@@ -108,7 +112,7 @@ public class Agent : MonoBehaviour
             }
             else
             {
-                location = path[0]/5; //location /4 = ~gridsize world/ location  
+               // location = path[0]/5; //location /4 = ~gridsize world/ location  
              //   Debug.Log("location of "+ this.name +"=" + location + "world = "+this.gameObject.transform.position);// Debug.Log(path.Count + "Path control for" + gameObject.name);
                 actionindex = 0;
                 path.RemoveAt(0);
