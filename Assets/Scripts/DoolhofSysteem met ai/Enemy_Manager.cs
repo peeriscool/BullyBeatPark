@@ -16,7 +16,8 @@ public class Enemy_Manager
             {
                 enemyModels.Add(Enemydata.Prefab); //get gameobject
                 enemyModels[X].name = Enemydata.prefabName; //get name
-                enemyModels[X].transform.position = Enemydata.spawnPoints[i]; //get initial spawnlocation
+                Enemydata.spawnPoints[i] = new Vector3(Random.Range(0, Blackboard.Mazewidth-1),0, Random.Range(0, Blackboard.Mazeheight-1));
+                enemyModels[X].transform.position = Enemydata.spawnPoints[i]; //set initial spawnlocation
                 X++;          
             }
         }     

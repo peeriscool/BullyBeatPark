@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private Enemy_Manager EManager;
     private MazeGeneration mazegenerator;
 
-    int[] levels;
+    Dictionary<int, bool> levels;
     //--------------------------------------------------\\
 
     void Start()
@@ -30,9 +30,13 @@ public class GameManager : MonoBehaviour
         mazegenerator = this.gameObject.GetComponent<MazeGeneration>();
         // Blackboard.player = player;
         EManager = new Enemy_Manager(EnemyList); //initialize enemies
-        levels = new int[UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings];
+        levels = new Dictionary<int, bool>();
+        for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; i++)
+        {
+            levels.Add(i,false);
+        }
         lobby();
-        levels[1] = 1; //   1 = on , 0 = off
+
     }
     void lobby()
     {
@@ -40,12 +44,14 @@ public class GameManager : MonoBehaviour
     }
     void level1()
     {
-       
+        //intit
         player.transform.position = Vector3.zero;
-        levels[1] = 0;
         mazegenerator.init();
         SpawnEnemies();
         player.GetComponent<worldToGrid>().enabled = true;
+        Blackboard.maxmoves = 5;
+        levels[1] = true;
+
     }
     private void Update()
     {
@@ -54,9 +60,21 @@ public class GameManager : MonoBehaviour
         {
 
         }
-        if (SceneManagerScript.returnactivesceneint() == 1 && levels[1] == 1) //lobby
+        if (SceneManagerScript.returnactivesceneint() == 1 && levels[1] == false) //maze
         {
-            level1();
+            level1(); //initialize level values
+
+            //update
+            if (Blackboard.moves != null)
+            {
+                if (Blackboard.moves.Count >= Blackboard.maxmoves)
+                {
+                    //player has to end turn
+                    Blackboard.player.GetComponent<PlayerScript>().enabled = false;
+                    //enable end turn button
+                    //  Endturn.interactable = true;
+                }
+            }
         }
         //if (deployed.Count == 0) //win condition
         //{
@@ -85,7 +103,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < EManager.enemyModels.Count; i++) //for every enemymodel instantiate x enemy's
         {
          //   Debug.Log("test for enemies" + EManager.setRandomposition(mazegenerator.height, mazegenerator.width));
-            deployed.Add(Instantiate(plot[i], EManager.setRandomposition(mazegenerator.height, mazegenerator.width), new Quaternion()));
+            deployed.Add(Instantiate(plot[i], plot[i].transform.position, new Quaternion()));
         }
         Blackboard.Enemies = deployed;
         StartCoroutine(TickEnemies(0)); //start by going to a random location

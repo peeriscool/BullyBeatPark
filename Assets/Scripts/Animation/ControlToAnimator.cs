@@ -48,7 +48,7 @@ public class ControlToAnimator
             linkedRig.ResetTrigger("Run");
             
         }
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && PlayerScript.isgrounded == false)
         {
             ChangeAnimationState("StandingJump");
            // linkedRig.Play("mesh_001|Dive and get up");

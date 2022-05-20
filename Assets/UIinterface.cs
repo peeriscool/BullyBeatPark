@@ -18,24 +18,18 @@ public class UIinterface : MonoBehaviour //updates the UItext with data from the
     }
     void Update()
     {
-        if(Blackboard.Enemies.Count >= 0 ) //To DO: detect if player is in range of enemy 
-        {
-            //allow player to interact with enemy
-            actions.interactable = true;
-        }
-        if (Blackboard.moves != null)
-        {
-            if(Blackboard.moves.Count == steps)
-            {
-                //player has to end turn
-                Blackboard.player.GetComponent<PlayerScript>().enabled = false;
-                //enable end turn button
-                Endturn.interactable = true;
-            }
-            stepcount.text = Blackboard.moves.Count.ToString();
-        }
+      
         try
         {
+            if (Blackboard.Enemies.Count >= 0) //To DO: detect if player is in range of enemy 
+            {
+                //allow player to interact with enemy
+                actions.interactable = true;
+            }
+            if (Blackboard.moves != null)
+            {
+                stepcount.text = Blackboard.moves.Count.ToString();
+            }
             if (Blackboard.Enemies != null)
             {
                 childcount.text = Blackboard.Enemies.Count.ToString();//GameManager.Instance.deployed.Count.ToString();

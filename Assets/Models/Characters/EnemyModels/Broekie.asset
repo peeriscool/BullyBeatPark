@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Broekie
   m_EditorClassIdentifier: 
   prefabName: Broekie
-  amountTomake: 2
+  amountTomake: 3
   spawnPoints:
-  - {x: 2, y: 0, z: 2}
-  - {x: 10, y: 0, z: 19}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   Prefab: {fileID: 970520952333058027, guid: 982b65e75c9095947b9822c7c7f04845, type: 3}

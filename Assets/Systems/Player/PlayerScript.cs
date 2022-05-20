@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerScript : MonoBehaviour
 {
     public Animator playerrig;
+    public static bool isgrounded;
     ControlToAnimator animationsystem;
     public float Speed;
     public float JumpForce;
@@ -143,15 +144,21 @@ public class PlayerScript : MonoBehaviour
             MoveX += Speed;
             this.gameObject.transform.position = new Vector3(Mathf.Lerp(MoveX, MoveX, Time.deltaTime), transform.position.y, MoveZ);
         }
-        if (Keyboard.current.spaceKey.isPressed)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && isgrounded == true)
         {
+            isgrounded = false;
             rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
             //  this.gameObject.transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, JumpForce, Time.deltaTime), transform.position.z);
         }
         if (!Keyboard.current.spaceKey.isPressed)
         {
             rb.AddForce(new Vector3(0, -JumpForce * 4, 0), ForceMode.Acceleration);
+            if (this.transform.position.y <= 0.35)
+            {
+                isgrounded = true;
+            }
         }
        
     }
+
 }

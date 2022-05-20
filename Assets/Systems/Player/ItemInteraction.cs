@@ -22,11 +22,11 @@ public class ItemInteraction : MonoBehaviour
     {
       if(Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            inventory.SaveIformat();
+          //  inventory.SaveIformat();
         }
         if (Keyboard.current.enterKey.wasPressedThisFrame)
         {
-            inventory.LoadIformat();
+        //    inventory.LoadIformat();
         }
     }
     public void OnApplicationQuit()

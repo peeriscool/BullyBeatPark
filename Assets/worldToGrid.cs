@@ -16,7 +16,6 @@ public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
         mycollider =  this.gameObject.AddComponent<BoxCollider>();
         mycollider.isTrigger = true;
     }
-
    
     public void OnTriggerExit(Collider other)
     {
@@ -42,6 +41,12 @@ public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
                  Debug.Log(numVal1 +","+ numVal2);
                 // //UIupdatable
                 location = new Vector2Int(numVal1,numVal2);
+
+                if(location == new Vector2Int(0,0))
+                {
+                    //doesn't count as step
+                    return;
+                }
                 dataretrieved = true;
             }
             catch (Exception e) //player not on known floor
