@@ -53,8 +53,14 @@ public class GameManager : MonoBehaviour
         player.transform.position = Vector3.zero;
         mazegenerator.init();
         SpawnEnemies();
+       
+        foreach (GameObject item in deployed) //make sure all enemies are not at 0,0
+        {
+            Agent instance = item.GetComponent<Agent>();
+            instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location);
+        }
         player.GetComponent<worldToGrid>().enabled = true;
-        Blackboard.maxmoves = 5;
+        Blackboard.maxmoves = 10;
         levels[1] = true;
 
     }
@@ -68,7 +74,9 @@ public class GameManager : MonoBehaviour
         if (SceneManagerScript.returnactivesceneint() == 1 && levels[1] == false) //maze
         {
             level1(); //initialize level values
-
+        }
+        if(levels[1] == true) //update level1
+        {
             //update
             if (Blackboard.moves != null)
             {
@@ -76,22 +84,32 @@ public class GameManager : MonoBehaviour
                 {
                     //player has to end turn
                     Blackboard.player.GetComponent<PlayerScript>().enabled = false;
+                    
+                    foreach (GameObject item in deployed) //make sure all enemies are not at 0,0
+                    {
+                        Agent instance = item.GetComponent<Agent>();
+                        instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location);
+                    }
+                    Blackboard.moves.Clear();
                     //enable end turn button
                     //  Endturn.interactable = true;
                 }
             }
+            if(Blackboard.moves.Count == 0)
+            {
+                Blackboard.player.GetComponent<PlayerScript>().enabled = true;
+            }
+
+
+            if (Blackboard.Enemies.Count == 0) //win condition
+            {
+                //all enemies killed
+                //inform player to get to the end of the level
+                SceneManagerScript.callScenebyname("StartMenu");
+            }
         }
-        //if (deployed.Count == 0) //win condition
-        //{
-        //    //all enemies killed
-        //    //inform player to get to the end of the level
+       
 
-
-        //}
-        //if (Keyboard.current.escapeKey.wasReleasedThisFrame)
-        //{
-
-        //}
     }
 
     public void EndTurn() //when player hits end turn
@@ -111,18 +129,8 @@ public class GameManager : MonoBehaviour
             deployed.Add(Instantiate(plot[i], plot[i].transform.position, new Quaternion()));
         }
         Blackboard.Enemies = deployed;
-      //  StartCoroutine(TickEnemies(0)); //start by going to a random location
     }
 
-    //public IEnumerator TickEnemies(int duration) //give enmies new commands every x seconds
-    //{
-    //    while (true)
-    //    {
-    //        EManager.globalwalkagents(deployed,mazegenerator.width,mazegenerator.height);//who/x/y
-    //        yield return new WaitForSeconds(duration);
-    //        break;
-    //    }
-    //}
     public void EnemyDied(GameObject deceased)
     {
         deployed.Remove(deceased);

@@ -90,6 +90,7 @@ public class PlayerScript : MonoBehaviour
         //    }
         //}
 
+
     }
     void OnCollisionEnter(Collision dataFromCollision)
     {
@@ -100,6 +101,10 @@ public class PlayerScript : MonoBehaviour
             activEenemy = dataFromCollision.gameObject.GetComponent<Agent>();
             Inrange = true;
 
+        }
+        if (dataFromCollision.gameObject.layer == 6)// 6 = "walls and floors"
+        {
+            this.GetComponent<worldToGrid>().floorcheck(dataFromCollision.gameObject.name);
         }
     }
     void Orientation(controllerInputs input)//sets this gameobject's rotation

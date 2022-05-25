@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298d1c86cb11eaa48a84f885e9d98a54, type: 3}
+  m_Name: broekieInventory
+  m_EditorClassIdentifier: 
+  savepath: broek
+  database: {fileID: 11400000, guid: bed36ec352377bc4e9ee01c0a4862b04, type: 2}
+  Container:
+    items:
+    - id: 1
+      item:
+        name: parrot
+        id: 1
+        buffs:
+        - myattribute: 0
+          value: 1
+          min: 1
+          max: 2
+      amount: 1

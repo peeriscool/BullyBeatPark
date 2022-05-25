@@ -15,7 +15,7 @@ public class AstarV2
     public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid) //
     {
         if (startPos.x >= width) { Debug.Log("current location outside of grid!" + startPos.x + "size:" + width); } //debug code
-        if (endPos.x >= width) { Debug.Log("go to is outside of grid!" + endPos.x + "size:" + width); } //debug code
+        //if (endPos.x >= width) { Debug.Log("go to is outside of grid!" + endPos.x + "size:" + width); } //debug code
 
         List<Node> OpenSet = new List<Node>(); //has to be filled
         Node[,] AllNodes = GridToNodes(grid, startPos, endPos); //maybe array would be better here because of number 0
@@ -24,7 +24,6 @@ public class AstarV2
         height = grid.GetLength(1);
         Grid = grid;
 
-
         Node StartNode = new Node(startPos, null, 0, 0);
         Node EndNode = new Node(endPos, null, 0, 0); //change 0,0 to G and H 
 
@@ -102,93 +101,93 @@ public class AstarV2
         }
         return null;
     }
-    public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Node[,] griddata)
-    {
-        Cell[,] grid = NodetoCell(griddata);
-        List<Node> OpenSet = new List<Node>(); 
-        Node[,] AllNodes = GridToNodes(grid, startPos, endPos);
-        HashSet<Node> ClosedSet = new HashSet<Node>();
-        width = grid.GetLength(0); //get length of first array
-        height = grid.GetLength(1);//get length of Second array
-        Grid = grid;
+    //public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Node[,] griddata)
+    //{
+    //    Cell[,] grid = NodetoCell(griddata);
+    //    List<Node> OpenSet = new List<Node>(); 
+    //    Node[,] AllNodes = GridToNodes(grid, startPos, endPos);
+    //    HashSet<Node> ClosedSet = new HashSet<Node>();
+    //    width = grid.GetLength(0); //get length of first array
+    //    height = grid.GetLength(1);//get length of Second array
+    //    Grid = grid;
 
-        Node StartNode = new Node(startPos, null, 0, 0);
-        Node EndNode = new Node(endPos, null, 0, 0); //change 0,0 to G and H 
+    //    Node StartNode = new Node(startPos, null, 0, 0);
+    //    Node EndNode = new Node(endPos, null, 0, 0); //change 0,0 to G and H 
 
-        foreach (Node item in AllNodes) //set start node and end node
-        {
-            if (item.position == startPos)
-            {
-                StartNode = item;
-                StartNode.GScore = 0;
-            }
-            if (item.position == endPos)
-            {
-                EndNode = item;
-                EndNode.HScore = 0;
-            }
-        }
-        OpenSet.Add(StartNode);
+    //    foreach (Node item in AllNodes) //set start node and end node
+    //    {
+    //        if (item.position == startPos)
+    //        {
+    //            StartNode = item;
+    //            StartNode.GScore = 0;
+    //        }
+    //        if (item.position == endPos)
+    //        {
+    //            EndNode = item;
+    //            EndNode.HScore = 0;
+    //        }
+    //    }
+    //    OpenSet.Add(StartNode);
 
-        while (OpenSet.Count > 0) //loop through all nodes in the open set
-        {
-            Node current = OpenSet[0];
-            for (int i = 1; i < OpenSet.Count; i++)
-            {
-                if (OpenSet[i].FScore < current.FScore || (OpenSet[i].FScore == current.FScore && OpenSet[i].HScore < current.HScore)) //find the lowest F cost using Current and index
-                {
-                    current = OpenSet[i]; //lowest F cost found
-                }
-            }
-            OpenSet.Remove(current);
-            ClosedSet.Add(current);
+    //    while (OpenSet.Count > 0) //loop through all nodes in the open set
+    //    {
+    //        Node current = OpenSet[0];
+    //        for (int i = 1; i < OpenSet.Count; i++)
+    //        {
+    //            if (OpenSet[i].FScore < current.FScore || (OpenSet[i].FScore == current.FScore && OpenSet[i].HScore < current.HScore)) //find the lowest F cost using Current and index
+    //            {
+    //                current = OpenSet[i]; //lowest F cost found
+    //            }
+    //        }
+    //        OpenSet.Remove(current);
+    //        ClosedSet.Add(current);
 
-            if (current.position == endPos) //found end node
-            {
-                return RetracePath(StartNode, EndNode);
-            }
+    //        if (current.position == endPos) //found end node
+    //        {
+    //            return RetracePath(StartNode, EndNode);
+    //        }
 
-            List<Node> neighbours = GetNeighbours(current, AllNodes);
+    //        List<Node> neighbours = GetNeighbours(current, AllNodes);
 
-            foreach (Node Neighbour in neighbours)
-            {
-                //check for walls
-                //grid[0,0].HasWall(Wall.DOWN);
-                Vector2Int difference = Neighbour.position - current.position;
-                if (difference == new Vector2Int(0, 1) && grid[current.position.x, current.position.y].HasWall(Wall.UP)) //up
-                {
-                    continue;
-                }
-                if (difference == new Vector2Int(1, 0) && grid[current.position.x, current.position.y].HasWall(Wall.RIGHT)) //right
-                {
-                    continue;
-                }
-                if (difference == new Vector2Int(0, -1) && grid[current.position.x, current.position.y].HasWall(Wall.DOWN)) //down
-                {
-                    continue;
-                }
-                if (difference == new Vector2Int(-1, 0) && grid[current.position.x, current.position.y].HasWall(Wall.LEFT)) //left
-                {
-                    continue;
-                }
+    //        foreach (Node Neighbour in neighbours)
+    //        {
+    //            //check for walls
+    //            //grid[0,0].HasWall(Wall.DOWN);
+    //            Vector2Int difference = Neighbour.position - current.position;
+    //            if (difference == new Vector2Int(0, 1) && grid[current.position.x, current.position.y].HasWall(Wall.UP)) //up
+    //            {
+    //                continue;
+    //            }
+    //            if (difference == new Vector2Int(1, 0) && grid[current.position.x, current.position.y].HasWall(Wall.RIGHT)) //right
+    //            {
+    //                continue;
+    //            }
+    //            if (difference == new Vector2Int(0, -1) && grid[current.position.x, current.position.y].HasWall(Wall.DOWN)) //down
+    //            {
+    //                continue;
+    //            }
+    //            if (difference == new Vector2Int(-1, 0) && grid[current.position.x, current.position.y].HasWall(Wall.LEFT)) //left
+    //            {
+    //                continue;
+    //            }
 
-                float tempGScore = current.GScore + GetDistance(current, Neighbour);
-                if (tempGScore < Neighbour.GScore)
-                {//the new path is shorter, update the GScore and the parent (for pathing)
-                    Neighbour.GScore = tempGScore;
-                    // node.HScore = GetDistance(node, EndNode);
-                    Neighbour.parent = current;
+    //            float tempGScore = current.GScore + GetDistance(current, Neighbour);
+    //            if (tempGScore < Neighbour.GScore)
+    //            {//the new path is shorter, update the GScore and the parent (for pathing)
+    //                Neighbour.GScore = tempGScore;
+    //                // node.HScore = GetDistance(node, EndNode);
+    //                Neighbour.parent = current;
 
-                    if (!OpenSet.Contains(Neighbour))
-                    {
-                        OpenSet.Add(Neighbour);
-                    }
-                }
-            }
+    //                if (!OpenSet.Contains(Neighbour))
+    //                {
+    //                    OpenSet.Add(Neighbour);
+    //                }
+    //            }
+    //        }
 
-        }
-        return null;
-    }
+    //    }
+    //    return null;
+    //}
     int GetDistance(Node A, Node B) // 
     {
         //grid position between 2 nodes

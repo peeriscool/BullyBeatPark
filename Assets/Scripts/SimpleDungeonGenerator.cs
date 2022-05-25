@@ -27,7 +27,7 @@ public class SimpleDungeonGenerator : MonoBehaviour
 
     void Start()
     {
-        Generate();
+        GenerateRooms();
     }
     private void Update()
     {
@@ -44,7 +44,7 @@ public class SimpleDungeonGenerator : MonoBehaviour
 
         //}
     }
-    public void Generate() ///Generate dungeon
+    public void GenerateRooms() ///Generate dungeon
     {
         //Rooms
         for (int i = 0; i < RoomCount; i++)
@@ -58,7 +58,6 @@ public class SimpleDungeonGenerator : MonoBehaviour
             Obstruction wall = new Obstruction(minX, maxX, minZ, maxZ);
             if (Roomcheck(room))
             {
-                
                 AddRoomToDungeon(room);
                 AddWallToDungeon(wall, map2);
             }
@@ -148,9 +147,6 @@ public class SimpleDungeonGenerator : MonoBehaviour
         }
         return true;
     }
-           
- 
- 
 }
 
 public class Room

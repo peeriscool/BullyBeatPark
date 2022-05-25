@@ -121,12 +121,12 @@ public class MazeGeneration : MonoBehaviour
                //generate exit at last cell of the maze 
                 if(x == width-1 && y == height-1)
                 {
+                    //Pole for indication of ending
                     cellObject.gameObject.AddComponent<SphereCollider>();
                     cellObject.gameObject.GetComponent<SphereCollider>().isTrigger = true;
-                 //   cellObject.gameObject.AddComponent<FinishComponent>();
-                    
-                    //Pole for indication of ending
-                    GameObject end =  GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                    //cellObject.gameObject.AddComponent<FinishComponent>();
+
+                     GameObject end =  GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                       end.transform.position = new Vector3(x * scaleFactor, 1f,y * scaleFactor) * 2;
                       end.transform.localScale = new Vector3(1, 3, 1);
                       end.GetComponent<Renderer>().material.color = Color.red;
