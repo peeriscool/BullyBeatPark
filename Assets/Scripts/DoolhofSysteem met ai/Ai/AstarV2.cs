@@ -5,7 +5,7 @@ public class AstarV2
 {
     float width;
     float height;
-    Cell[,] Grid;
+   // Cell[,] Grid;
 
     public AstarV2(float _width, float _height)
     {
@@ -18,11 +18,11 @@ public class AstarV2
         //if (endPos.x >= width) { Debug.Log("go to is outside of grid!" + endPos.x + "size:" + width); } //debug code
 
         List<Node> OpenSet = new List<Node>(); //has to be filled
-        Node[,] AllNodes = GridToNodes(grid, startPos, endPos); //maybe array would be better here because of number 0
+        Node[,] AllNodes = GridToNodes(grid,endPos); //maybe array would be better here because of number 0
         HashSet<Node> ClosedSet = new HashSet<Node>(); //final path
         width = grid.GetLength(0);
         height = grid.GetLength(1);
-        Grid = grid;
+       // Grid = grid;
 
         Node StartNode = new Node(startPos, null, 0, 0);
         Node EndNode = new Node(endPos, null, 0, 0); //change 0,0 to G and H 
@@ -31,11 +31,13 @@ public class AstarV2
         {
             if (item.position == startPos)
             {
+                Debug.Log("Startnode found");
                 StartNode = item;
                 StartNode.GScore = 0;
             }
             if (item.position == endPos)
             {
+                Debug.Log("Endnode found");
                 EndNode = item;
                 EndNode.HScore = 0;
             }
@@ -233,7 +235,7 @@ public class AstarV2
         path.Reverse();
         return path;
     }
-    private Node[,] GridToNodes(Cell[,] _Grid, Vector2Int _StartPos, Vector2Int _EndPos) //gets a grid and converts them to notes and calculates Hscore
+    private Node[,] GridToNodes(Cell[,] _Grid, Vector2Int _EndPos) //gets a grid and converts them to notes and calculates Hscore
     {
         Node[,] nodes = new Node[_Grid.GetLength(0), _Grid.GetLength(1)];
         float H = 0;

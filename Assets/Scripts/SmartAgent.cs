@@ -11,23 +11,23 @@ public class SmartAgent : MonoBehaviour
     // Update is called once per frame
     public void Tick()
     {
-            if (path == null)
-            {
-                Debug.Log("No Path Set");
-            }
+        if (path == null)
+        {
+            Debug.Log("No Path Set");
+        }
         if (path != null && path.Count > 0)
         {
             if (transform.position != Vector2IntToVector3(path[0])) //moving
             {
-            //    actionindex = 1;
-                transform.position = Vector3.MoveTowards(transform.position, Vector2IntToVector3(path[0]),Time.deltaTime); //transform.position
+                //    actionindex = 1;
+                transform.position = Vector3.MoveTowards(transform.position, Vector2IntToVector3(path[0]), Time.deltaTime); //transform.position
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);
             }
             else
             {
-                location = path[0] ; //location /4 = ~gridsize world/ location  
-                                        //   Debug.Log("location of "+ this.name +"=" + location + "world = "+this.gameObject.transform.position);// Debug.Log(path.Count + "Path control for" + gameObject.name);
-             //   actionindex = 0;
+                location = path[0]; //location /4 = ~gridsize world/ location  
+                                    //   Debug.Log("location of "+ this.name +"=" + location + "world = "+this.gameObject.transform.position);// Debug.Log(path.Count + "Path control for" + gameObject.name);
+                                    //   actionindex = 0;
                 path.RemoveAt(0);
             }
         }
@@ -50,24 +50,14 @@ public class SmartAgent : MonoBehaviour
         catch (System.Exception)
         {
             Debug.Log("path resulted in no instance: " + location + "from " + current);
+            Debug.Log(Rawpath+ "rawpath");
             throw;
         }
     }
-    public void FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid)
-    {
-        path = Astar.FindPathToTarget(endPos, startPos, grid);
-        for (int i = 0; i < path.Count; i++)
-        {
-            path[i] = path[i]; //should set the path to the world position
-        }
-    }
-
+    
     private Vector3 Vector2IntToVector3(Vector2Int pos, float YPos = 0)
     {
         return new Vector3(Mathf.RoundToInt(pos.x), YPos, Mathf.RoundToInt(pos.y));
     }
-    //private Vector2Int Vector3ToVector2Int(Vector3 pos)
-    //{
-    //    return new Vector2Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.z));
-    //}
+
 }
