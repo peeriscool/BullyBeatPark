@@ -12,7 +12,7 @@ public class AstarV2
         width = _width;
         height = _height;
     }
-    public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid) //
+    public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Cell[,] grid) //agent use this to walk across known grid
     {
         if (startPos.x >= width) { Debug.Log("current location outside of grid!" + startPos.x + "size:" + width); } //debug code
         //if (endPos.x >= width) { Debug.Log("go to is outside of grid!" + endPos.x + "size:" + width); } //debug code
