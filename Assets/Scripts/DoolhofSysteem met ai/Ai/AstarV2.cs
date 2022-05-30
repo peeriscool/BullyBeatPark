@@ -103,28 +103,30 @@ public class AstarV2
         }
         return null;
     }
-    //public List<Vector2Int> FindPathToTarget(Vector2Int startPos, Vector2Int endPos, Node[,] griddata)
+    //public List<Vector2Int> makePathToTarget(Vector2Int startPos, Vector2Int endPos,Cell[,] grid) //dungeongenerator 2 uses this to make paths between rooms
     //{
-    //    Cell[,] grid = NodetoCell(griddata);
-    //    List<Node> OpenSet = new List<Node>(); 
-    //    Node[,] AllNodes = GridToNodes(grid, startPos, endPos);
+    //  //  Cell[,] grid = NodetoCell(griddata);
+    //    List<Node> OpenSet = new List<Node>();
+    //    Node[,] AllNodes = GridToNodes(grid, endPos); 
     //    HashSet<Node> ClosedSet = new HashSet<Node>();
     //    width = grid.GetLength(0); //get length of first array
     //    height = grid.GetLength(1);//get length of Second array
-    //    Grid = grid;
+    //   // Grid = grid;
 
     //    Node StartNode = new Node(startPos, null, 0, 0);
     //    Node EndNode = new Node(endPos, null, 0, 0); //change 0,0 to G and H 
 
     //    foreach (Node item in AllNodes) //set start node and end node
-    //    {
+    //     {
     //        if (item.position == startPos)
     //        {
+    //            Debug.Log("Start found");
     //            StartNode = item;
     //            StartNode.GScore = 0;
     //        }
     //        if (item.position == endPos)
     //        {
+    //            Debug.Log("End found");
     //            EndNode = item;
     //            EndNode.HScore = 0;
     //        }

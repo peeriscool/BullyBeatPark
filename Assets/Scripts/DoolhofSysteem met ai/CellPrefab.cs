@@ -6,7 +6,7 @@ public class CellPrefab : MonoBehaviour
     public bool Is2x2;
     Quaternion Left = new Quaternion(-1, 1, 1, 1);
     Quaternion Right = new Quaternion(1, 1, 1, -1);
-    CellPrefab()
+     public CellPrefab()
     {
 
     }

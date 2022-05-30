@@ -213,8 +213,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119989219}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.955931, y: -0.52, z: 12.908256}
-  m_LocalScale: {x: 2.8899, y: 2.8899, z: 2.8899}
+  m_LocalPosition: {x: 8.955931, y: -0.52, z: -14.410001}
+  m_LocalScale: {x: 1.085562, y: 1.085562, z: 1.085562}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -264,7 +264,7 @@ PrefabInstance:
     - target: {fileID: 9009909869182813369, guid: 0024072a7e981ed4b891478d46ae1f12,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.14
+      value: -13.220001
       objectReference: {fileID: 0}
     - target: {fileID: 9009909869182813369, guid: 0024072a7e981ed4b891478d46ae1f12,
         type: 3}
@@ -343,7 +343,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: afb9647bb4d51d449825ae89558b454a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.31
+      value: -12.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: afb9647bb4d51d449825ae89558b454a,
         type: 3}
@@ -586,18 +586,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abf270e3691d8849a09fa996a19c319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FloorPrefab: {fileID: 4528853697506289940, guid: 7e7b9ef542e711545aba629dbbe2dca3,
-    type: 3}
-  WallPrefab: {fileID: 1442959255232738744, guid: 5bd1747cf0a1be64ea80e73daf46a695,
-    type: 3}
-  GridWidth: 40
-  GridHeight: 40
-  RoomCount: 4
-  MinWidth: 10
+  allowedcolores:
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 0.15395391, g: 1, b: 0, a: 0}
+  - {r: 0, g: 0.19017506, b: 1, a: 0}
+  - {r: 1, g: 0.9723208, b: 0, a: 0}
+  GridWidth: 30
+  GridHeight: 30
+  RoomCount: 20
+  MinWidth: 2
   MaxWidth: 10
-  MinRoomSize: 4
-  MaxRoomSize: 13
-  instanced: []
+  MinRoomSize: 2
+  MaxRoomSize: 15
+  CellList:
+  - {fileID: 5983440188377179781, guid: 7e7b9ef542e711545aba629dbbe2dca3, type: 3}
+  connections: []
 --- !u!1 &1885404369 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: afb9647bb4d51d449825ae89558b454a,
@@ -628,6 +631,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FastFoodRunning
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970437774598951212, guid: f103f6b2e9ac5a0449f55f7350674c84,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5205003400568642608, guid: f103f6b2e9ac5a0449f55f7350674c84,
         type: 3}

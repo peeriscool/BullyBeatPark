@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private MazeGeneration mazegenerator;
 
     Dictionary<int, bool> levels;
+    bool Eready = false;
     //--------------------------------------------------\\
 
     void Start()
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
         mazegenerator = this.gameObject.GetComponent<MazeGeneration>();
         // Blackboard.player = player;
         EManager = new Enemy_Manager(EnemyList); //initialize enemies
-        levels = new Dictionary<int, bool>();
+        levels = new Dictionary<int,bool>();
         for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; i++)
         {
             levels.Add(i,false);
@@ -52,17 +53,16 @@ public class GameManager : MonoBehaviour
         //intit
         player.transform.position = Vector3.zero;
         mazegenerator.init();
-        SpawnEnemies();
-       
-        foreach (GameObject item in deployed) //make sure all enemies are not at 0,0
-        {
-            Agent instance = item.GetComponent<Agent>();
-            instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location);
-        }
+       if(!Eready) SpawnEnemies(); //once plz
         player.GetComponent<worldToGrid>().enabled = true;
         Blackboard.maxmoves = 10;
+        
+       
         levels[1] = true;
-
+      //  return null;
+       
+        
+        // return null;
     }
     private void Update()
     {
@@ -72,10 +72,16 @@ public class GameManager : MonoBehaviour
 
         }
         if (SceneManagerScript.returnactivesceneint() == 1 && levels[1] == false) //maze
-        {
-            level1(); //initialize level values
+        {   
+                level1();
+            foreach (GameObject item in deployed) //make sure all enemies are not at 0,0
+            {
+                Agent instance = item.GetComponent<Agent>();
+                instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location);
+            }
+            //initialize level values
         }
-        if(levels[1] == true) //update level1
+        if (levels[1] == true) //update level1
         {
             //update
             if (Blackboard.moves != null)
@@ -129,6 +135,7 @@ public class GameManager : MonoBehaviour
             deployed.Add(Instantiate(plot[i], plot[i].transform.position, new Quaternion()));
         }
         Blackboard.Enemies = deployed;
+        Eready = true;
     }
 
     public void EnemyDied(GameObject deceased)
