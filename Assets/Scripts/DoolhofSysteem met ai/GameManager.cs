@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         //intit
         player.transform.position = Vector3.zero;
         mazegenerator.init();
-       if(!Eready) SpawnEnemies(); //once plz
+        if(!Eready) SpawnEnemies(); //once plz
         player.GetComponent<worldToGrid>().enabled = true;
         Blackboard.maxmoves = 10;
         
@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
                     foreach (GameObject item in deployed) //make sure all enemies are not at 0,0
                     {
                         Agent instance = item.GetComponent<Agent>();
+                        instance.maze = mazegenerator;
                         instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location);
                     }
                     Blackboard.moves.Clear();
@@ -111,7 +112,8 @@ public class GameManager : MonoBehaviour
             {
                 //all enemies killed
                 //inform player to get to the end of the level
-                SceneManagerScript.callScenebyname("StartMenu");
+                SceneManagerScript.callScenebyname("level_2");
+                player.transform.position = Vector3.zero;
             }
         }
        

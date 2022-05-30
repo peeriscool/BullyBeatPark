@@ -282,13 +282,13 @@ public class SimpleDungeonGenerator : MonoBehaviour
                 if (i == 0) //make first cell black
                 {
                     GameObject fcell = instanced[r.mypositions[i]];
-                    fcell.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
+                 //   fcell.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                     connections.Add(new Vector2Int(r.mypositions[i].x, r.mypositions[i].z)); //needs path to other room
                 }
                 else if (i == r.mypositions.Count-1) //make last cell white
                 {
                     GameObject lcell = instanced[r.mypositions[i]];
-                    lcell.GetComponent<Renderer>().material.color = new Color(1, 1, 1);
+                //    lcell.GetComponent<Renderer>().material.color = new Color(1, 1, 1);
                     connections.Add(new Vector2Int(r.mypositions[i].x, r.mypositions[i].z)); //is end of path
                 }
                 else

@@ -8,7 +8,7 @@ public class Agent : MonoBehaviour
     private AstarV2 Astar = new AstarV2(Blackboard.Mazewidth,Blackboard.Mazeheight);
     private List<Vector2Int> path = new List<Vector2Int>();
     private MeshRenderer renderer;
-    private MazeGeneration maze;
+    public MazeGeneration maze { get; set; }
     private LineRenderer line;
 
     private void Awake()
