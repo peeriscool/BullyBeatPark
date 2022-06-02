@@ -22,13 +22,13 @@ public class Enemy_Manager
             }
         }     
     }
-    public void globalwalkagents(List<GameObject> instances, int sizeX, int sizeY) //give instanced enemies as param
-    {
-        for (int i = 0; i < instances.Count; i++)
-        {
-                instances[i].gameObject.GetComponent<Agent>().WalkTo(setRandomposition(sizeX-1 , sizeY-1),instances[i].gameObject.GetComponent<Agent>().location); //walking range should be width height maze
-        }
-    }
+    //public void globalwalkagents(List<GameObject> instances, int sizeX, int sizeY) //give instanced enemies as param
+    //{
+    //    for (int i = 0; i < instances.Count; i++)
+    //    {
+    //            instances[i].gameObject.GetComponent<Agent>().WalkTo(setRandomposition(sizeX-1 , sizeY-1),instances[i].gameObject.GetComponent<Agent>().location); //walking range should be width height maze
+    //    }
+    //}
     public Vector3 setRandomposition(int sizeX,int sizeY)
     {
        

@@ -44,11 +44,11 @@ public class Agent : MonoBehaviour
             Debug.Log(path + "non working paths");
         }
     }
-    public void WalkTo(Vector3 _location, Vector2Int current)
+    public void WalkTo(Vector3 _location, Vector2Int current, Cell[,] grid)
     {  
         Vector2Int targetPos = Vector3ToVector2Int(_location); 
         Debug.Log("i " + this.gameObject.name +"At " + current + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
-        List<Vector2Int> Rawpath = Astar.FindPathToTarget(current, targetPos, maze.grid);
+        List<Vector2Int> Rawpath = Astar.FindPathToTarget(current, targetPos, grid);
         try
         {
             for (int i = 0; i < Rawpath.Count; i++)

@@ -9,15 +9,19 @@ public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
     char[] seperators = new char[] { ':' };
     Vector2Int location;
     bool dataretrieved = false;
- 
+    string Tilename; //to make sure we only step on 1 tile at the time
 
     void Start()
     {
         Blackboard.moves = new List<Vector2Int>();
+        Tilename = "";
     }
 
-    public void floorcheck(string Tilename)
+    public void floorcheck(Collision _current)
     {
+        if(Tilename != _current.gameObject.name)
+        {
+           Tilename = _current.gameObject.name;
             try//get floor by name
             {
                 string obj = Tilename;
@@ -26,7 +30,7 @@ public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
                 int numVal1 = Int32.Parse(data[0]);
                 int numVal2 = Int32.Parse(data[1]);
                 location = new Vector2Int(numVal1, numVal2);
-                if (location == new Vector2Int(0, 0)){ return;} //doesn't count as step
+                if (location == new Vector2Int(0, 0)) { return; } //doesn't count as step
                 dataretrieved = true;
             }
             catch (Exception e) //player not on known floor
@@ -34,6 +38,7 @@ public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
                 Debug.Log("Grid position not detected: " + e);
                 throw;
             }
+        }
             if (dataretrieved)
             {
                 Blackboard.moves.Add(location);

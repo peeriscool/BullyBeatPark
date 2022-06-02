@@ -74,7 +74,8 @@ public class PlayerScript : MonoBehaviour
             if (activEenemy.Hp != 0)
             {
                 activEenemy.TakeDamage();
-                activEenemy.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), activEenemy.location); //go somewhere els after getting hit
+                GameManager.WalkEnemyCommand(activEenemy);
+              // activEenemy.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), activEenemy.location,mazegenerator.grid); //go somewhere els after getting hit
             }
             Inrange = false;
             //deal damage to enemy and consume an action point if in range
@@ -102,9 +103,9 @@ public class PlayerScript : MonoBehaviour
             Inrange = true;
 
         }
-        if (dataFromCollision.gameObject.layer == 6)// 6 = "walls and floors"
+        if (dataFromCollision.gameObject.layer == 6 && Blackboard.getlevelstatus(SceneManagerScript.returnactivesceneint()))// 6 = "walls and floors"
         {
-            this.GetComponent<worldToGrid>().floorcheck(dataFromCollision.gameObject.name);
+            this.GetComponent<worldToGrid>().floorcheck(dataFromCollision);
         }
     }
     void Orientation(controllerInputs input)//sets this gameobject's rotation

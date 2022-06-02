@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(MazeGeneration))]
+//[RequireComponent(typeof(MazeGeneration))]
 public class GameManager : MonoBehaviour
 {
     //---------------------active game data-----------------------------\\
@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
     //---------------------instances of classes-----------------------------\\
     private Enemy_Manager EManager;
     private MazeGeneration mazegenerator;
-
+    static Cell[,] gridrefrence;
     Dictionary<int, bool> levels;
+
     bool Eready = false;
     //--------------------------------------------------\\
 
@@ -33,14 +34,12 @@ public class GameManager : MonoBehaviour
         {
             DontDestroyOnLoad(item);
         }
-        mazegenerator = this.gameObject.GetComponent<MazeGeneration>();
+       // mazegenerator = this.gameObject.GetComponent<MazeGeneration>();
         // Blackboard.player = player;
         EManager = new Enemy_Manager(EnemyList); //initialize enemies
-        levels = new Dictionary<int,bool>();
-        for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; i++)
-        {
-            levels.Add(i,false);
-        }
+        Blackboard.generateleveldict();
+        levels = Blackboard.getleveldict();
+        Blackboard.setlevelstatus(SceneManagerScript.returnactivesceneint(),false); //false because there is no need to be ready in lobby level
         lobby();
 
     }
@@ -52,17 +51,22 @@ public class GameManager : MonoBehaviour
     {
         //intit
         player.transform.position = Vector3.zero;
-        mazegenerator.init();
+       // mazegenerator.init();
         if(!Eready) SpawnEnemies(); //once plz
         player.GetComponent<worldToGrid>().enabled = true;
         Blackboard.maxmoves = 10;
-        
-       
+        mazegenerator = GameObject.Find("Scriptholder Lvl1").GetComponent<MazeGeneration>();
+        gridrefrence = mazegenerator.grid;
+
         levels[1] = true;
       //  return null;
        
         
         // return null;
+    }
+    public static void WalkEnemyCommand(Agent instance)
+    {
+        instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location, gridrefrence);
     }
     private void Update()
     {
@@ -77,7 +81,7 @@ public class GameManager : MonoBehaviour
             foreach (GameObject item in deployed) //make sure all enemies are not at 0,0
             {
                 Agent instance = item.GetComponent<Agent>();
-                instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location);
+                instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location, mazegenerator.grid);
             }
             //initialize level values
         }
@@ -95,7 +99,7 @@ public class GameManager : MonoBehaviour
                     {
                         Agent instance = item.GetComponent<Agent>();
                         instance.maze = mazegenerator;
-                        instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location);
+                        instance.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), instance.location, mazegenerator.grid);
                     }
                     Blackboard.moves.Clear();
                     //enable end turn button
