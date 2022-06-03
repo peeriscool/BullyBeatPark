@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
             }
             //initialize level values
         }
-        if (levels[1] == true) //update level1
+        if (levels[1] == true && SceneManagerScript.returnactivesceneint() == 1) //update level1
         {
             //update
             if (Blackboard.moves != null)

@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class SimpleDungeonGenerator : MonoBehaviour
 {
-    //  public GameObject FloorPrefab;
-    //  public GameObject WallPrefab;
     [SerializeField]
     public List<Color> allowedcolores; 
     public int GridWidth = 40;
@@ -17,36 +15,26 @@ public class SimpleDungeonGenerator : MonoBehaviour
     public int MaxRoomSize = 13; //roomsize
     public enum Tiletype {floor,wall};
     public Dictionary<Vector3Int, Tiletype> dungeon = new Dictionary<Vector3Int, Tiletype>();
- //   public Dictionary<Vector3Int, Tiletype> map2 = new Dictionary<Vector3Int, Tiletype>();
     public Dictionary<Vector3Int,GameObject> instanced = new Dictionary<Vector3Int, GameObject>();
     public List<Room> RoomList = new List<Room>();
-    public List<Obstruction> obstructionList = new List<Obstruction>();
-
-
     public List<CellPrefab> CellList;
-    public Cell[,] grid;
-    //AstarV2 coridor;
+   // public Cell[,] grid;
     public List<Vector2Int> connections;
-    ///ProTips:
-    /// ctrl x knipt by default hele regels
-    /// ctrl-rr voor alles renamen
-    //alt pijltje omhoog en omlaag om regels te verplaatsen
-    // uNDERSCORE = LOCAL
 
     void Start()
     {
         connections = new List<Vector2Int>();
-        grid = new Cell[GridWidth, GridHeight];
-        grid.Initialize();
-        for (int x = 0; x < GridWidth; x++) //generates grid with full walls : Size = width,height
-        {
-            for (int y = 0; y < GridHeight; y++)
-            {
-                grid[x, y] = new Cell();
-                grid[x, y].gridPosition = new Vector2Int(x, y);
-                grid[x, y].walls = Wall.DOWN | Wall.LEFT | Wall.RIGHT | Wall.UP;
-            }
-        }
+      //  grid = new Cell[GridWidth, GridHeight];
+      //  grid.Initialize();
+        //for (int x = 0; x < GridWidth; x++) //generates grid with full walls : Size = width,height
+        //{
+        //    for (int y = 0; y < GridHeight; y++)
+        //    {
+        //        grid[x, y] = new Cell();
+        //        grid[x, y].gridPosition = new Vector2Int(x, y);
+        //        grid[x, y].walls = Wall.DOWN | Wall.LEFT | Wall.RIGHT | Wall.UP;
+        //    }
+        //}
         GenerateRooms();
         Roomcolor(RoomList);
         makepath();
@@ -82,19 +70,14 @@ public class SimpleDungeonGenerator : MonoBehaviour
                     drawablepath.Add(new Vector2Int(xp, yp));
                     yp++;
                 }
-
                 else if (yp >= maxy)
                 {
                     drawablepath.Add(new Vector2Int(xp, yp));
                     yp--;
                 }
             }
-            //i++;
         }
-       
-       //ToDO See which corridors collide with rooms
-
-
+       //ToDO add walls
         for (int i = 0; i < drawablepath.Count; i++)
         {
           
@@ -105,27 +88,14 @@ public class SimpleDungeonGenerator : MonoBehaviour
             }
             else
             {
-                instanced.Add(loc,Instantiate(CellList[Random.Range(0, CellList.Count)].gameObject, loc, Quaternion.Euler(-90, 0, 0), transform));
-                
+                instanced.Add(loc,Instantiate(CellList[0].gameObject, loc, Quaternion.Euler(-90, 0, 0), transform));
+                //GameObject walll = GameObject.Instantiate(CellList[0].WallPrefab, loc, new Quaternion(-1, 1, 1, 1), this.transform);
+                //walll.transform.localScale *= 0.5f;
+                //GameObject wallr = GameObject.Instantiate(CellList[0].WallPrefab, loc, new Quaternion(1, 1, 1, -1), this.transform);
+                //wallr.transform.localScale *= 0.5f;
             }
-           
         }
     }
-    //private void Update()
-    //{
-    //    //if(Mouse.current.leftButton.wasPressedThisFrame)
-    //    //{
-    //    //    // SceneManagerScript.callScenebyname(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-    //    //    foreach (GameObject inst in instanced)
-    //    //    {
-    //    //        Destroy(inst);
-    //    //    }
-    //    //    GridWidth += GridWidth/10;
-    //    //    GridHeight += GridHeight/10;
-    //    //    Generate();
-
-    //    //}
-    //}
     public void GenerateRooms() ///Generate dungeon
     {
         //Rooms
@@ -137,11 +107,11 @@ public class SimpleDungeonGenerator : MonoBehaviour
             int maxZ = minZ + Random.Range(MinRoomSize, MaxRoomSize + 1);
             //check if room collides or tiles already used 
             Room room = new Room(minX,maxX,minZ,maxZ);
-            Obstruction wall = new Obstruction(minX, maxX, minZ, maxZ);
+           // Obstruction wall = new Obstruction(minX, maxX, minZ, maxZ);
             if (Roomcheck(room))
             {
                 AddRoomToDungeon(room);
-          //      AddWallToDungeon(wall, map2);
+                AddWallToDungeon(CellList[0].WallPrefab,dungeon,room);
             }
             else
             {
@@ -149,9 +119,6 @@ public class SimpleDungeonGenerator : MonoBehaviour
             }
         }
         Spawndungeon();
-        
- 
-
     }
     public void Spawndungeon()
     {
@@ -160,53 +127,17 @@ public class SimpleDungeonGenerator : MonoBehaviour
             switch (kv.Value)
             {
                 case Tiletype.floor:
-                    instanced.Add(kv.Key,Instantiate(CellList[Random.Range(0, CellList.Count)].gameObject, kv.Key, Quaternion.Euler(-90, 0, 0), transform));
+                    instanced.Add(kv.Key,Instantiate(CellList[0].gameObject, kv.Key, Quaternion.Euler(-90, 0, 0), transform));
+                   // spawnwalls(kv.Key);
                     break;
 
                 case Tiletype.wall:
                //     Instantiate(WallPrefab, kv.Key,Quaternion.identity, transform);
                     break;
             }
-        }
-
-        //for (int i = 0; i < instanced.Count; i++) //for all the cells we have
-        //{
-        //    GameObject item = instanced[i]; //cache item
-
-        //    // find out which rooms owns current item
-        //    for (int j = 0; j < dungeon.Count; j++) //go trhough all known locations
-        //    {
-             
-        //        //Vector3Int loc = new Vector3Int((int)item.transform.position.x, (int)item.transform.position.y, (int)item.transform.position.z);
-        //        //if (dungeon.ContainsKey(loc))
-        //        //{
-        //        //    Debug.Log("Dungeon contains: " + loc);
-        //        //    //for (int r = 0; r < RoomList.Count; r++)
-        //        //    //{
-        //        //      //  Room local = RoomList[1];
-        //        //      //  item.GetComponent<Renderer>().material.color = local.Roomcolor;
-        //        //   // }
-                  
-        //        //}
-        //    }
-        //  //  
-        //}
-
-        //foreach (KeyValuePair<Vector3Int, Tiletype> kv in map2)
-        //{
-        //    switch (kv.Value)
-        //    {
-        //        case Tiletype.floor:
-        //         //   Instantiate(FloorPrefab, kv.Key, Quaternion.Euler(-90, 0, 0), transform);
-        //            break;
-
-        //        case Tiletype.wall:
-        //            instanced.Add(Instantiate(WallPrefab, kv.Key, Quaternion.Euler(-90, 0, 0), transform));
-        //            break;
-        //    }
-        //}
-        //  FloorPrefab
+        }   
     }
+  
     public void AddRoomToDungeon(Room room)
     {
         for (int x = room.minX; x < room.maxX; x++) //aslong as room min is smaller as room max add tiles to the dungeon
@@ -220,27 +151,44 @@ public class SimpleDungeonGenerator : MonoBehaviour
         RoomList.Add(room);
         
     }
-    public void AddWallToDungeon(Obstruction wall, Dictionary<Vector3Int,Tiletype> map)
+    public void AddWallToDungeon(GameObject _wall, Dictionary<Vector3Int,Tiletype> map, Room r)
     {
-        for (int x = wall.minX; x < wall.maxX; x++) //save in dictonary
+        for (int x = r.minX; x < r.maxX; x++)
         {
-            for (int z = wall.minZ; z < wall.maxZ; z++)
+            for (int z = r.minZ; z < r.maxZ; z++)
             {
                 try
                 {
-                    map.Add(new Vector3Int(x, 0, z), Tiletype.wall);
+                    if(x == r.minX) //left walls
+                    {
+                        GameObject walll = GameObject.Instantiate(_wall, new Vector3Int(x, 0, z), new Quaternion(-1, 1, 1, 1), this.transform);
+                        walll.transform.localScale *= 0.5f;
+                        //return;
+                    }
+                    //  map.Add(new Vector3Int(x, 0, z), Tiletype.wall);
+                   if(x == r.maxX-1) //rightwalls
+                    {
+                        GameObject wallr = GameObject.Instantiate(_wall, new Vector3Int(x, 0, z), new Quaternion(1, 1, 1, -1), this.transform);
+                        wallr.transform.localScale *= 0.5f;
+                    }
+                   if(z == r.minZ) //down
+                    {
+                        GameObject wallD = Instantiate(_wall, new Vector3Int(x, 0, z), Quaternion.LookRotation(new Vector3(0, 270, 0)), transform);
+                        wallD.transform.localScale *= 0.5f;
+                    }
+                    if (z == r.maxZ-1) //up
+                    {
+                        GameObject wallU = Instantiate(_wall, new Vector3Int(x, 0, z), Quaternion.LookRotation(new Vector3(0, 90, -1)), transform);
+                        wallU.transform.localScale *= 0.5f;
+                    }
                 }
                 catch (System.Exception)
                 {
                     Debug.LogError("Map error");
                     throw;
-                }  
-               
-
+                }
             }
         }
-        obstructionList.Add(wall);
-
     }
     public bool Roomcheck(Room room)
     {
@@ -253,24 +201,6 @@ public class SimpleDungeonGenerator : MonoBehaviour
         }
         return true;
     }
-
-    //void celltomaze()
-    //{
-    //    grid = new Cell[GridWidth, GridHeight];
-    //    grid.Initialize();
-    //    for (int x = 0; x < GridWidth; x++)
-    //    {
-    //        for (int y = 0; y < GridHeight; y++)
-    //        {
-    //            CellPrefab cellObject = Instantiate(CellList[Random.Range(0, CellList.Count)], new Vector3(x , 0, y ) * 2, Quaternion.identity, transform);
-    //            cellObject.gameObject.GetComponent<Renderer>().material.color = new Color(Random.Range(0, 1f), Random.Range(0, 1f) , Random.Range(0, 1f));
-    //            cellObject.name = "Tile" + y + ":" + x;
-    //            cellObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-    //            cellObject.SpawnWalls(grid[x, y]);
-    //            allCellObjects.Add(cellObject.gameObject);
-    //        }
-    //    }
-    //}
     void Roomcolor(List<Room> rooms)
     {
        
@@ -296,24 +226,9 @@ public class SimpleDungeonGenerator : MonoBehaviour
                     GameObject roomcell = instanced[r.mypositions[i]]; //find gameobject based on postion
                     roomcell.GetComponent<Renderer>().material.color = rcoler;
                 }
-                
-
             }
         }
     }
-
-        //for (int x = 0; x < GridWidth; x++)
-        //{
-        //    for (int y = 0; y < GridHeight; y++)
-        //    {
-        //       // CellPrefab cellObject = Instantiate(CellList[Random.Range(0, CellList.Count)], new Vector3(x, 0, y) * 2, Quaternion.identity, transform);
-        //        cellObject.gameObject.GetComponent<Renderer>().material.color = rcoler;
-        //        cellObject.name = "Tile" + y + ":" + x;
-        //        cellObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        //        //cellObject.SpawnWalls(grid[x, y]);
-        //        allCellObjects.Add(cellObject.gameObject);
-        //    }
-        //}
 }
 
 public class Room
@@ -329,14 +244,17 @@ public class Room
         mypositions = new List<Vector3Int>();
     }
 }
-public class Obstruction
-{
-    public int minX, maxX, minZ, maxZ;
-    public Obstruction(int _minX, int _maxX, int _minZ, int _maxZ)
+/*
+    public void spawnwalls(Vector3Int kvalue) //simple function to give 4 walls to the given value
     {
-        minX = _minX;
-        maxX = _maxX;
-        minZ = _minZ;
-        maxZ = _maxZ;
+        GameObject wallU = Instantiate(CellList[0].WallPrefab, instanced[kvalue].transform.position, Quaternion.LookRotation(new Vector3(0, 90, -1)), transform);
+        wallU.transform.localScale *= 0.5f;
+        GameObject wallD = Instantiate(CellList[0].WallPrefab, instanced[kvalue].transform.position, Quaternion.LookRotation(new Vector3(0, 270, 0)), transform);
+        wallD.transform.localScale *= 0.5f;
+        GameObject wallL = Instantiate(CellList[0].WallPrefab, instanced[kvalue].transform.position, new Quaternion(1, 1, 1, -1), transform);
+        wallL.transform.localScale *= 0.5f;
+        GameObject wallR = Instantiate(CellList[0].WallPrefab, instanced[kvalue].transform.position, new Quaternion(-1, 1, 1, 1), transform);
+        wallR.transform.localScale *= 0.5f;
+
     }
-}
+  */
