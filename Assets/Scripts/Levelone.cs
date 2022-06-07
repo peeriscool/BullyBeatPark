@@ -46,7 +46,7 @@ public class Levelone : MonoBehaviour
         }
         if (Blackboard.moves != null)
         {
-            if(Blackboard.moves.Count == 10)
+            if(Blackboard.moves.Count == 10 || Blackboard.moves.Count >= 10)
             {
                 foreach (GameObject item in deployed) //make sure all enemies are not at 0,0
                 {
@@ -57,6 +57,27 @@ public class Levelone : MonoBehaviour
                 Blackboard.moves = new List<Vector2Int>();
             }
         }
+
+        if (Blackboard.Enemies.Count == 0) //win condition
+        {
+            //all enemies killed
+            //inform player to get to the end of the level
+            SceneManagerScript.callScenebyname("level_2");
+           // player.transform.position = Vector3.zero;
+        }
+        //int count = 0;
+        //List<int>remove = new List<int>();
+        //    for (int i = 0; i < Blackboard.Enemies.Count; i++) //check if any kids died oops!
+        //    {
+        //        if (Blackboard.Enemies.Contains(deployed[i]))
+        //        {
+        //        count++;
+        //        }
+        //        else
+        //        {
+        //        deployed.RemoveAt(i);
+        //        }
+        //    }
     }
     /// <summary>
     /// sets blackboard enemies

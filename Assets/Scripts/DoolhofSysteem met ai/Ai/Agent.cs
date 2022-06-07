@@ -128,4 +128,16 @@ public class Agent : MonoBehaviour
             }
         }
     }
+    void OnCollisionEnter(Collision dataFromCollision)
+    {
+        if (dataFromCollision.gameObject.tag == "Player")
+        {
+           if( Blackboard.playerpunch == true)
+            {
+                TakeDamage();
+            }
+            Debug.Log(dataFromCollision.collider.name);
+        }
+
+    }
 }

@@ -73,17 +73,22 @@ public class PlayerScript : MonoBehaviour
     }
     public void actionhandler()
     {
-        if(Keyboard.current.eKey.wasPressedThisFrame && Inrange)
+        if (Keyboard.current.eKey.wasPressedThisFrame && Inrange)
         {
+            Blackboard.playerpunch = true;
             // if(activEenemy.actionindex == 3)//ded
             if (activEenemy.Hp != 0)
             {
                 activEenemy.TakeDamage();
-              //  manager.WalkEnemyCommand(activEenemy);
-              // activEenemy.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), activEenemy.location,mazegenerator.grid); //go somewhere els after getting hit
+                //  manager.WalkEnemyCommand(activEenemy);
+                // activEenemy.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), activEenemy.location,mazegenerator.grid); //go somewhere els after getting hit
             }
             Inrange = false;
             //deal damage to enemy and consume an action point if in range
+        }
+        if (Keyboard.current.eKey.wasReleasedThisFrame)
+        {
+            Blackboard.playerpunch = false;
         }
     }
     public void MouseHandler()

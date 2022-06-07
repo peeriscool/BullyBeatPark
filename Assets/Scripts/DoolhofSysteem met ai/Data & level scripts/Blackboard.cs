@@ -9,6 +9,7 @@ public static class Blackboard
     public static int Mazeheight;
     public static List<Vector2Int> moves;
     public static int maxmoves;
+    public static bool playerpunch;
   //  private static GameObject selectedenemy;
     private static Dictionary<int, bool> levels;
 
