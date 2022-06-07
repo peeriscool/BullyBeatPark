@@ -1,14 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class SmartAgent : MonoBehaviour
 {
-    public Vector2Int location = new Vector2Int();
+    public Vector2Int location = new Vector2Int(); //location on the grid
     private List<Vector2Int> path = new List<Vector2Int>();
     private AstarV2 Astar = new AstarV2(10, 10);
-
+    //SimpleDungeonGenerator instance;
+    Cell[,] Astarcell;
     // Update is called once per frame
+    private void Start()
+    {
+        Astarcell = new Cell[10, 10];
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                Cell cell = new Cell();
+                cell.gridPosition = new Vector2Int(i, j);
+                //walls
+                Astarcell[i, j] = cell;
+            }
+        }
+        path.Add(new Vector2Int(0, 0));
+        path.Add(new Vector2Int(5, 5));
+    }
+    public void Update()
+    {
+        if(Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            WalkTo(location,path[1], Astarcell);
+        }
+    }
     public void Tick()
     {
         if (path == null)

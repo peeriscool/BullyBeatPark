@@ -20,9 +20,17 @@ public class SimpleDungeonGenerator : MonoBehaviour
     public List<CellPrefab> CellList;
    // public Cell[,] grid;
     public List<Vector2Int> connections;
-
+    SimpleDungeonGenerator instance;
     void Start()
     {
+        if(instance != null)
+        {
+        
+        }
+        else
+        {
+            instance = this;
+        }
         connections = new List<Vector2Int>();
       //  grid = new Cell[GridWidth, GridHeight];
       //  grid.Initialize();

@@ -5,7 +5,6 @@ public class AstarV2
 {
     float width;
     float height;
-   // Cell[,] Grid;
 
     public AstarV2(float _width, float _height)
     {
@@ -277,6 +276,7 @@ public class AstarV2
     public Cell[,] NodetoCell(Node[,] Nodelist)
     {
         Cell[,] value = new Cell[Nodelist.Length, Nodelist.Length];
+        
         return value;
     }
 }
