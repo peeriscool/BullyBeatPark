@@ -8,12 +8,12 @@ public class StateMachine
     private Dictionary<System.Type, State> states = new Dictionary<System.Type, State>(); //list of availible states
 
    // StateMachine owner;
-    public StateMachine(State RecievedState) //constructer for state machine
+    public StateMachine(State basestate) //constructer for state machine
     {
         //geef states mee aan de statemachine 
         //maak een instance aan, run update vanuit monobehavior
         //  this.owner = owner;
-        AddState(RecievedState);
+        AddState(basestate);
     }
 
     public void OnStart(State state) //init a state

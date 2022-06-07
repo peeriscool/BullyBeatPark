@@ -16,4 +16,4 @@ MonoBehaviour:
   amountTomake: 1
   spawnPoints:
   - {x: 0, y: 0, z: 0}
-  Prefab: {fileID: 4970437774598951212, guid: f103f6b2e9ac5a0449f55f7350674c84, type: 3}
+  Prefab: {fileID: 9182277866104017110, guid: 9b260d90dbfb593469febb77793786b7, type: 3}

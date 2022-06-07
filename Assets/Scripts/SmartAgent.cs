@@ -2,21 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class SmartAgent : MonoBehaviour
+public class SmartAgent
 {
-    public Vector2Int location = new Vector2Int(); //location on the grid
-    private List<Vector2Int> path = new List<Vector2Int>();
-    private AstarV2 Astar = new AstarV2(10, 10);
-    //SimpleDungeonGenerator instance;
-    Cell[,] Astarcell;
-    // Update is called once per frame
-    private void Start()
+    GameObject visual;
+    public Vector2Int location; //location on the grid
+    private List<Vector2Int> path;
+    private AstarV2 Astar;
+    public Cell[,] Astarcell;
+    public float speed;
+    private bool destination;
+
+    private LineRenderer line;
+    private MeshRenderer renderer;
+    /// <summary>
+    /// Make an enemy who can move in any given area
+    /// </summary>
+    /// <param name="x">size of area</param>
+    /// <param name="y">size of area</param>
+    /// <param name="Smartagent"></param>
+    public SmartAgent(int x, int y,GameObject _Smartagent)
     {
-        Debug.Log("Starting Smart agent");
-        Astarcell = new Cell[10, 10];
-        for (int i = 0; i < 10; i++)
+        visual = _Smartagent;
+        Astar = new AstarV2(x,y);
+        location = Vector3ToVector2Int(_Smartagent.transform.position);
+        path = new List<Vector2Int>();
+        makecells(x,y);
+        //visual debug
+        line = _Smartagent.GetComponent<LineRenderer>();
+        renderer = _Smartagent.GetComponentInChildren<MeshRenderer>();
+        line.material.color = Color.white;
+    }
+    private void makecells(int x, int y)
+    {
+        Debug.Log("Starting Smart agent bloodcells");
+        Astarcell = new Cell[x, y];
+        for (int i = 0; i < x; i++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < y; j++)
             {
                 Cell cell = new Cell();
                 cell.gridPosition = new Vector2Int(i, j);
@@ -24,31 +46,31 @@ public class SmartAgent : MonoBehaviour
                 Astarcell[i, j] = cell;
             }
         }
-        path.Add(new Vector2Int(2, 2));
-        path.Add(new Vector2Int(10, 10));
-        location = new Vector2Int(1,1);
     }
     public void Update()
     {
-        if(Keyboard.current.enterKey.wasPressedThisFrame)
+        if(Keyboard.current.enterKey.wasPressedThisFrame) //manual overide
         {
             WalkTo(new Vector3(Random.Range(0, 10),Random.Range(0, 10)), location, Astarcell);
         }
         Tick();
     }
-    public void Tick()
+    public bool Tick()
     {
         if (path == null)
         {
             Debug.Log("No Path Set");
+            
         }
         if (path != null && path.Count > 0)
         {
-            if (transform.position != Vector2IntToVector3(path[0])) //moving
+            
+            destination = false;
+            if (visual.transform.position != Vector2IntToVector3(path[0])) //moving
             {
                 //    actionindex = 1;
-                transform.position = Vector3.MoveTowards(transform.position, Vector2IntToVector3(path[0]), Time.deltaTime); //transform.position
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - transform.position), 360f * Time.deltaTime);
+                visual.transform.position = Vector3.MoveTowards(visual.transform.position, Vector2IntToVector3(path[0]), Time.deltaTime / speed); //transform.position
+                visual.transform.rotation = Quaternion.RotateTowards(visual.transform.rotation, Quaternion.LookRotation(Vector2IntToVector3(path[0]) - visual.transform.position), 360f * Time.deltaTime/ speed);
             }
             else
             {
@@ -56,13 +78,19 @@ public class SmartAgent : MonoBehaviour
                                     //   Debug.Log("location of "+ this.name +"=" + location + "world = "+this.gameObject.transform.position);// Debug.Log(path.Count + "Path control for" + gameObject.name);
                                     //   actionindex = 0;
                 path.RemoveAt(0);
+                destination = true;
             }
         }
+        return destination;
     }
     public void WalkTo(Vector3 startPos, Vector2Int endPos, Cell[,] grid)
     {
+        if (line != null)
+        {
+            DrawPath();
+        }
         Vector2Int targetPos = Vector3ToVector2Int(startPos);
-        Debug.Log("i " + this.gameObject.name + "At " + startPos + "want to go to: " + endPos); //100/5 = 20 wich is the width/height of the maze
+        Debug.Log("i " + visual.gameObject.name + "At " + startPos + "want to go to: " + endPos); //100/5 = 20 wich is the width/height of the maze
         List<Vector2Int> Rawpath = Astar.FindPathToTarget(endPos, targetPos, grid);
         try
         {
@@ -71,7 +99,8 @@ public class SmartAgent : MonoBehaviour
                 Rawpath[i] = Rawpath[i]; //* (int)(maze.scaleFactor * 2)
             }
             path = Rawpath;
-          //  DrawPath();
+            //  DrawPath();
+            
             location = targetPos;
         }
         catch (System.Exception)
@@ -80,8 +109,25 @@ public class SmartAgent : MonoBehaviour
             Debug.Log(Rawpath.Count+ "rawpath");
             throw;
         }
+       
     }
-    private Vector2Int Vector3ToVector2Int(Vector3 pos)
+    private void DrawPath()
+    {
+        if (path != null && path.Count > 0)
+        {
+            // Debug.Log("Path drawn from " + path[0] + "To " + path[path.Count-1]);
+            line.positionCount = path.Count;
+            for (int i = 0; i < path.Count; i++)
+            {
+                line.SetPosition(i, Vector2IntToVector3(path[i], 0.1f));
+            }
+        }
+        else
+        {
+            Debug.Log(path + "non working paths");
+        }
+    }
+    public Vector2Int Vector3ToVector2Int(Vector3 pos)
     {
         return new Vector2Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.z));
     }

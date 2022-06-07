@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class SimpleDungeonGenerator : MonoBehaviour
+public class RoomDungeonGenerator : MonoBehaviour
 {
     [SerializeField]
     public List<Color> allowedcolores; 
@@ -20,7 +20,7 @@ public class SimpleDungeonGenerator : MonoBehaviour
     public List<CellPrefab> CellList;
    // public Cell[,] grid;
     public List<Vector2Int> connections;
-    SimpleDungeonGenerator instance;
+    RoomDungeonGenerator instance;
     void Start()
     {
         if(instance != null)

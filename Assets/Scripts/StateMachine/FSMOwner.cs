@@ -4,61 +4,69 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class FSMOwner : MonoBehaviour
 {
+    public GameObject Playerrefrence; //should be vector3from blackboard instead of GameObj from inspector
     public Animator begeleider;
     Begeleiderstate State1;
     agentState agenstate;
     public ScriptableEnemies smartenemy;
     StateMachine voorbeeldMachine;
-    bool intro = false;
-    Cell[,] leveldata = new Cell[10, 10];
+    public int Eventtime;
+
+    [Range(0.01f, 1)]
+    public float speedparameter;
+    // Cell[,] leveldata = new Cell[10, 10];
     int i = 2;
     void Start()
     {
-        agenstate = new agentState(smartenemy);
-        State1 = new Begeleiderstate(voorbeeldMachine, begeleider); //create states 
+       // agenstate = new agentState(smartenemy);
+        State1 = new Begeleiderstate(begeleider,Eventtime, Playerrefrence, this.gameObject, speedparameter); //create states 
         voorbeeldMachine = new StateMachine(State1); //create statemachine
         voorbeeldMachine.OnStart(State1);            //parse states to machine
-        voorbeeldMachine.AddState(agenstate);
+      //  voorbeeldMachine.AddState(agenstate);
 
-        for (int x = 0; x < 10; x++) //generates grid with full walls : Size = width,height
-        {
-            for (int y = 0; y < 10; y++)
-            {
-                leveldata[x, y] = new Cell();
-                leveldata[x, y].gridPosition = new Vector2Int(x, y);
-                leveldata[x, y].walls = Wall.DOWN | Wall.LEFT | Wall.RIGHT | Wall.UP;
-            }
-        }
+        //for (int x = 0; x < 10; x++) //generates grid with full walls : Size = width,height
+        //{
+        //    for (int y = 0; y < 10; y++)
+        //    {
+        //        leveldata[x, y] = new Cell();
+        //        leveldata[x, y].gridPosition = new Vector2Int(x, y);
+        //        leveldata[x, y].walls = Wall.DOWN | Wall.LEFT | Wall.RIGHT | Wall.UP;
+        //    }
+        //}
     }
-    void FixedUpdate() //50 ticks a sec
+    void Update() //50 ticks a sec
     {
         
         if (voorbeeldMachine.currentstate.status == true)
         {
             voorbeeldMachine.OnUpdate();
         }
-            if (voorbeeldMachine.currentstate.status == false && intro != true)
+            if (voorbeeldMachine.currentstate.status == false)
             {
-            voorbeeldMachine.gotostate(agenstate);
             Debug.Log("Exit loop");
             State1.OnExit();
-            agenstate.OnEnter();
-            intro = true;
-             // voorbeeldMachine.StateUpdate();
-            }
-        if (voorbeeldMachine.currentstate.Equals(agenstate))
-        {
-            voorbeeldMachine.OnUpdate();
+            // voorbeeldMachine.gotostate(agenstate);
+            //agenstate.OnEnter();
+            // intro = true;
+            // voorbeeldMachine.StateUpdate();
         }
-        if(Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            i++;
-            agenstate.givelocation(leveldata[i,i].gridPosition, leveldata);
-        }
-        //if ( Keyboard.current.aKey.isPressed == true)
+        //if (voorbeeldMachine.currentstate.Equals(agenstate))
         //{
-        //                  //update for state machine
+        //    voorbeeldMachine.OnUpdate();
         //}
+        //if(Mouse.current.leftButton.wasPressedThisFrame)
+        //{
+        //    i++;
+        //    agenstate.givelocation(leveldata[i,i].gridPosition, leveldata);
+        //}
+        if (Keyboard.current.aKey.wasPressedThisFrame == true)
+        {
+            //update for state machine
+            Playerrefrence.transform.position = new Vector3(Random.Range(0, 10),0, Random.Range(0, 10));
+           // voorbeeldMachine.AddState(State1);
+            State1.UpdateTarget(Playerrefrence.transform.position);
+            voorbeeldMachine.OnStart(State1);
+        }
 
     }
 

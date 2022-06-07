@@ -28,13 +28,13 @@ public class AstarV2
         {
             if (item.position == startPos)
             {
-                Debug.Log("Start node found");
+               // Debug.Log("Start node found");
                 StartNode = item;
                 StartNode.GScore = 0;
             }
             if (item.position == endPos)
             {
-                Debug.Log("End node found");
+             //   Debug.Log("End node found");
                 EndNode = item;
                 EndNode.HScore = 0;
             }
@@ -164,7 +164,7 @@ public class AstarV2
                 nodes[i, j] = a; //Dont know if i is correct position in the array
             }
         }
-        Debug.Log(nodes.Length);
+       // Debug.Log(nodes.Length);
         return nodes;
     }
 
