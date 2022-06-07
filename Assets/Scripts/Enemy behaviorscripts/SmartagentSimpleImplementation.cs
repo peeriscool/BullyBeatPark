@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level2Object : MonoBehaviour
+public class SmartagentSimpleImplementation : MonoBehaviour
 {
     public GameObject target;
     public GameObject smartagent;

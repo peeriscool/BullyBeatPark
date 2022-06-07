@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(worldToGrid))]
 public class PlayerScript : MonoBehaviour
 {
+    //public GameManager manager;
     public BoxCollider playerange;
     bool Inrange = false;
     Agent activEenemy;
@@ -39,6 +40,10 @@ public class PlayerScript : MonoBehaviour
         MouseHandler();
         actionhandler();
         animationsystem.Tick();
+        if(this.gameObject.transform.position.y <= -50)
+        {
+            this.gameObject.transform.position = Vector3.zero;
+        }
     }
    
     public void InputHandler() //mixing diffrent control sets allowing for crouch,running,walking
@@ -74,7 +79,7 @@ public class PlayerScript : MonoBehaviour
             if (activEenemy.Hp != 0)
             {
                 activEenemy.TakeDamage();
-                GameManager.WalkEnemyCommand(activEenemy);
+              //  manager.WalkEnemyCommand(activEenemy);
               // activEenemy.WalkTo(new Vector3(Random.Range(0, Blackboard.Mazewidth), 0, Random.Range(0, Blackboard.Mazeheight)), activEenemy.location,mazegenerator.grid); //go somewhere els after getting hit
             }
             Inrange = false;

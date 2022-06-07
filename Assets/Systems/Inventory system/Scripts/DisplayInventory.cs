@@ -62,7 +62,7 @@ public class DisplayInventory : MonoBehaviour
             else //new item 
             {
                 //to do fix GetItem[slot.item.id].UI.name/ make sure there is a name
-                Debug.Log(inventory.database.GetItem[slot.item.id].UI.name);
+               // Debug.Log(inventory.database.GetItem[slot.item.id].UI.name);
                 var obj = Instantiate(inventoryprefab, Vector3.zero, Quaternion.identity, transform);
                 obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[slot.item.id].UI;
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);

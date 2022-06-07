@@ -2567,8 +2567,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12cf93dfafb00554ca87e45f50f1aee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Playerrefrence: {fileID: 0}
   begeleider: {fileID: 9182277866113452052}
   smartenemy: {fileID: 11400000, guid: 9677bfceb6d4c9a47a62859730389dde, type: 2}
+  Eventtime: 10
+  speedparameter: 0.4
 --- !u!1 &9182277866104028310
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,12 @@ public class SmoothLerpFollow : MonoBehaviour
     void Start()
     {
         FollowObject = this.gameObject.transform;
-        follow = GameObject.FindGameObjectWithTag("Player").transform;
+        if (Blackboard.player)
+        { follow = Blackboard.player.transform; }
+        else
+        {
+            follow = GameObject.Find("player").transform;
+        }
     }
 
     // Update is called once per frame

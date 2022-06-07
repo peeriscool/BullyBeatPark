@@ -32,7 +32,10 @@ public class SmartAgent
         renderer = _Smartagent.GetComponentInChildren<MeshRenderer>();
         line.material.color = Color.white;
     }
-    private void makecells(int x, int y)
+    /// <summary>
+    /// Sets the Astarcell list to a new cell size
+    /// </summary>
+    public void makecells(int x, int y)
     {
         Debug.Log("Starting Smart agent bloodcells");
         Astarcell = new Cell[x, y];
@@ -49,10 +52,10 @@ public class SmartAgent
     }
     public void Update()
     {
-        if(Keyboard.current.enterKey.wasPressedThisFrame) //manual overide
-        {
-            WalkTo(new Vector3(Random.Range(0, 10),Random.Range(0, 10)), location, Astarcell);
-        }
+        //if(Keyboard.current.enterKey.wasPressedThisFrame) //manual overide
+        //{
+        //    WalkTo(new Vector3(Random.Range(0, 10),Random.Range(0, 10)), location, Astarcell);
+        //}
         Tick();
     }
     public bool Tick()
@@ -135,5 +138,15 @@ public class SmartAgent
     {
         return new Vector3(Mathf.RoundToInt(pos.x), YPos, Mathf.RoundToInt(pos.y));
     }
-
+    private void OnDrawGizmos()
+    {
+        if (path != null && path.Count > 0)
+        {
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                Gizmos.color = renderer.material.color;
+                Gizmos.DrawLine(Vector2IntToVector3(path[i], 0.5f), Vector2IntToVector3(path[i + 1], 0.5f));
+            }
+        }
+    }
 }

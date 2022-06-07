@@ -7,19 +7,18 @@ public class FSMOwner : MonoBehaviour
     public GameObject Playerrefrence; //should be vector3from blackboard instead of GameObj from inspector
     public Animator begeleider;
     Begeleiderstate State1;
-    agentState agenstate;
+   // agentState agenstate;
     public ScriptableEnemies smartenemy;
     StateMachine voorbeeldMachine;
     public int Eventtime;
-
+    public RoomDungeonGenerator myenvoirment;
     [Range(0.01f, 1)]
     public float speedparameter;
     // Cell[,] leveldata = new Cell[10, 10];
-    int i = 2;
     void Start()
     {
        // agenstate = new agentState(smartenemy);
-        State1 = new Begeleiderstate(begeleider,Eventtime, Playerrefrence, this.gameObject, speedparameter); //create states 
+        State1 = new Begeleiderstate(begeleider,Eventtime, Playerrefrence, this.gameObject, speedparameter, myenvoirment.GridHeight, myenvoirment.GridWidth); //create states 
         voorbeeldMachine = new StateMachine(State1); //create statemachine
         voorbeeldMachine.OnStart(State1);            //parse states to machine
       //  voorbeeldMachine.AddState(agenstate);

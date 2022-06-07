@@ -15,7 +15,7 @@ public class Begeleiderstate : State
     Animator anim;
 
     public Vector3 target;
-    public GameObject smartagent;
+    public GameObject smartagent; //not sure if the state needs to know the gameobject or can just move this.gameobject?
     SmartAgent guard;
     Vector2Int command;
    [Range(0.01f, 1)]
@@ -24,13 +24,6 @@ public class Begeleiderstate : State
     {
         Interval = 1000
     };
-
-    //public Begeleiderstate( Animator _anim)
-    //{
-    //   // this.owner = owner;
-    //    anim = _anim;
-    //    this.status = true;
-    //}
     /// <summary>
     /// State which follows a target
     /// </summary>
@@ -38,17 +31,23 @@ public class Begeleiderstate : State
     /// <param name="_duration">time for this state</param>
     /// <param name="_target">what to follow</param>
     /// <param name="_agent">Who is the agent?</param>
-    public Begeleiderstate(Animator _anim,int _duration,GameObject _target,GameObject _agent, float _speedparameter)
+    /// <param name="speed">object speed</param>
+    /// <param name="width">Astar and cell size</param>
+    /// <param name="height">Astar and cell size</param>
+    public Begeleiderstate(Animator _anim,int _duration,GameObject _target,GameObject _agent, float _speedparameter,int width,int height)
     {
         smartagent = _agent;
         target = _target.transform.position;
         eventtime = _duration;
-        // this.owner = owner;
         anim = _anim;
         speedparameter = _speedparameter;
-        guard = new SmartAgent(10, 10, smartagent);
+        guard = new SmartAgent(width, height, smartagent);
     }
-    public void UpdateTarget(Vector3 command)
+    public void SetRoomAstar(int width,int height)
+    {
+        guard.makecells(width, height);
+    }
+    public void UpdateTarget(Vector3 command) //set target position
     {
         target = command;
     }

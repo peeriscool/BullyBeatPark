@@ -50,7 +50,13 @@ public class Agent : MonoBehaviour
         }
     }
     public void WalkTo(Vector3 _location, Vector2Int current, Cell[,] grid)
-    {  
+    {
+        if(Astar == null)
+        {
+            //we gots a problem
+            Astar = new AstarV2(grid.GetLength(0),grid.GetLength(1));
+        }
+        Debug.Log(current.ToString());
         Vector2Int targetPos = Vector3ToVector2Int(_location); 
         Debug.Log("i " + this.gameObject.name +"At " + current + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
         List<Vector2Int> Rawpath = Astar.FindPathToTarget(current, targetPos, grid);
@@ -66,7 +72,7 @@ public class Agent : MonoBehaviour
         }
         catch (System.Exception)
         {
-            Debug.Log("path resulted in no instance: " + location + "from " +current );
+            Debug.Log("path resulted in no instance: " + location + "from " + current );
             throw;
         }
     }
@@ -87,6 +93,7 @@ public class Agent : MonoBehaviour
     }
     public void Update()
     {
+      //  Debug.Log("Update of:" + gameObject.name);
         if (path != null && path.Count > 0)
         {
             if (transform.position != Vector2IntToVector3(path[0])) //moving
