@@ -11,6 +11,11 @@ public class Agent : MonoBehaviour
     public MazeGeneration maze { get; set; }
     private LineRenderer line;
 
+    public Agent(MeshRenderer renderer)
+    {
+        this.renderer = renderer;
+    }
+
     private void Awake()
     {
       //  maze = FindObjectOfType<MazeGeneration>();

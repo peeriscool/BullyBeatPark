@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.InputSystem;
-public class ControlToAnimator
+public class AnimationStates
 {
-    public Animator linkedRig;
+    public UnityEngine.Animator linkedRig;
     private string currentState;
-    public ControlToAnimator(Animator _playerController)
+    public AnimationStates(UnityEngine.Animator _playerController)
     {
         linkedRig = _playerController;
     }
@@ -46,7 +43,6 @@ public class ControlToAnimator
         {
             linkedRig.speed = 1;
             linkedRig.ResetTrigger("Run");
-            
         }
         if (Keyboard.current.spaceKey.wasPressedThisFrame && PlayerScript.isgrounded == false)
         {
@@ -62,7 +58,6 @@ public class ControlToAnimator
         {
             ChangeAnimationState("hook");
             linkedRig.SetTrigger("punch");
-            //punch
         }
         if (Keyboard.current.eKey.wasReleasedThisFrame)
         {
@@ -94,8 +89,6 @@ public class ControlToAnimator
           //  Debug.Log("right back ");
             ChangeAnimationState("diagonal forward 0");
             //linkedRig.
-      
         }
-       
     }
 }

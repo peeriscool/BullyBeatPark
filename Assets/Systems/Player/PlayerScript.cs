@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour
     Agent activEenemy;
     public Animator playerrig;
     public static bool isgrounded;
-    ControlToAnimator animationsystem;
+    AnimationStates animationsystem;
     public float Speed;
     public float JumpForce;
     private float MoveX;
@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
     {
         DontDestroyOnLoad(this);
         Blackboard.player = this.gameObject;
-        animationsystem = new ControlToAnimator(playerrig);
+        animationsystem = new AnimationStates(playerrig);
         rb = GetComponent<Rigidbody>();
         SavedSpeed = Speed;
     }

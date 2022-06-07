@@ -31,7 +31,7 @@ public class agentState : State
     public void givelocation( Vector2Int endPos, Cell[,] grid)
     {
         // Smartagent.FindPathToTarget(startPos,endPos,grid);
-        Smartagent.WalkTo(new Vector2Int(9,9), endPos, grid);
+        Smartagent.WalkTo(new Vector3(Random.Range(0,10), Random.Range(0, 10)), endPos, grid);
      //   Smartagent.WalkTo(Smartagent.location, endPos, grid);
     }
 }
