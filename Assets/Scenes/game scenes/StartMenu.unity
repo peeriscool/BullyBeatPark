@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0248e8b53fd6d0429647708a81efaec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  focusoverwrite: {fileID: 1782393449}
   followofsset: 1
   offset: {x: 0, y: 1.69, z: -4}
 --- !u!81 &395257205
@@ -9069,7 +9070,7 @@ PrefabInstance:
     - target: {fileID: 7210823472667925625, guid: 4ff8c56606f5ec04f9340b695747b76e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7210823472667925625, guid: 4ff8c56606f5ec04f9340b695747b76e,
         type: 3}
@@ -11019,13 +11020,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789955604977322265, guid: 3984aae106d97ae45854a1fb97238cf3,
         type: 3}
+      propertyPath: stepvalue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789955604977322265, guid: 3984aae106d97ae45854a1fb97238cf3,
+        type: 3}
       propertyPath: playerange
       value: 
       objectReference: {fileID: 1782393454}
     - target: {fileID: 8789955604977322268, guid: 3984aae106d97ae45854a1fb97238cf3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8789955604977322268, guid: 3984aae106d97ae45854a1fb97238cf3,
         type: 3}

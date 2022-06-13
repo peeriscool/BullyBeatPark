@@ -27,7 +27,7 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(this);
+      //  DontDestroyOnLoad(this);
         Blackboard.player = this.gameObject;
         animationsystem = new AnimationStates(playerrig);
         rb = GetComponent<Rigidbody>();
