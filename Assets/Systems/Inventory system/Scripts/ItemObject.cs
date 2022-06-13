@@ -21,7 +21,7 @@ public abstract class ItemObject : ScriptableObject
 {
     //  public GameObject prefab;
     public int id;
-    public Sprite UI;
+    public Sprite UI; 
     public ItemType type;
     [TextArea(15, 20)]
     public string description;
@@ -44,6 +44,7 @@ public class Item
         name = item.name;
         id = item.id;
         buffs = new Buff[item.mybuffs.Length];
+        
         for (int i = 0; i < buffs.Length; i++)
         {
             buffs[i] = new Buff(item.mybuffs[i].min, item.mybuffs[i].max);

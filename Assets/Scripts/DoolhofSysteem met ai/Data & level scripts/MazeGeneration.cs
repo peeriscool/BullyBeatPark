@@ -249,8 +249,8 @@ public class MazeGeneration : MonoBehaviour
     /// <param name="cellTwo"></param>
     private bool RemoveWallBetweenCells(Cell cellOne, Cell cellTwo)
     {
-        int numWallCellOne = cellOne.GetNumWalls();
-        Vector2Int dirVector = cellTwo.gridPosition - cellOne.gridPosition;
+        int numWallCellOne = cellOne.GetNumWalls(); //see howmany walls we have on this cell
+        Vector2Int dirVector = cellTwo.gridPosition - cellOne.gridPosition; //see which way the cells are connected (example result would be: dirVector (1,0) = needs wall top en down )
         if (dirVector.x != 0)
         {
             cellOne.RemoveWall(dirVector.x > 0 ? Wall.RIGHT : Wall.LEFT);

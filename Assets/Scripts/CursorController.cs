@@ -8,7 +8,7 @@ public class CursorController : MonoBehaviour
     [SerializeField]
     private Camera gameCamera;
     private InputAction click;
-
+    public List<GameObject> Clickables;
     void Awake()
     {
         click = new InputAction(binding: "<Mouse>/leftButton");
@@ -22,6 +22,11 @@ public class CursorController : MonoBehaviour
             }
         };
         click.Enable();
+
+        foreach (var item in Clickables)
+        {
+            item.AddComponent<ClickableObject>();
+        }
     }
 }
 //You can add an IClickable Interface to all GameObjects that want to respond to clicks:
@@ -35,6 +40,6 @@ public class ClickableObject : MonoBehaviour, FSMExample.IClickable
 {
     public void OnClick()
     {
-        Debug.Log("somebody clicked me");
+        Debug.Log(this.gameObject.name +" is clicked");
     }
 }

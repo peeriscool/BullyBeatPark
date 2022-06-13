@@ -16,4 +16,8 @@ MonoBehaviour:
   UI: {fileID: 21300000, guid: 7dca43eff7c4f4c4f8d4b5ba190d5373, type: 3}
   type: 0
   description: a small companion for the journey
-  mybuffs: []
+  mybuffs:
+  - myattribute: 0
+    value: 1
+    min: 1
+    max: 1

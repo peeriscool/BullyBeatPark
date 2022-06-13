@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 0
   description: Need Litlle truck
   mybuffs:
-  - myattribute: 0
+  - myattribute: 1
     value: 1
     min: 1
     max: 1

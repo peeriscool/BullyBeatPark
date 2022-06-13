@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class DisplayInventory : MonoBehaviour
 {
     public InventoryObject inventory; //displayed inventory
-    public ItemInteraction activeinventory;
+    //public ItemInteraction activeinventory;
     public int X_start; //horizontal offset
     public int Y_start; //vertical offset
     public int X_Spacer;
@@ -43,9 +43,10 @@ public class DisplayInventory : MonoBehaviour
         {
             InventorySlot slot = inventory.Container.items[i];
             var obj = Instantiate(inventoryprefab, Vector3.zero, Quaternion.identity, transform);
-            obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[slot.item.id].UI;  //inventory.Container[i].item.UI
-            obj.GetComponent<RectTransform>().localPosition = GetPosition(i); 
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0"); //n0 = format with commas
+            Debug.Log("getting items: " + slot.item.id);
+            obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.Itemdict[slot.item.id].UI;  //inventory.Container[i].item.UI
+            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);           
+            obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0"); //n0 = format with commas           
             itemsDisplayed.Add(slot, obj);
         }
     }
@@ -61,13 +62,14 @@ public class DisplayInventory : MonoBehaviour
             }
             else //new item 
             {
-                //to do fix GetItem[slot.item.id].UI.name/ make sure there is a name
-               // Debug.Log(inventory.database.GetItem[slot.item.id].UI.name);
-                var obj = Instantiate(inventoryprefab, Vector3.zero, Quaternion.identity, transform);
-                obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[slot.item.id].UI;
-                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-                obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0"); //n0 format with commas
-                itemsDisplayed.Add(inventory.Container.items[i], obj);
+                //to do fix GetItem[slot.item.id].UI.name  make sure there is a name
+                    var obj = Instantiate(inventoryprefab, Vector3.zero, Quaternion.identity, transform);
+                    obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.Itemdict[slot.item.id].UI ;
+                    obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+                    obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0"); //n0 format with commas
+                    itemsDisplayed.Add(inventory.Container.items[i], obj);
+               
+
             }
         }
     }

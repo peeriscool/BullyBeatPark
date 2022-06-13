@@ -112,7 +112,7 @@ public class SmartAgent
             DrawPath();
         }
         Vector2Int targetPos = Vector3ToVector2Int(startPos);
-        Debug.Log("i " + visual.gameObject.name + "At " + startPos + "want to go to: " + endPos); //100/5 = 20 wich is the width/height of the maze
+      //  Debug.Log("i " + visual.gameObject.name + "At " + startPos + "want to go to: " + endPos); //100/5 = 20 wich is the width/height of the maze
         List<Vector2Int> Rawpath = Astar.FindPathToTarget(endPos, targetPos, grid);
         try
         {
