@@ -3,7 +3,7 @@
 public class SmoothLerpFollow : MonoBehaviour
 {
     // Start is called before the first frame update\
-
+    public GameObject focusoverwrite;
     Transform follow;
     public bool followofsset;
     public Vector3 offset;
@@ -15,7 +15,8 @@ public class SmoothLerpFollow : MonoBehaviour
         { follow = Blackboard.player.transform; }
         else
         {
-            follow = GameObject.Find("player").transform;
+            follow = focusoverwrite.transform;
+          //  follow = GameObject.Find("player").transform;
         }
     }
 

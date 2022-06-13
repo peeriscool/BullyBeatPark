@@ -15,7 +15,7 @@ MonoBehaviour:
   prefabName: Broekie
   amountTomake: 3
   spawnPoints:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 1}
+  - {x: 2, y: 0, z: 2}
+  - {x: 3, y: 0, z: 3}
   Prefab: {fileID: 970520952333058027, guid: 982b65e75c9095947b9822c7c7f04845, type: 3}

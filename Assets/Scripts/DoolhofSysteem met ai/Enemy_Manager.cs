@@ -5,7 +5,7 @@ public class Enemy_Manager
 {
     public List<GameObject> enemyModels = new List<GameObject>();
     //  private List<Vector3> Spawnpoints = new List<Vector3>();
-    private List<Agent> agents;
+   // private List<Agent> agents;
     public Enemy_Manager(List<ScriptableEnemies> horde) //recieve a list of enemies make them in to models
     {
 
@@ -20,11 +20,13 @@ public class Enemy_Manager
                 enemyModels[X].transform.position = Enemydata.spawnPoints[i]; //set initial spawnlocation
                 X++;
             }
+            
         }
-        for (int i = 0; i < enemyModels.Count; i++)
-        {
-            GameObject.Instantiate(enemyModels[i]);
-        }
+        //for (int i = 0; i < enemyModels.Count; i++)
+        //{
+        //    GameObject.Instantiate(enemyModels[i]);
+        //}
+        
     }
     public void globalwalkagents(List<GameObject> instances, MazeGeneration m) //give instanced enemies as param
     {
@@ -37,7 +39,6 @@ public class Enemy_Manager
     }
     public Vector3 command(int sizeX, int sizeY)
     {
-
         Vector3 locationcommand = new Vector3(Random.Range(0, sizeX), 0, Random.Range(0, sizeY));
         return locationcommand;
     }
@@ -63,7 +64,7 @@ public class Enemy_Manager
         }
         if (Blackboard.moves.Count == 0)
         {
-            Blackboard.player.GetComponent<PlayerScript>().enabled = true;
+           // Blackboard.player.GetComponent<PlayerScript>().enabled = true;
         }
     }
 }

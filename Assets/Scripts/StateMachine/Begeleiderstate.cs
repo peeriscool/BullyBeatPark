@@ -7,10 +7,10 @@ using System;
 
 public class Begeleiderstate : State
 {
-    static int localTime = 0;
-    static int MonoTime = 0;
-    int FpsToSec = 50;
-    int MonoSeconds = 0;
+    //static int localTime = 0;
+    //static int MonoTime = 0;
+    //int FpsToSec = 50;
+    //int MonoSeconds = 0;
     int eventtime;
     Animator anim;
 
@@ -34,10 +34,10 @@ public class Begeleiderstate : State
     /// <param name="speed">object speed</param>
     /// <param name="width">Astar and cell size</param>
     /// <param name="height">Astar and cell size</param>
-    public Begeleiderstate(Animator _anim,int _duration,GameObject _target,GameObject _agent, float _speedparameter,int width,int height)
+    public Begeleiderstate(Animator _anim,int _duration, Vector3 _target,GameObject _agent, float _speedparameter,int width,int height)
     {
         smartagent = _agent;
-        target = _target.transform.position;
+        target = _target;
         eventtime = _duration;
         anim = _anim;
         speedparameter = _speedparameter;
@@ -47,6 +47,10 @@ public class Begeleiderstate : State
     {
         guard.makecells(width, height);
     }
+    public void SetdungeonAstar(Dictionary<int, List<Vector3Int>> playerea)
+    {
+        guard.roomcells(playerea);
+    }
     public void UpdateTarget(Vector3 command) //set target position
     {
         target = command;
@@ -54,8 +58,8 @@ public class Begeleiderstate : State
     public override void OnEnter()
     {
         this.status = true;
-        
-        command = new Vector2Int((int)UnityEngine.Random.Range(smartagent.transform.position.x, target.x), (int)UnityEngine.Random.Range(smartagent.transform.position.z, target.z));
+        command = new Vector2Int((int)target.x, (int)target.z);
+        //command = new Vector2Int((int)UnityEngine.Random.Range(smartagent.transform.position.x, target.x), (int)UnityEngine.Random.Range(smartagent.transform.position.z, target.z));
         guard.WalkTo(smartagent.transform.position,command, guard.Astarcell);
         //Debug.Log("begeleider awake");
         LevelActiveTimer(); //starts the timer of level duration
@@ -74,28 +78,28 @@ public class Begeleiderstate : State
             }
             Debug.Log(walking);
             Debug.Log("update begeleider goals");
-            #region timer implementation 1 second trigger;
-            MonoTime += 1;
-            if (MonoTime == FpsToSec)
-            {
-                anim.Play("Grab");
-                Debug.Log(MonoSeconds);
-                FpsToSec += 50;
-                MonoSeconds++;
-            }
-            if (MonoSeconds == eventtime) //if number is reached disable state
-            {
-                Debug.Log("END OF Begeleider timed event!");
-                this.status = false;
-            }
-            #endregion
+            //#region timer implementation 1 second trigger;
+            //MonoTime += 1;
+            //if (MonoTime == FpsToSec)
+            //{
+            //    anim.Play("Grab");
+            //    Debug.Log(MonoSeconds);
+            //    FpsToSec += 50;
+            //    MonoSeconds++;
+            //}
+            //if (MonoSeconds == eventtime) //if number is reached disable state
+            //{
+            //    Debug.Log("END OF Begeleider timed event!");
+            //    this.status = false;
+            //}
+            //#endregion
         }
     }
     public override void OnExit()
     {
         Debug.Log("begeleider did its thing");
         //reset command
-        MonoSeconds = 0;
+      //  MonoSeconds = 0;
     }
 
     public void LevelActiveTimer() //creates a timer that is independend of monobehavior update
@@ -107,7 +111,7 @@ public class Begeleiderstate : State
 
     public static void OnTimerEvent(object source, EventArgs e)
     {
-        localTime += 1;
+       // localTime += 1;
         // Debug.Log(localTime);
     }
 }

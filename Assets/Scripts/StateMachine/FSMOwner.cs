@@ -18,7 +18,7 @@ public class FSMOwner : MonoBehaviour
     void Start()
     {
        // agenstate = new agentState(smartenemy);
-        State1 = new Begeleiderstate(begeleider,Eventtime, Playerrefrence, this.gameObject, speedparameter, myenvoirment.GridHeight, myenvoirment.GridWidth); //create states 
+        State1 = new Begeleiderstate(begeleider,Eventtime, Playerrefrence.transform.position, this.gameObject, speedparameter, myenvoirment.GridHeight, myenvoirment.GridWidth); //create states 
         voorbeeldMachine = new StateMachine(State1); //create statemachine
         voorbeeldMachine.OnStart(State1);            //parse states to machine
       //  voorbeeldMachine.AddState(agenstate);

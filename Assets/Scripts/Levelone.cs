@@ -22,7 +22,7 @@ public class Levelone : MonoBehaviour
         Blackboard.generateleveldict();
         levels = Blackboard.getleveldict();
         Blackboard.setlevelstatus(SceneManagerScript.returnactivesceneint(), false);
-        player.GetComponent<worldToGrid>().enabled = true;
+       // player.GetComponent<worldToGrid>().enabled = true; //shitty solution
     }
 
     // Update is called once per frame
@@ -30,6 +30,7 @@ public class Levelone : MonoBehaviour
     {
         if (Keyboard.current.enterKey.wasPressedThisFrame) //manual overide
         {
+           
             //alkTo(new Vector3(Random.Range(0, 10), Random.Range(0, 10)), location, Astarcell);
             //childerenmanager.globalwalkagents(deployed, mazegenerator);
             childerenmanager.walkChilderen(deployed, mazegenerator);
@@ -85,14 +86,12 @@ public class Levelone : MonoBehaviour
     protected void SpawnEnemies()
     {
         List<GameObject> plot = childerenmanager.enemyModels;
-
+        Debug.Log("Creating: " + childerenmanager.enemyModels.Count  + " childeren");
         for (int i = 0; i < childerenmanager.enemyModels.Count; i++) //for every enemymodel instantiate x enemy's
         {
-            //   Debug.Log("test for enemies" + EManager.setRandomposition(mazegenerator.height, mazegenerator.width));
             deployed.Add(Instantiate(plot[i], plot[i].transform.position, new Quaternion()));
         }
         Blackboard.Enemies = deployed;
-       // Eready = true;
     }
     public void EnemyDied(GameObject deceased)
     {

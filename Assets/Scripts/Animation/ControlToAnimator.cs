@@ -12,8 +12,9 @@ public class AnimationStates
         keycheck();
         Diagnalcheck();
     }
+     
 
-    void ChangeAnimationState(string newState) //Keycheck uses this for linking back to the Animator component
+    public void ChangeAnimationState(string newState) //Keycheck uses this for linking back to the Animator component
     {
         if (currentState == newState) return;
         linkedRig.Play(newState);
@@ -64,7 +65,7 @@ public class AnimationStates
             linkedRig.ResetTrigger("punch");
         }
     }
-    void Diagnalcheck()
+    void Diagnalcheck()//multipresses
     {
         if (Keyboard.current.wKey.isPressed && Keyboard.current.aKey.isPressed)
         {

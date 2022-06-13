@@ -50,7 +50,26 @@ public class SmartAgent
             }
         }
     }
-    public void Update()
+    public void roomcells(Dictionary<int, List<Vector3Int>> playerea)
+    {
+        Vector3Int[] locs = new Vector3Int[playerea.Count]; //playerea.Values;
+        for (int i = 0; i < playerea.Count; i++) //convert dictionary to vector2 cells
+        {
+            locs = playerea[i].ToArray();
+            Astarcell = new Cell[locs[i].x, locs[i].y];
+        }
+        //foreach (List<Vector3Int> item in playerea.Values)
+        //{
+
+        //    //   Astarcell = new Cell[item[i], playerea.va];
+        //}
+        for (int i = 0; i < playerea.Count; i++)
+        {
+            //   Astarcell = new Cell[playerea.Values (locs, i),];
+        }
+
+    }
+        public void Update()
     {
         //if(Keyboard.current.enterKey.wasPressedThisFrame) //manual overide
         //{

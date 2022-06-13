@@ -42,6 +42,7 @@ public class worldToGrid : MonoBehaviour //comopnent to detect floors and walls
             if (dataretrieved)
             {
                 Blackboard.moves.Add(location);
+                
                 dataretrieved = false;
             }
     }

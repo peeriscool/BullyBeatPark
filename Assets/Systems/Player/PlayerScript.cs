@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour
     new Transform transform;
     controllerInputs ControllerIndex = controllerInputs.walking;
     
-    enum controllerInputs
+    enum controllerInputs //TODO: presets for animtion files
     {
         walking = 0, Running = 1, Crouch = 2
     }
@@ -37,12 +37,15 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         InputHandler();
-        MouseHandler();
-        actionhandler();
+        punchhandler();
+//        MouseHandler();
+        
         animationsystem.Tick();
-        if(this.gameObject.transform.position.y <= -50)
+
+        if(this.gameObject.transform.position.y <= -50) //set player to zero when bellow -50
         {
             this.gameObject.transform.position = Vector3.zero;
+            
         }
     }
    
@@ -70,8 +73,9 @@ public class PlayerScript : MonoBehaviour
             Movement(ControllerIndex);
             Orientation(ControllerIndex);
         }
+        
     }
-    public void actionhandler()
+    public void punchhandler() //handles punch
     {
         if (Keyboard.current.eKey.wasPressedThisFrame && Inrange)
         {
@@ -103,61 +107,81 @@ public class PlayerScript : MonoBehaviour
 
 
     }
-    void OnCollisionEnter(Collision dataFromCollision)
+    private void OnCollisionStay(Collision dataFromCollision)
     {
-        
         if (dataFromCollision.gameObject.tag == "Enemy")
         {
             //if enemy is in range allow punch
+            Debug.Log("kid in range");
             activEenemy = dataFromCollision.gameObject.GetComponent<Agent>();
             Inrange = true;
 
         }
-        if (dataFromCollision.gameObject.layer == 6 && Blackboard.getlevelstatus(SceneManagerScript.returnactivesceneint()))// 6 = "walls and floors"
-        {
-            this.GetComponent<worldToGrid>().floorcheck(dataFromCollision);
-        }
+    }
+    void OnCollisionEnter(Collision dataFromCollision)
+    {
+        
+        //if (dataFromCollision.gameObject.tag == "Enemy")
+        //{
+        //    //if enemy is in range allow punch
+        //    Debug.Log("kid in range");
+        //    activEenemy = dataFromCollision.gameObject.GetComponent<Agent>();
+        //    Inrange = true;
+
+        //}
+        //if (dataFromCollision.gameObject.layer == 6 && Blackboard.getlevelstatus(SceneManagerScript.returnactivesceneint()))// 6 = "walls and floors"
+        //{
+        //    this.GetComponent<worldToGrid>().floorcheck(dataFromCollision);
+        //}
     }
     void Orientation(controllerInputs input)//sets this gameobject's rotation
     {
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
+            animationsystem.ChangeAnimationState("walkingInPlace");
             this.gameObject.transform.rotation = Quaternion.AngleAxis(0, Vector3.forward); ////new Quaternion(0, 0, 0, 0);
             return;
         }
         if (Keyboard.current.sKey.wasPressedThisFrame)
         {
+            animationsystem.ChangeAnimationState("walkingInPlace");
             this.gameObject.transform.rotation = Quaternion.AngleAxis(180, Vector3.down);
             return;
         }
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
+            animationsystem.ChangeAnimationState("walkingInPlace");
             this.gameObject.transform.rotation = new Quaternion(0, 90, 0, -90);
             return;
         }
         if (Keyboard.current.dKey.wasPressedThisFrame)
         {
+            animationsystem.ChangeAnimationState("walkingInPlace");
             this.gameObject.transform.rotation = new Quaternion(0, 90, 0, 90);
             return;
         }
         if (Keyboard.current.wKey.isPressed && Keyboard.current.aKey.isPressed)
         {
             this.gameObject.transform.rotation = new Quaternion(0, -45, 0, 90);
-
+            animationsystem.ChangeAnimationState("diagonal forward");
             return;
         }
+        //multipresses
         if (Keyboard.current.wKey.isPressed && Keyboard.current.dKey.isPressed)
         {
             this.gameObject.transform.rotation = new Quaternion(0, 45, 0, 90);
+            animationsystem.ChangeAnimationState("diagonal forward");
             return;
         }
         if (Keyboard.current.sKey.isPressed && Keyboard.current.dKey.isPressed)
         {
+            animationsystem.ChangeAnimationState("diagonal forward");
             this.gameObject.transform.rotation = new Quaternion(0, -135, 0, -45);
             return;
         }
         if (Keyboard.current.sKey.isPressed && Keyboard.current.aKey.isPressed)
         {
+            animationsystem.ChangeAnimationState("diagonal forward");
             this.gameObject.transform.rotation = new Quaternion(0, -135, 0, 45);
             return;
         }

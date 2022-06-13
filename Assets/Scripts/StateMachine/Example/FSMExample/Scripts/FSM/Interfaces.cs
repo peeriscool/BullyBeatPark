@@ -19,4 +19,9 @@ namespace FSMExample
         void Run();
         void Complete();
     }
+
+    public interface IClickable
+{
+    void OnClick();
+}
 }

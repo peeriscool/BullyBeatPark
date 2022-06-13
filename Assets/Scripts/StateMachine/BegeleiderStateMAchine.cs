@@ -6,44 +6,42 @@ public class BegeleiderStateMAchine : MonoBehaviour
 {
     public GameObject Playerrefrence; //should be vector3from blackboard instead of GameObj from inspector
     public Animator begeleider;
-    public ScriptableEnemies smartenemy;
+    // public ScriptableEnemies smartenemy;
     public int Eventtime;
     [Range(0.01f, 1)]
     public float speedparameter;
     public RoomDungeonGenerator myenvoirment;
     List<Room> RoomList;
-    List<Vector3Int> playarea = new List<Vector3Int>();
+    Dictionary<int, List<Vector3Int>> playarea = new Dictionary<int, List<Vector3Int>>();
     Begeleiderstate GoToPlayer;
     StateMachine ActionMachine;
-    int roomindex = 1;
+    int roomindex = 0;
+    int length = 0; //length for tiles in a room
     void Start()
     {
-        GoToPlayer = new Begeleiderstate(begeleider,Eventtime, Playerrefrence, this.gameObject, speedparameter,myenvoirment.GridHeight, myenvoirment.GridWidth); //create states 
+        GoToPlayer = new Begeleiderstate(begeleider, Eventtime, Playerrefrence.transform.position, this.gameObject, speedparameter, myenvoirment.GridHeight, myenvoirment.GridWidth); //create states 
         ActionMachine = new StateMachine(GoToPlayer); //create statemachine
         ActionMachine.OnStart(GoToPlayer);            //parse states to machine
         useEnvoirment();
     }
     void useEnvoirment()
     {
-      RoomList = myenvoirment.RoomList;
-        foreach (Room r in RoomList) //for every room
+        RoomList = myenvoirment.RoomList;
+
+        foreach (Room r in RoomList) //for every room add known locations to dictionary
         {
-            for (int i = 0; i < r.mypositions.Count; i++) //for all known positions in the room
-            {
-                playarea.Add(r.mypositions[i]); //add pos at index
-                if (i == 0) //get first cell 
-                {
-                //enter room
-                }
-                else if (i == r.mypositions.Count - 1) //get last cell
-                {
-                //exit room
-                }
-            }
+            List<Vector3Int> roomdata = r.mypositions;
+            playarea.Add(r.Roomindex, roomdata);
         }
-        ///parse RoomList ro begeleiderstate
-        GoToPlayer.SetRoomAstar(RoomList[roomindex].maxX, RoomList[roomindex].maxZ);
+        ///parse RoomList to begeleiderstate
+     //   GoToPlayer.SetRoomAstar(myenvoirment.GridWidth, myenvoirment.GridHeight);
+        GoToPlayer.SetdungeonAstar(playarea);
+        //set target and agent on the first tile of the dungeon
+        this.transform.position = RoomList[0].mypositions[0];
+        Playerrefrence.transform.position = RoomList[0].mypositions[0];
     }
+
+    private float nextUpdate = 0.1f;
     void Update() //50 ticks a sec
     {
         if (ActionMachine.currentstate.status == true)
@@ -56,42 +54,38 @@ public class BegeleiderStateMAchine : MonoBehaviour
             Debug.Log("Exit loop");
             GoToPlayer.OnExit();
         }
-        if (Keyboard.current.enterKey.wasPressedThisFrame) //set room 
+
+        if (Time.time >= nextUpdate)
         {
-            roomindex = +1;
+            // Debug.Log(Time.time + ">=" + nextUpdate);
+            // Change the next update (current second+1)
+            nextUpdate = Mathf.FloorToInt(Time.time) + 1;
+            // update number
+            length += 1;
         }
-        if (Keyboard.current.spaceKey.wasPressedThisFrame) //set location in room
-        {
-            //List<Vector3Int> playarea;
-            if (roomindex == RoomList.Count) { roomindex = 1; } //loop roomindex
-            GoToPlayer.SetRoomAstar(RoomList[roomindex].maxX, RoomList[roomindex].maxZ);
-            UpdateTarget(RoomList[roomindex].mypositions[1].x, RoomList[roomindex].mypositions[RoomList[roomindex].mypositions.Count-1].y);
-            //for (int i = 0; i < RoomList[roomindex].mypositions.Count; i++)
-            //{
-            //  }
-            //UpdateTarget(RoomList[1].mypositions,);
-            //WalkTo(new Vector3(Random.Range(0, 10), Random.Range(0, 10)), location, Astarcell);
-        }
+        UpdateTarget(RoomList[roomindex].mypositions[1].x, RoomList[roomindex].mypositions[RoomList[roomindex].mypositions.Count - 1].x); //update  
     }
+
     /// <summary>
     /// Gives the target a random new location in a given area
     /// </summary>
-    public void UpdateTarget(int min,int max)
+    public void UpdateTarget(int min, int max)
     {
-        //TODO:should check if set position is within level
-
-        //if(myenvoirment.Roomcheck(RoomList[roomindex])) //room is in dungeon
-        // {
-        Vector3Int command = new Vector3Int((int)Random.Range(min, max), 0, (int)Random.Range(min, max));
-      
-        if (playarea.Contains(command))
+        //check if there are still spaces in current room else move to next room
+        if (length == RoomList[roomindex].mypositions.Count || length >= RoomList[roomindex].mypositions.Count)
         {
-            Playerrefrence.transform.position = command;
-            GoToPlayer.UpdateTarget(Playerrefrence.transform.position);
-            ActionMachine.OnStart(GoToPlayer);
+            roomindex += 1;
+            length = 0;
         }
-        
-       // }
-        
+
+        if (roomindex == RoomList.Count || roomindex >= RoomList.Count) { roomindex = 0; } //loop roomindex
+        Vector3Int command = RoomList[roomindex].mypositions[length]; //walk to the entrence of a room
+
+        //if (playarea.ContainsKey(RoomList[roomindex].Roomindex)) //if roomindex matches with current room 
+        //{
+        Playerrefrence.transform.position = command; //*2 because we start at 0,0 with a maze scaled *2
+        GoToPlayer.UpdateTarget(Playerrefrence.transform.position);
+        ActionMachine.OnStart(GoToPlayer);
+        // }
     }
 }
