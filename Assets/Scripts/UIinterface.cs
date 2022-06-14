@@ -7,14 +7,14 @@ public class UIinterface : MonoBehaviour //updates the UItext with data from the
 {
     public TextMeshProUGUI stepcount;
     public TextMeshProUGUI childcount;
-    public Button Endturn;
+    public Button exit;
     public Button actions;
     public int steps;
 
     private void Awake()
     {
         actions.interactable = false;
-        Endturn.interactable = false;
+        exit.interactable = true;
     }
     void Update()
     {
@@ -40,5 +40,10 @@ public class UIinterface : MonoBehaviour //updates the UItext with data from the
 
             throw;
         }        
+    }
+
+    public void tomenu()
+    {
+        SceneManagerScript.callScenebyname("StartMenu");
     }
 }

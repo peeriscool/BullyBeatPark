@@ -52,7 +52,7 @@ public class SmartAgent
     }
     public void roomcells(Dictionary<int, List<Vector3Int>> playerea)
     {
-        Vector3Int[] locs = new Vector3Int[playerea.Count]; //playerea.Values;
+        Vector3Int[] locs = new Vector3Int[playerea.Count+1]; //playerea.Values;
         for (int i = 0; i < playerea.Count; i++) //convert dictionary to vector2 cells
         {
             locs = playerea[i].ToArray();

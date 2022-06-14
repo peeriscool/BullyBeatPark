@@ -102,7 +102,9 @@ public class RoomDungeonGenerator : MonoBehaviour
         {
             for (int i = 0; i < r.mypositions.Count; i++)
             {
-                instanced.Add(r.mypositions[i], Instantiate(CellList[0].gameObject, r.mypositions[i], Quaternion.Euler(-90, 0, 0), transform));
+                GameObject floor = Instantiate(CellList[0].gameObject, r.mypositions[i], Quaternion.Euler(-90, 0, 0), transform);
+                floor.name = "Tile" + r.mypositions[i].y + ":" + r.mypositions[i].x; //i.ToString();
+                instanced.Add(r.mypositions[i], floor);
             }
         }
     }
@@ -285,21 +287,6 @@ public class RoomDungeonGenerator : MonoBehaviour
     }
     private void Removewalls()
     {
-        //remove walls when they collide with the path
-
-        //foreach (Room room in RoomList) //for every room
-        //{
-        //    for (int p = 0; p < room.mypositions.Count; p++) //for every pos in room
-        //    {
-        //        if (connections.Contains(new Vector2Int(room.mypositions[p].x, room.mypositions[p].z))) //found the overlapping data!
-        //        {
-        //            Debug.Log("tile is used in room and corridor");
-        //            GameObject lol = GameObject.Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube));
-        //            lol.transform.position = new Vector3(connections[p].x, 0, connections[p].y);
-        //        }
-
-        //    }
-        //}
         foreach (Wallobject wl in walls) //walls of the rooms not path
         {
             Vector2Int poscheck = new Vector2Int((int)wl.myref.transform.position.x, (int)wl.myref.transform.position.z); //get location of current wall
@@ -308,7 +295,6 @@ public class RoomDungeonGenerator : MonoBehaviour
                 //find up connection 
                 if (drawablepath.Contains(poscheck))
                 {
-
                     try
                     {
                         if (drawablepath.Contains(new Vector2Int((int)wl.myref.transform.position.x, (int)wl.myref.transform.position.z + 1))) //if data also contains -1 on z remove 
@@ -319,7 +305,6 @@ public class RoomDungeonGenerator : MonoBehaviour
                     }
                     catch (System.Exception)
                     {
-
                         throw;
                     }
                 }
@@ -339,7 +324,6 @@ public class RoomDungeonGenerator : MonoBehaviour
                     }
                     catch (System.Exception)
                     {
-
                         throw;
                     }
                 }
@@ -362,7 +346,6 @@ public class RoomDungeonGenerator : MonoBehaviour
                     }
                     catch (System.Exception)
                     {
-
                         throw;
                     }
                 }
@@ -382,7 +365,6 @@ public class RoomDungeonGenerator : MonoBehaviour
                     }
                     catch (System.Exception)
                     {
-
                         throw;
                     }
                 }
@@ -413,6 +395,21 @@ public class RoomDungeonGenerator : MonoBehaviour
                 }
             }
         }
+    }
+    public Cell[,] dungeontocell()
+    {
+        Cell[,] data = new Cell[GridWidth,GridHeight];
+        data.Initialize();
+        for (int x = 0; x < GridWidth; x++) //generates grid with full walls : Size = width,height
+        {
+            for (int y = 0; y < GridHeight; y++)
+            {
+                data[x, y] = new Cell();
+                data[x, y].gridPosition = new Vector2Int(x, y);
+                data[x, y].walls = walls[x].myori | walls[y].myori;//Wall.DOWN | Wall.LEFT | Wall.RIGHT | Wall.UP;
+            }
+        }
+        return data;
     }
 }
 public class Wallobject

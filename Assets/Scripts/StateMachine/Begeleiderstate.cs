@@ -61,7 +61,6 @@ public class Begeleiderstate : State
         command = new Vector2Int((int)target.x, (int)target.z);
         //command = new Vector2Int((int)UnityEngine.Random.Range(smartagent.transform.position.x, target.x), (int)UnityEngine.Random.Range(smartagent.transform.position.z, target.z));
         guard.WalkTo(smartagent.transform.position,command, guard.Astarcell);
-        //Debug.Log("begeleider awake");
         LevelActiveTimer(); //starts the timer of level duration
     }
     public override void OnUpdate()

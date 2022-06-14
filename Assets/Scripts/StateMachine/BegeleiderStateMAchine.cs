@@ -38,7 +38,7 @@ public class BegeleiderStateMAchine : MonoBehaviour
         GoToPlayer.SetdungeonAstar(playarea);
         //set target and agent on the first tile of the dungeon
         this.transform.position = RoomList[0].mypositions[0];
-        Playerrefrence.transform.position = RoomList[0].mypositions[0];
+   //     Playerrefrence.transform.position = RoomList[0].mypositions[0];
     }
 
     private float nextUpdate = 0.1f;
@@ -63,7 +63,8 @@ public class BegeleiderStateMAchine : MonoBehaviour
             // update number
             length += 1;
         }
-        UpdateTarget(RoomList[roomindex].mypositions[1].x, RoomList[roomindex].mypositions[RoomList[roomindex].mypositions.Count - 1].x); //update  
+      //  UpdateTarget(RoomList[roomindex].mypositions[1].x, RoomList[roomindex].mypositions[RoomList[roomindex].mypositions.Count - 1].x); //update  
+      //  Targetplayer();
     }
 
     /// <summary>
@@ -77,15 +78,17 @@ public class BegeleiderStateMAchine : MonoBehaviour
             roomindex += 1;
             length = 0;
         }
-
         if (roomindex == RoomList.Count || roomindex >= RoomList.Count) { roomindex = 0; } //loop roomindex
         Vector3Int command = RoomList[roomindex].mypositions[length]; //walk to the entrence of a room
-
-        //if (playarea.ContainsKey(RoomList[roomindex].Roomindex)) //if roomindex matches with current room 
-        //{
-        Playerrefrence.transform.position = command; //*2 because we start at 0,0 with a maze scaled *2
-        GoToPlayer.UpdateTarget(Playerrefrence.transform.position);
+        GoToPlayer.UpdateTarget(command);
         ActionMachine.OnStart(GoToPlayer);
-        // }
+
+    }
+    public void Targetplayer(Vector3Int command)
+    {
+          //  Vector3Int command =  new Vector3Int(Blackboard.moves[0].x, 0, Blackboard.moves[0].y);
+            GoToPlayer.UpdateTarget(command);
+            ActionMachine.OnStart(GoToPlayer);
+     
     }
 }

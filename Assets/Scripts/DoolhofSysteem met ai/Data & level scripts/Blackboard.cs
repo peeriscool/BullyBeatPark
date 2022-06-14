@@ -27,6 +27,7 @@ public static class Blackboard
     }
     public static void setlevelstatus(int index, bool status)
     {
+        Debug.Log("setting level: " + index + "to " + status);
          levels[index] = status;
     }
     public static bool getlevelstatus(int index)

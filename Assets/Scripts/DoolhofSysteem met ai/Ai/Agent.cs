@@ -56,15 +56,27 @@ public class Agent : MonoBehaviour
             //we gots a problem
             Astar = new AstarV2(grid.GetLength(0),grid.GetLength(1));
         }
+        if(new Vector2Int( (int)_location.x, (int)_location.z) == current)
+        {
+            //location is the same
+            return;
+        }
         Debug.Log(current.ToString());
         Vector2Int targetPos = Vector3ToVector2Int(_location); 
-        Debug.Log("i " + this.gameObject.name +"At " + current + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
+    //    Debug.Log("i " + this.gameObject.name +"At " + current + "want to go to: " + targetPos); //100/5 = 20 wich is the width/height of the maze
         List<Vector2Int> Rawpath = Astar.FindPathToTarget(current, targetPos, grid);
         try
         {
             for (int i = 0; i < Rawpath.Count; i++)
             {
-                Rawpath[i] = Rawpath[i] * (int)(maze.scaleFactor * 2);
+                if(maze != null)
+                {
+                    Rawpath[i] = Rawpath[i] * (int)(maze.scaleFactor * 2);
+                }
+                else //using dungeon
+                {
+                    Rawpath[i] = Rawpath[i];
+                }
             }
             path = Rawpath;
             DrawPath();

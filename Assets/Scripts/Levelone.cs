@@ -28,13 +28,13 @@ public class Levelone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.enterKey.wasPressedThisFrame) //manual overide
-        {
+        //if (Keyboard.current.enterKey.wasPressedThisFrame) //manual overide
+        //{
            
-            //alkTo(new Vector3(Random.Range(0, 10), Random.Range(0, 10)), location, Astarcell);
-            //childerenmanager.globalwalkagents(deployed, mazegenerator);
-            childerenmanager.walkChilderen(deployed, mazegenerator);
-        }
+        //    //alkTo(new Vector3(Random.Range(0, 10), Random.Range(0, 10)), location, Astarcell);
+        //    //childerenmanager.globalwalkagents(deployed, mazegenerator);
+        //    childerenmanager.walkChilderen(deployed, mazegenerator);
+        //}
         if (SceneManagerScript.returnactivesceneint() == 1 && levels[1] == false) //maze
         {
             foreach (GameObject item in deployed) //make sure all enemies are not at 0,0

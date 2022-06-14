@@ -19,15 +19,19 @@ public class GameController : MonoBehaviour
     {
         Blackboard.player = this.gameObject;
         pos = this.gameObject.transform.position;
-        if(mymaze != null)
+        if(mymaze != null) //lvl 1
         {
             startpoint = new Vector3(0, 1, 0);
          //   startpoint.y += 5; //add some height
         }
-        else if(myenvoirment != null)
+        else if(myenvoirment != null) //lvl 2
         {
             startpoint = myenvoirment.RoomList[0].mypositions[0];
             startpoint.y += 5; //add some height
+        }
+        else //menu
+        {
+            startpoint = this.gameObject.transform.position;
         }
         this.gameObject.transform.position = startpoint;
     }
@@ -113,16 +117,7 @@ public class GameController : MonoBehaviour
            
             return;
         }
-       
-        //if (Keyboard.current.wKey.wasPressedThisFrame && Keyboard.current.aKey.wasPressedThisFrame)
-        //{
-           
-
-        //    // animationsystem.ChangeAnimationState("diagonal forward");
-        //    return;
-        //}
-
-
+     
         if (Keyboard.current.dKey.isPressed)
         {
             this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, pos += new Vector3(0, 0, -stepvalue ), Time.deltaTime);
