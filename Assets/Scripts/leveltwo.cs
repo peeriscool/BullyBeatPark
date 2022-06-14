@@ -49,7 +49,7 @@ public class leveltwo : MonoBehaviour
             {
                 try
                 {
-                    begeleider.Targetplayer(new Vector3Int(Blackboard.moves[0].x, 0, Blackboard.moves[0].y));
+                 //   begeleider.Targetplayer(new Vector3Int(Blackboard.moves[0].x, 0, Blackboard.moves[0].y));
                     foreach (GameObject item in deployed) //make sure all enemies are not at 0,0
                     {
                         Agent instance = item.GetComponent<Agent>();

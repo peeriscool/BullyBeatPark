@@ -63,7 +63,7 @@ public class BegeleiderStateMAchine : MonoBehaviour
             // update number
             length += 1;
         }
-      //  UpdateTarget(RoomList[roomindex].mypositions[1].x, RoomList[roomindex].mypositions[RoomList[roomindex].mypositions.Count - 1].x); //update  
+        UpdateTarget(RoomList[roomindex].mypositions[1].x, RoomList[roomindex].mypositions[RoomList[roomindex].mypositions.Count - 1].x); //update  
       //  Targetplayer();
     }
 
@@ -76,6 +76,7 @@ public class BegeleiderStateMAchine : MonoBehaviour
         if (length == RoomList[roomindex].mypositions.Count || length >= RoomList[roomindex].mypositions.Count)
         {
             roomindex += 1;
+            this.gameObject.transform.position = RoomList[roomindex].mypositions[0];
             length = 0;
         }
         if (roomindex == RoomList.Count || roomindex >= RoomList.Count) { roomindex = 0; } //loop roomindex

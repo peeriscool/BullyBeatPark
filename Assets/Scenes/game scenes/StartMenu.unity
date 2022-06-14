@@ -23,10 +23,10 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.69
+  m_AmbientIntensity: 2.14
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: f73388aec2bcdbf48af7d7227a1d59bb, type: 2}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.064
   m_FlareStrength: 0.074
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.318
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5756156, g: 0.5962031, b: 0.6459244, a: 0.318}
+  m_IndirectSpecularColor: {r: 0.25003988, g: 0.2795691, b: 0.32935888, a: 0.318}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -224,18 +224,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7752190063505318469}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &250125382 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9040720133927182139, guid: a84dd01e478c98d4e91e98271f88057b,
-    type: 3}
-  m_PrefabInstance: {fileID: 254360145}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 796b0a53fcb203a4f81a495da37d5f5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &250125383 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9040720133927182136, guid: a84dd01e478c98d4e91e98271f88057b,
@@ -317,6 +305,11 @@ PrefabInstance:
       objectReference: {fileID: 1782393449}
     - target: {fileID: 9040720133927182139, guid: a84dd01e478c98d4e91e98271f88057b,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040720133927182139, guid: a84dd01e478c98d4e91e98271f88057b,
+        type: 3}
       propertyPath: Dondestroyonload.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -342,6 +335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9040720133927182137, guid: a84dd01e478c98d4e91e98271f88057b, type: 3}
+    - {fileID: 9040720133927182139, guid: a84dd01e478c98d4e91e98271f88057b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a84dd01e478c98d4e91e98271f88057b, type: 3}
 --- !u!1 &291789955 stripped
 GameObject:
@@ -625,7 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseDiffrentCam: {fileID: 2102358885}
-  collsioninteract: {fileID: 0}
+  collsioninteract: {fileID: 1782393457}
   SetVisableWhenEntering: {fileID: 859780295}
 --- !u!65 &595190320
 BoxCollider:
@@ -1839,6 +1833,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &1782393457 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8789955604977322269, guid: 3984aae106d97ae45854a1fb97238cf3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8789955605614666615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1820822296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,6 +2287,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091890012}
   m_CullTransparentMesh: 1
+--- !u!1 &2091977080 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9040720133927182142, guid: a84dd01e478c98d4e91e98271f88057b,
+    type: 3}
+  m_PrefabInstance: {fileID: 254360145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2091977081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091977080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934c00deae5ab6e4a8b70f98961d6fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1782393449}
 --- !u!1 &2098759623
 GameObject:
   m_ObjectHideFlags: 0
@@ -11029,7 +11048,7 @@ PrefabInstance:
         type: 3}
       propertyPath: manager
       value: 
-      objectReference: {fileID: 250125382}
+      objectReference: {fileID: 0}
     - target: {fileID: 8789955604977322265, guid: 3984aae106d97ae45854a1fb97238cf3,
         type: 3}
       propertyPath: JumpForce
