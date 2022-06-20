@@ -25,7 +25,7 @@ public class Begeleiderstate : State
         Interval = 1000
     };
     /// <summary>
-    /// State which follows a target
+    /// State which checks rooms
     /// </summary>
     /// <param name="_anim">animator ref</param>
     /// <param name="_duration">time for this state</param>

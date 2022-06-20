@@ -45,7 +45,7 @@ public class SmartAgent
             {
                 Cell cell = new Cell();
                 cell.gridPosition = new Vector2Int(i, j);
-                //walls
+                //TODO: walls
                 Astarcell[i, j] = cell;
             }
         }

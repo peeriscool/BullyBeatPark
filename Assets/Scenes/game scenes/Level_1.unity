@@ -130,6 +130,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2407691491423004975, guid: aff97133462ade84785c582c8a6fb8e6,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: e4f74da5572f2454383709f08fcc6e2f, type: 3}
+    - target: {fileID: -2407691491423004975, guid: aff97133462ade84785c582c8a6fb8e6,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b3a982ef0a34ac0458afe3469f369c91, type: 2}
     - target: {fileID: 1317931283438914572, guid: aff97133462ade84785c582c8a6fb8e6,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -169,6 +179,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317931283438914609, guid: aff97133462ade84785c582c8a6fb8e6,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1317931283524537976, guid: aff97133462ade84785c582c8a6fb8e6,
         type: 3}
@@ -247,9 +262,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8562234197049985637, guid: aff97133462ade84785c582c8a6fb8e6,
         type: 3}
+      propertyPath: myanim
+      value: 
+      objectReference: {fileID: 1651480799}
+    - target: {fileID: 8562234197049985637, guid: aff97133462ade84785c582c8a6fb8e6,
+        type: 3}
       propertyPath: mymaze
       value: 
       objectReference: {fileID: 712595571}
+    - target: {fileID: 8562234197049985637, guid: aff97133462ade84785c582c8a6fb8e6,
+        type: 3}
+      propertyPath: maxheight
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8562234197049985637, guid: aff97133462ade84785c582c8a6fb8e6,
         type: 3}
       propertyPath: stepvalue
@@ -552,6 +577,12 @@ MonoBehaviour:
   focusoverwrite: {fileID: 1853044825}
   followofsset: 1
   offset: {x: -1.5, y: 10, z: 0}
+--- !u!95 &1651480799 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1317931283438914609, guid: aff97133462ade84785c582c8a6fb8e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 493445706}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1853044825 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1317931283524537978, guid: aff97133462ade84785c582c8a6fb8e6,

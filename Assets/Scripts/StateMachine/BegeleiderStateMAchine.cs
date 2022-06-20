@@ -15,11 +15,13 @@ public class BegeleiderStateMAchine : MonoBehaviour
     Dictionary<int, List<Vector3Int>> playarea = new Dictionary<int, List<Vector3Int>>();
     Begeleiderstate GoToPlayer;
     StateMachine ActionMachine;
+    Followplayerstate followstate;
     int roomindex = 0;
     int length = 0; //length for tiles in a room
     void Start()
     {
         GoToPlayer = new Begeleiderstate(begeleider, Eventtime, Playerrefrence.transform.position, this.gameObject, speedparameter, myenvoirment.GridHeight, myenvoirment.GridWidth); //create states 
+        //followstate = new Followplayerstate();
         ActionMachine = new StateMachine(GoToPlayer); //create statemachine
         ActionMachine.OnStart(GoToPlayer);            //parse states to machine
         useEnvoirment();
@@ -53,6 +55,7 @@ public class BegeleiderStateMAchine : MonoBehaviour
         {
             Debug.Log("Exit loop");
             GoToPlayer.OnExit();
+       //     ActionMachine.AddState();
         }
 
         if (Time.time >= nextUpdate)

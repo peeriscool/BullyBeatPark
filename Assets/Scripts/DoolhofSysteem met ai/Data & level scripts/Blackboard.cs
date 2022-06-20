@@ -3,11 +3,11 @@ using UnityEngine;
 
 public static class Blackboard
 {
-    public static List<GameObject> Enemies;
-    public static GameObject player;
+    public static List<GameObject> Enemies; //childeren in the current level
+    public static GameObject player; //ref to player
     public static int Mazewidth;
     public static int Mazeheight;
-    public static List<Vector2Int> moves;
+    public static List<Vector2Int> moves; //the steps the player set
     public static int maxmoves;
     public static bool playerpunch;
   //  private static GameObject selectedenemy;

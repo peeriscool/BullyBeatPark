@@ -18,7 +18,6 @@ public class UIinterface : MonoBehaviour //updates the UItext with data from the
     }
     void Update()
     {
-      
         try
         {
             if (Blackboard.Enemies.Count >= 0) //To DO: detect if player is in range of enemy 

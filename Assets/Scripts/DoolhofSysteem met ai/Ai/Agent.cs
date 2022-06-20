@@ -97,6 +97,7 @@ public class Agent : MonoBehaviour
             Blackboard.Enemies.Remove(this.gameObject);
             Destroy(this.gameObject);
             //spawn a toy as token of reward on the place of "death"
+           // Item a = new Item(); //itemobject
         }
         else
         {
